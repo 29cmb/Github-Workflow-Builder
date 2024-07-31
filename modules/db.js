@@ -10,10 +10,11 @@ const client = new MongoClient(uri, {
 });
 
 module.exports = {
-    client: client,
+    uri,
+    client,
     databases: {},
     collections: {},
-    async run() {
+    async init() {
         try {
             await client.connect();
 
@@ -22,6 +23,7 @@ module.exports = {
             
             // assign collections
             this.collections.credentials = this.databases.users.collection(process.env.CREDENTIALSCOLLECTION)
+            this.collections.sessions = this.databases.users.collection(process.env.SESSIONSCOLLECTION)
 
             // ping
             await this.databases.users.command({ ping: 1 });

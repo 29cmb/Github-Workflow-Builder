@@ -1,8 +1,9 @@
 const db = require("../modules/db.js");
 const { decrypt } = require("../modules/encrypt.js");
+const { redirectIfAuth } = require("../modules/middleware.js");
 
 module.exports = (app) => {
-    app.post("/login", async (req, res) => {
+    app.post("/api/v1/login", redirectIfAuth, async (req, res) => {
         const { body } = req
         if(
             body == undefined 
@@ -16,17 +17,16 @@ module.exports = (app) => {
         const user = await db.collections.credentials.findOne({ username: body.username });
         if(!user) return res.status(400).json({ success: false, message: "Username or password is incorrect" });
 
-        if((await decrypt(user.password)) !== body.password) {
-            return res.status(400).json({ success: false, message: "Username or password is incorrect" });
-        }
-
-        // TODO: Sessions
-
+        if(decrypt(user.password) !== body.password) return res.status(400).json({ success: false, message: "Username or password is incorrect" });
+        
+        req.session.authorized = true
+        req.session.user = user.uid
+        
         res.status(200).json({ success: true, message: "You have logged in successfully" });
     });
 
     return {
         method: "POST",
-        route: "/login"
+        route: "/api/v1/login"
     }
 }

@@ -1,7 +1,8 @@
 const db = require("../modules/db.js");
 const { encrypt } = require("../modules/encrypt.js");
+const { redirectIfAuth } = require("../modules/middleware.js");
 module.exports = (app) => {
-    app.post("/signup", async (req, res) => {
+    app.post("/api/v1/signup", redirectIfAuth, async (req, res) => {
         const { body } = req
         if(
             body == undefined 
@@ -18,7 +19,7 @@ module.exports = (app) => {
         await db.collections.credentials.insertOne({
             uid: (await db.collections.credentials.countDocuments()) + 1,
             username: body.username,
-            password: (await encrypt(body.password)),
+            password: encrypt(body.password),
         })
 
         res.status(200).json({ success: true, message: "You have signed up successfully" })
@@ -26,6 +27,6 @@ module.exports = (app) => {
 
     return {
         method: "POST",
-        route: "/signup"
+        route: "/api/v1/signup"
     }
 }
