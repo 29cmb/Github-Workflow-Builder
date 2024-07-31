@@ -21,8 +21,9 @@ module.exports = (app) => {
         
         req.session.authorized = true
         req.session.user = user.uid
-        
+
         res.status(200).json({ success: true, message: "You have logged in successfully" });
+        await db.client.close()
     });
 
     return {

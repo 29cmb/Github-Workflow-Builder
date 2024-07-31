@@ -23,6 +23,7 @@ module.exports = (app) => {
         })
 
         res.status(200).json({ success: true, message: "You have signed up successfully" })
+        await db.client.close()
     }) 
 
     return {
