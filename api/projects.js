@@ -6,7 +6,7 @@ module.exports = (app) => {
         const uid = req.session.user
         if(!uid) return res.status(400).json({ success: false, message: "Not logged in" });
         await db.client.connect()
-        const projects = await db.collections.projects.find({ uid }).toArray()
+        const projects = await db.collections.projects.find({ owner: { type: "user", id: uid } }).toArray()
         await db.client.close()
         res.status(200).json({ success: true, projects: (projects || []) })
     })
