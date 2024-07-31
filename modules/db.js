@@ -20,10 +20,12 @@ module.exports = {
 
             // assign databases
             this.databases.users = client.db(process.env.USERSDATABASE)
+            this.databases.projects = client.db(process.env.PROJECTSDATABASE)
             
             // assign collections
             this.collections.credentials = this.databases.users.collection(process.env.CREDENTIALSCOLLECTION)
             this.collections.sessions = this.databases.users.collection(process.env.SESSIONSCOLLECTION)
+            this.collections.projects = this.databases.projects.collection(process.env.PROJECTSCOLLECTION)
 
             // ping
             await this.databases.users.command({ ping: 1 });
