@@ -21,11 +21,13 @@ module.exports = {
             // assign databases
             this.databases.users = client.db(process.env.USERSDATABASE)
             this.databases.projects = client.db(process.env.PROJECTSDATABASE)
+            this.databases.teams = client.db(process.env.TEAMSDATABASE)
             
             // assign collections
             this.collections.credentials = this.databases.users.collection(process.env.CREDENTIALSCOLLECTION)
             this.collections.sessions = this.databases.users.collection(process.env.SESSIONSCOLLECTION)
             this.collections.projects = this.databases.projects.collection(process.env.PROJECTSCOLLECTION)
+            this.collections.teams = this.databases.teams.collection(process.env.TEAMSCOLLECTION)
 
             // ping
             await this.databases.users.command({ ping: 1 });

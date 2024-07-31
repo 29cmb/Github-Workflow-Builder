@@ -1,3 +1,4 @@
 {
-    "projectsLimit": 200
+    "projectsLimit": 200,
+    "teamsLimit": 10
 }
