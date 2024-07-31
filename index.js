@@ -1,26 +1,24 @@
+// Modules
 const express = require("express")
+require("dotenv").config()
 const session = require("express-session")
 const sessionSave = require("connect-mongodb-session")(session)
-const app = express()
-require("dotenv").config()
 const path = require("path")
 const fs = require("fs")
 const db = require("./modules/db.js")
+const { authNeeded, redirectIfAuth } = require("./modules/middleware.js")
+const middlewareConfig = require("./config/middlewareConfig.json")
+
+// Methods
+const app = express()
 db.init()
 
-app.use(express.json())
-app.use(session({
-    secret: process.env.COOKIE_SIGNING_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: new sessionSave({
-        uri: db.uri,
-        collection: process.env.SESSIONSCOLLECTION
-    })
-}))
+middlewareConfig.AuthNeeded.forEach(route => {
+    app.get(route, authNeeded)
+})
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log("✅ | Backend express server has started.")
+middlewareConfig.RedirectIfAuth.forEach(route => {
+    app.get(route, redirectIfAuth)
 })
 
 const apiPath = path.join(__dirname, "api")
@@ -36,3 +34,17 @@ for (const file of apiFiles) {
     }
 }
 
+app.use(express.json())
+app.use(session({
+    secret: process.env.COOKIE_SIGNING_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new sessionSave({
+        uri: db.uri,
+        collection: process.env.SESSIONSCOLLECTION
+    })
+}))
+app.use(express.static(path.join(__dirname, "views")))
+app.listen(process.env.PORT || 3000, () => {
+    console.log("✅ | Backend express server has started.")
+})

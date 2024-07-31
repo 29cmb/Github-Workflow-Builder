@@ -1,0 +1,9 @@
+{
+    "AuthNeeded": [
+        "/dashboard"
+    ],
+    "RedirectIfAuth": [
+        "/login",
+        "/signup"
+    ]
+}
