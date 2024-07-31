@@ -24,8 +24,8 @@ module.exports = {
             this.collections.credentials = this.databases.users.collection(process.env.CREDENTIALSCOLLECTION)
 
             // ping
-            await db.command({ ping: 1 });
-            console.log("Pinged your deployment. You successfully connected to MongoDB!");
+            await this.databases.users.command({ ping: 1 });
+            console.log("🏓 | Pinged the users database!");
         } finally {
             await client.close();
         }

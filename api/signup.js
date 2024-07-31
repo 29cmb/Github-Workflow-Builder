@@ -9,7 +9,7 @@ module.exports = (app) => {
             || body.password == undefined
             || typeof body.username != "string"
             || typeof body.password != "string"
-        ) return res.status(400).json({ success: false, message: "Username or password not provided or not formatted properly" });
+        ) return res.status(400).json({ success: false, message: "Username or password not provided or not formatted properly" }) // im sorry but did I just type a semicolon
 
         await db.client.connect()
         const user = await db.collections.credentials.findOne({ username: body.username })
@@ -18,8 +18,10 @@ module.exports = (app) => {
         await db.collections.credentials.insertOne({
             uid: (await db.collections.credentials.countDocuments()) + 1,
             username: body.username,
-            password: encrypt(password),
+            password: (await encrypt(body.password)),
         })
+
+        res.status(200).json({ success: true, message: "You have signed up successfully" })
     }) 
 
     return {

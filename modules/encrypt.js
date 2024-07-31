@@ -1,23 +1,43 @@
+// thank you claude I HATE ENCRYPTION >:(
 const crypto = require('crypto');
-const algorithm = 'aes-256-cbc';
-const key = crypto.createHash('sha256').update(String(process.env.ENCRYPTION_KEY)).digest('base64').substr(0, 32);
-const iv = crypto.randomBytes(16);
+
+const algorithm = 'aes-256-gcm';
+const keyLength = 32; // 256 bits
+const ivLength = 12; // 96 bits for GCM
+const authTagLength = 16; // 128 bits
+
+function deriveKey(password) {
+    return crypto.scryptSync(password, process.env.ENCRYPTION_SALT, keyLength);
+}
 
 module.exports = {
     encrypt(text) {
-        let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
-        let encrypted = cipher.update(text);
-        encrypted = Buffer.concat([encrypted, cipher.final()]);
-        return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+        const iv = crypto.randomBytes(ivLength);
+        const key = deriveKey(process.env.ENCRYPTION_KEY);
+        const cipher = crypto.createCipheriv(algorithm, key, iv);
+        
+        let encrypted = cipher.update(text, 'utf8', 'hex');
+        encrypted += cipher.final('hex');
+        
+        const authTag = cipher.getAuthTag().toString('hex');
+        
+        return {
+            iv: iv.toString('hex'),
+            encryptedData: encrypted,
+            authTag: authTag
+        };
     },
 
-    decrypt(text) {
-        let iv = Buffer.from(text.iv, 'hex');
-        let encryptedText = Buffer.from(text.encryptedData, 'hex');
-        let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
-        let decrypted = decipher.update(encryptedText);
-        decrypted = Buffer.concat([decrypted, decipher.final()]);
-        return decrypted.toString();
+    decrypt(encryptedObj) {
+        const iv = Buffer.from(encryptedObj.iv, 'hex');
+        const key = deriveKey(process.env.ENCRYPTION_KEY);
+        const decipher = crypto.createDecipheriv(algorithm, key, iv);
+        
+        decipher.setAuthTag(Buffer.from(encryptedObj.authTag, 'hex'));
+        
+        let decrypted = decipher.update(encryptedObj.encryptedData, 'hex', 'utf8');
+        decrypted += decipher.final('utf8');
+        
+        return decrypted;
     }
-}
-
+};
