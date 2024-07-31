@@ -6,7 +6,7 @@ module.exports = (app) => {
     app.post("/api/v1/teams/new", authNeeded, async (req, res) => {
         await db.client.connect()
         const teams = await db.collections.teams.find({ uid: req.session.uid }).toArray() || []
-        if(teams.length > limits.teamsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed teams!" })
+        if(teams.length >= limits.teamsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed teams!" })
 
         const { name, description } = req.body
         if(
@@ -19,7 +19,7 @@ module.exports = (app) => {
         await db.collections.teams.insertOne({
             tid: (await db.collections.projects.countDocuments()) + 1,
             oid: req.session.uid,
-            members: []
+            members: [{ uid: req.session.uid, role: 3 }]
         })
 
         res.status(200).json({ success: false, message: "Team has been created successfully!" })

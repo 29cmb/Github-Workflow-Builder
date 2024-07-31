@@ -6,7 +6,7 @@ module.exports = (app) => {
     app.post("/api/v1/projects/new", authNeeded, async (req, res) => {
         await db.client.connect()
         const projects = await db.collections.projects.find({ uid: req.session.uid }).toArray() || []
-        if(projects.length > limits.projectsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed projects!" })
+        if(projects.length >= limits.projectsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed projects!" })
 
         const { name, description } = req.body
         if(
@@ -18,7 +18,7 @@ module.exports = (app) => {
 
         await db.collections.projects.insertOne({
             pid: (await db.collections.projects.countDocuments()) + 1,
-            creator: { type: "user", uid: req.session.uid },
+            creator: { type: "user", id: req.session.uid },
             name,
             description
         })
