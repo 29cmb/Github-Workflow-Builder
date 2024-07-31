@@ -2,7 +2,7 @@
 - [x] Sign up
 - [x] Creating projects
 - [x] Creating team projects
-- [ ] Deleting projects
+- [x] Deleting projects
 - [ ] Deleting team projects
 - [ ] Editing projects
 - [ ] Editing team projects
