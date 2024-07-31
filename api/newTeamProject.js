@@ -19,7 +19,7 @@ module.exports = (app) => {
         if(team == undefined) return res.status(400).json({ success: false, message: "Team does not exist"})
         if(!(req.session.uid in team.members.toArray())) return res.status(400).json({ success: false, message: "You are not allowed to make projects for that team." })
 
-        const projects = await db.collections.projects.find({ owner: { type: "team", id: tid } }).toArray() || []
+        const projects = await db.collections.projects.find({ creator: { type: "team", id: tid } }).toArray() || []
         if(projects.length >= limits.projectsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed projects!" })
        
         await db.collections.projects.insertOne({

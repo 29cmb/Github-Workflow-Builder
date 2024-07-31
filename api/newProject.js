@@ -5,7 +5,7 @@ const limits = require("../config/limits.json")
 module.exports = (app) => {
     app.post("/api/v1/projects/new", authNeeded, async (req, res) => {
         await db.client.connect()
-        const projects = await db.collections.projects.find({ owner: { type: "user", id: req.session.uid } }).toArray() || []
+        const projects = await db.collections.projects.find({ creator: { type: "user", id: req.session.uid } }).toArray() || []
         if(projects.length >= limits.projectsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed projects!" })
 
         const { name, description } = req.body

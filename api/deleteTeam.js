@@ -6,8 +6,8 @@ module.exports = (app) => {
     app.post("/api/v1/teams/delete", authNeeded, async (req, res) => {
         await db.client.connect()
         const { tid } = req.body
-        if(tid == undefined || typeof tid != "string") return res.status(400).json({ success: false, message: "TID not provided or not formatted properly" })
-        const team = db.collections.teams.findOne({ tid })
+        if(tid == undefined || typeof tid != "number") return res.status(400).json({ success: false, message: "TID not provided or not formatted properly" })
+        const team = await db.collections.teams.findOne({ tid })
         if(team == undefined) return res.status(400).json({ success: false, message: "Team does not exist" })
         if(team.oid != req.session.user) return res.status(403).json({ success: false, message: "You do not have permission to delete this team" })
 
