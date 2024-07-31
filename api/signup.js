@@ -2,7 +2,7 @@ const db = require("../modules/db.js");
 const { encrypt } = require("../modules/encrypt.js");
 const { redirectIfAuth } = require("../modules/middleware.js");
 module.exports = (app) => {
-    app.post("/api/v1/signup", redirectIfAuth, async (req, res) => {
+    app.post("/api/v1/user/signup", redirectIfAuth, async (req, res) => {
         const { body } = req
         if(
             body == undefined 
@@ -28,6 +28,6 @@ module.exports = (app) => {
 
     return {
         method: "POST",
-        route: "/api/v1/signup"
+        route: "/api/v1/user/signup"
     }
 }

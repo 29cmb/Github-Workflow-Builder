@@ -2,7 +2,7 @@ const db = require("../modules/db")
 const { authNeeded } = require("../modules/middleware")
 
 module.exports = (app) => {
-    app.post("/api/v1/projects", authNeeded, async (req, res) => {
+    app.post("/api/v1/projects/get", authNeeded, async (req, res) => {
         const uid = req.session.user
         if(!uid) return res.status(400).json({ success: false, message: "Not logged in" });
         await db.client.connect()
@@ -13,6 +13,6 @@ module.exports = (app) => {
 
     return {
         method: "POST",
-        route: "/api/v1/projects"
+        route: "/api/v1/projects/get"
     }
 }
