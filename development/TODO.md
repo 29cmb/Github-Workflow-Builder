@@ -3,7 +3,9 @@
 - [x] Creating projects
 - [x] Creating team projects
 - [ ] Deleting projects
-- [ ] Editing projects (name, contents, ect)
+- [ ] Deleting team projects
+- [ ] Editing projects
+- [ ] Editing team projects
 - [x] Make teams
 - [x] Delete teams
 - [ ] Edit teams
