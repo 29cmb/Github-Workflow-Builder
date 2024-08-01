@@ -7,7 +7,7 @@
 - [x] Make teams
 - [x] Delete teams
 - [x] Edit teams
-- [ ] Invite user to team
+- [x] Invite user to team
 - [ ] Join a team from an invite link
 - [ ] Change user rank in team
 
