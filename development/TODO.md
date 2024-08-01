@@ -15,7 +15,8 @@
 - [x] Get all teams
 - [x] Get user information from ID
 - [x] Get team information from ID
-- [ ] Get project information from ID
+- [x] Get project information from ID
+- [x] Get all teams that a user belongs to
 
 # Make better
 - [x] Merge newProject and newTeamProject
