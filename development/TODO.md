@@ -14,7 +14,7 @@
 - [x] Get all projects
 - [x] Get all teams
 - [x] Get user information from ID
-- [ ] Get team information from ID
+- [x] Get team information from ID
 - [ ] Get project information from ID
 
 # Make better
