@@ -14,6 +14,8 @@ module.exports = (app) => {
         await db.collections.teams.deleteOne({ tid }) // delete the team
         await db.collections.projects.delete({ creator: { type: "team", id: tid } }) // delete all team projects
         await db.client.close()
+
+        res.status(200).json({ success: true, message: "Team has been deleted." })
     })
     
     return {

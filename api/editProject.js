@@ -25,6 +25,8 @@ module.exports = (app) => {
 
         await db.collections.projects.updateOne({ pid }, {"$set": { name, description }})
         await db.client.close()
+
+        res.status(200).json({ success: true, message: "Project details have been saved successfully" })
     })
     return {
         method: "POST",
