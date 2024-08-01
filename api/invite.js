@@ -1,5 +1,6 @@
 const db = require("../modules/db")
 const { authNeeded } = require("../modules/middleware")
+const { randomBytes } = require("crypto")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/invite", authNeeded, async (req, res) => {
@@ -11,6 +12,8 @@ module.exports = (app) => {
         const team = await db.collections.teams.findOne({ tid })
         if(team == undefined) return res.status(400).json({ success: false, message: "Team does not exist." })
         if(user in team.members) return res.status(400).json({ success: false, message: "User is already in the team." })
+        const invite = await db.collections.invites.findOne({ uid })
+        if(invite != undefined && Date.now() < invite.expiration) return res.status(400).json({ success: false, message: "User already has a pending invite" })
 
         var isManager = false
         [2,3].forEach(rnk => {
@@ -22,7 +25,14 @@ module.exports = (app) => {
         })
 
         if(isManager == false) return res.status(400).json({ success: false, message: "You are not authorized to invite people to this team!" })
-        
+
+        await db.collections.invites.insertOne({
+            iid: randomBytes(16),
+            tid,
+            uid,
+            expiration: Date.now() + 604800000 // 1 week later
+        })
+        res.status(200).json({ success: true, message: "User has been invited" })
         await db.client.close()
     })
     return {
