@@ -19,7 +19,12 @@ module.exports = (app) => {
         await db.collections.teams.insertOne({
             tid: (await db.collections.projects.countDocuments()) + 1,
             oid: req.session.uid,
-            members: [{ uid: req.session.uid, role: 3 }]
+            members: [ req.session.uid ],
+            roles: [
+                {name: "Owner", rank: 3, users: [ req.session.uid ]},
+                {name: "Manager", rank: 2, users: []},
+                {name: "Member", rank: 1, members: []}
+            ]
         })
 
         res.status(200).json({ success: false, message: "Team has been created successfully!" })

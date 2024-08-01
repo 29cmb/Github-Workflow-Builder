@@ -1,14 +1,13 @@
 # Write API
 - [x] Sign up
 - [x] Creating projects
-- [x] Creating team projects
 - [x] Deleting projects
-- [x] Deleting team projects
-- [ ] Editing projects
-- [ ] Editing team projects
+- [ ] Save projects
+- [ ] Edit project name and description
 - [x] Make teams
 - [x] Delete teams
 - [ ] Edit teams
+- [ ] Change user rank in team
 
 # Read API
 - [x] Log in
