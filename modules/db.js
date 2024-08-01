@@ -33,6 +33,11 @@ module.exports = {
             // ping
             await this.databases.users.command({ ping: 1 });
             console.log("🏓 | Pinged the users database!");
+            await this.databases.projects.command({ ping: 1});
+            console.log("🏓 | Pinged the projects database!");
+            await this.databases.teams.command({ ping: 1});
+            console.log("🏓 | Pinged the teams database!");
+            console.log("🎉 | Database has been set up!")
         } finally {
             await client.close();
         }

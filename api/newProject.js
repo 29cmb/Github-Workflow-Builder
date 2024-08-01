@@ -34,7 +34,8 @@ module.exports = (app) => {
             data: {
                 blocks: []
             },
-            contributors: []
+            contributors: [],
+            public: false
         })
 
         await db.client.close()
