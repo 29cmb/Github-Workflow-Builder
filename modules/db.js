@@ -29,6 +29,7 @@ module.exports = {
             this.collections.projects = this.databases.projects.collection(process.env.PROJECTSCOLLECTION)
             this.collections.teams = this.databases.teams.collection(process.env.TEAMSCOLLECTION)
             this.collections.profiles = this.databases.users.collection(process.env.PROFILESCOLLECTION)
+            this.collections.invites = this.databases.invites.collection(process.env.INVITESCOLLECTION)
 
             // ping
             await this.databases.users.command({ ping: 1 });

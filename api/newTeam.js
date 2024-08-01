@@ -5,7 +5,7 @@ const limits = require("../config/limits.json")
 module.exports = (app) => {
     app.post("/api/v1/teams/new", authNeeded, async (req, res) => {
         await db.client.connect()
-        const teams = await db.collections.teams.find({ uid: req.session.uid }).toArray() || []
+        const teams = await db.collections.teams.find({ oid: req.session.uid }).toArray() || []
         if(teams.length >= limits.teamsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed teams!" })
 
         const { name, description } = req.body
@@ -19,11 +19,13 @@ module.exports = (app) => {
         await db.collections.teams.insertOne({
             tid: (await db.collections.projects.countDocuments()) + 1,
             oid: req.session.uid,
+            name,
+            description,
             members: [ req.session.uid ],
             roles: [
                 {name: "Owner", rank: 3, users: [ req.session.uid ]},
                 {name: "Manager", rank: 2, users: []},
-                {name: "Member", rank: 1, members: []}
+                {name: "Member", rank: 1, users: []}
             ]
         })
 
