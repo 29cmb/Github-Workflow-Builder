@@ -20,4 +20,4 @@
 
 # Make better
 - [x] Merge newProject and newTeamProject
-- [ ] Merge deleteProject and deleteTeamProject
+- [x] Merge deleteProject and deleteTeamProject
