@@ -4,9 +4,9 @@ const { authNeeded } = require("../modules/middleware")
 module.exports = (app) => {
     app.post("/api/v1/projects/delete", authNeeded, async (req, res) => {
         await db.client.connect()
-        const { pid, type } = req.body
+        const { pid } = req.body
         if(pid == undefined || typeof pid != "number") return res.status(400).json({ success: false, message: "PID not provided or not formatted properly" })
-        const project = await db.collections.projects.findOne({ pid, creator: { type } })
+        const project = await db.collections.projects.findOne({ pid })
         if(project == undefined) return res.status(400).json({ success: false, message: "Project does exist" })
         
         if(project.owner.type == "user"){
