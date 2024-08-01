@@ -8,19 +8,26 @@ module.exports = (app) => {
         const projects = await db.collections.projects.find({ creator: { type: "user", id: req.session.uid } }).toArray() || []
         if(projects.length >= limits.projectsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed projects!" })
 
-        const { name, description } = req.body
+        const { name, description, type, tid } = req.body
         if(
             name == undefined 
-            || description == undefined 
+            || description == undefined
+            || type == undefined
+            || (type == "team" && tid == undefined)
             || typeof name != "string" 
             || typeof description != "string"
+            || typeof type != "string"
+            || (type == "team" && typeof tid != "number")
         ) return res.status(400).json({ success: false, message: "Name or description not provided or not formatted properly" })
 
         await db.collections.projects.insertOne({
             pid: (await db.collections.projects.countDocuments()) + 1,
-            creator: { type: "user", id: req.session.uid },
+            creator: { type: type, id: type == "user" ? req.session.uid : tid },
             name,
-            description
+            description,
+            data: {
+                blocks: []
+            }
         })
 
         await db.client.close()
