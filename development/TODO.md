@@ -2,8 +2,8 @@
 - [x] Sign up
 - [x] Creating projects
 - [x] Deleting projects
-- [ ] Save projects
-- [ ] Edit project name and description
+- [x] Save projects
+- [x] Edit project name and description
 - [x] Make teams
 - [x] Delete teams
 - [ ] Edit teams
