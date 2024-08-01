@@ -13,7 +13,7 @@
 - [x] Log in
 - [x] Get all projects
 - [x] Get all teams
-- [ ] Get user information from ID
+- [x] Get user information from ID
 - [ ] Get team information from ID
 - [ ] Get project information from ID
 
