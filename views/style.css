@@ -68,7 +68,7 @@ body {
     position: absolute;
 }
 
-#bottom p {
+#EasyToUse {
     font-size: 100px;
     text-align: right;
     padding: 40px;
@@ -84,6 +84,44 @@ body {
     display: block;
     line-height: 1;
     padding-top: 30px;
+}
+
+#ImportWorkflows {
+    font-size: 100px;
+    text-align: left;
+    padding: 40px;
+    padding-top: 100px;
+    line-height: 0.2;
+}
+
+#existing {
+    font-size: 120px;
+    background: linear-gradient(0deg, #ff0000, #ff00b3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: block;
+    line-height: 1;
+    padding-top: 30px;
+}
+
+#EditWorkflows {
+    font-size: 100px;
+    text-align: right;
+    padding: 40px;
+    padding-top: 80px;
+    line-height: 0.8;
+}
+
+#visually {
+    font-size: 120px;
+    background: linear-gradient(0deg, #00ff9d, #2bff00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: block;
+    line-height: 0.7;
+    padding-top: 20px;
 }
 
 #img1, #img2, #img3 {
