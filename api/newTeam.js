@@ -17,7 +17,7 @@ module.exports = (app) => {
         ) return res.status(400).json({ success: false, message: "Name or description not provided or not formatted properly" })
 
         await db.collections.teams.insertOne({
-            tid: (await db.collections.projects.countDocuments()) + 1,
+            tid: (await db.collections.teams.countDocuments()) + 1,
             oid: req.session.uid,
             name,
             description,

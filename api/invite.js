@@ -27,7 +27,7 @@ module.exports = (app) => {
         if(isManager == false) return res.status(400).json({ success: false, message: "You are not authorized to invite people to this team!" })
 
         await db.collections.invites.insertOne({
-            iid: randomBytes(16),
+            iid: randomBytes(32),
             tid,
             uid,
             expiration: Date.now() + 604800000 // 1 week later
