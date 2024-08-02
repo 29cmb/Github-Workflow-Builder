@@ -4,21 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Github Workflow Builder</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <a href="/login">Login</a>
-    <a href="/signup">Signup</a>
-    <a href="/login">Dashboard</a>
-    <br>
-    <p id="identity">You are: User</p>
+    <div id="topbar">
+        <button onclick="window.location.href = '/login'">Login</button>
+    </div>
+    <h1 id="title">Github workflows<br>made<br><span id="easyText">easy</span></h1>
+    <p id="titleSubtext"><i>Easy to use Github Workflow Builder Tool</i></p>
 </body>
-<script src="./global/info.js"></script>
-<script>
-    async function getUsr(){
-        const user = await getUserInformation()
-        if(user == null) return document.getElementById("identity").innerHTML = "You are not logged in";
-        document.getElementById("identity").innerHTML = `You are: ${user.username}`
-    }
-    getUsr()
-</script>
 </html>
