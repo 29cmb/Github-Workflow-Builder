@@ -1,4 +1,5 @@
-# Write API
+# API
+## Write API
 - [x] Sign up
 - [x] Creating projects
 - [x] Deleting projects
@@ -14,7 +15,7 @@
 - [x] Leave a team
 
 
-# Read API
+## Read API
 - [x] Log in
 - [x] Get all projects
 - [x] Get all teams
@@ -23,6 +24,21 @@
 - [x] Get project information from ID
 - [x] Get all teams that a user belongs to
 
-# Make better
+## Make better
 - [x] Merge newProject and newTeamProject
 - [x] Merge deleteProject and deleteTeamProject
+
+# Fontend
+- [ ] Home page
+- [ ] Signup page
+- [ ] Login page
+## Dashboard
+- [ ] Projects page
+- [ ] Teams page
+- [ ] Account settings page
+## Workflow Builder
+- [ ] Sidebar
+- [ ] Component placing
+## Teams Manager
+- [ ] Edit members
+- [ ] Edit details

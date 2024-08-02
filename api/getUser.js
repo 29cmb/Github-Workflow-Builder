@@ -8,7 +8,6 @@ module.exports = (app) => {
         const user = await db.collections.profiles.findOne({ uid })
         if(user == undefined) return res.status(400).json({ success: false, message: "User not found."})
         res.status(200).json({ success: true, user })
-        console.log(user)
         await db.client.close()
     })
     return {

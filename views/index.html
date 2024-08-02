@@ -16,7 +16,7 @@
 <script>
     async function getUsr(){
         const user = await getUserInformation()
-        console.log(user)
+        if(user == null) return document.getElementById("identity").innerHTML = "You are not logged in";
         document.getElementById("identity").innerHTML = `You are: ${user.username}`
     }
     getUsr()
