@@ -19,7 +19,7 @@ module.exports = (app) => {
             }
         )
         await db.collections.invites.deleteOne({ tid })
-
+        res.status(200).json({ success: true, message: "Joined successfully"})
         await db.client.close()
     })
     return {

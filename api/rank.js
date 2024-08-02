@@ -18,8 +18,9 @@ module.exports = (app) => {
         if(team == undefined) return res.status(400).json({ success: false, message: "Team does not exist" });
         if(team.oid != req.session.user) return res.status(403).json({ success: false, message: "You are not allowed to change ranks for that team" });
 
-        const user = await db.collections.teams.findOne({ uid })
+        const user = await db.collections.profiles.findOne({ uid })
         if(user == undefined) return res.status(400).json({ success: false, message: "User does not exist" });
+        if(!(user.uid in team.members)) return res.status(400).json({ success: false, message: "User is not in the group" })
         if(user == req.session.user) return res.status(400).json({ success: false, message: "You cannot change your own rank" })
         
         await db.collections.teams.updateOne({ tid },
@@ -36,6 +37,7 @@ module.exports = (app) => {
             }
         )
 
+        res.status(200).json({ success: true, message: "User has been ranked" })
         await db.client.close()
     })
     return {
