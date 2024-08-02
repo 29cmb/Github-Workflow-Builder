@@ -1,4 +1,5 @@
 {
     "projectsLimit": 200,
-    "teamsLimit": 10
+    "teamsLimit": 10,
+    "membersLimit": 20
 }

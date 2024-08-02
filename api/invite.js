@@ -1,6 +1,7 @@
 const db = require("../modules/db")
 const { authNeeded } = require("../modules/middleware")
 const { randomBytes } = require("crypto")
+const limits = require("../config/limits.json")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/invite", authNeeded, async (req, res) => {
@@ -11,6 +12,7 @@ module.exports = (app) => {
         if(user == undefined) return res.status(400).json({ success: false, message: "User does not exist." })
         const team = await db.collections.teams.findOne({ tid })
         if(team == undefined) return res.status(400).json({ success: false, message: "Team does not exist." })
+        if(team.members.length >= limits.membersLimit) return res.status(400).json({ success: false, message: "Team is full" })
         if(user in team.members) return res.status(400).json({ success: false, message: "User is already in the team." })
         const invite = await db.collections.invites.findOne({ uid })
         if(invite != undefined && Date.now() < invite.expiration) return res.status(400).json({ success: false, message: "User already has a pending invite" })
