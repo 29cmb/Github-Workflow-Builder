@@ -14,6 +14,16 @@ const logging = require("./config/logging.json")
 const app = express()
 db.init()
 
+app.use(session({
+    secret: process.env.COOKIE_SIGNING_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: new sessionSave({
+        uri: db.uri,
+        databaseName: process.env.USERSDATABASE,
+        collection: process.env.SESSIONSCOLLECTION
+    })
+}))
 
 
 middlewareConfig.AuthNeeded.forEach(route => {
@@ -23,16 +33,6 @@ middlewareConfig.AuthNeeded.forEach(route => {
 middlewareConfig.RedirectIfAuth.forEach(route => {
     app.get(route, redirectIfAuth)
 })
-
-app.use(session({
-    secret: process.env.COOKIE_SIGNING_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: new sessionSave({
-        uri: db.uri,
-        collection: process.env.SESSIONSCOLLECTION
-    })
-}))
 
 app.use(express.json())
 const apiPath = path.join(__dirname, "api")

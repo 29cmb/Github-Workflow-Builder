@@ -9,5 +9,16 @@
     <a href="/login">Login</a>
     <a href="/signup">Signup</a>
     <a href="/login">Dashboard</a>
+    <br>
+    <p id="identity">You are: User</p>
 </body>
+<script src="./global/info.js"></script>
+<script>
+    async function getUsr(){
+        const user = await getUserInformation()
+        console.log(user)
+        document.getElementById("identity").innerHTML = `You are: ${user.username}`
+    }
+    getUsr()
+</script>
 </html>
