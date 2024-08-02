@@ -4,20 +4,19 @@ const { redirectIfAuth } = require("../modules/middleware.js");
 
 module.exports = (app) => {
     app.post("/api/v1/user/login", redirectIfAuth, async (req, res) => {
-        const { body } = req
+        const { username, password } = req.body
         if(
-            body == undefined 
-            || body.username == undefined 
-            || body.password == undefined
-            || typeof body.username != "string"
-            || typeof body.password != "string"
+            username == undefined 
+            || password == undefined
+            || typeof username != "string"
+            || typeof password != "string"
         ) return res.status(400).json({ success: false, message: "Username or password not provided or not formatted properly" });
 
         await db.client.connect()
-        const user = await db.collections.credentials.findOne({ username: body.username });
+        const user = await db.collections.credentials.findOne({ username: username });
         if(!user) return res.status(400).json({ success: false, message: "Username or password is incorrect" });
 
-        if(decrypt(user.password) !== body.password) return res.status(400).json({ success: false, message: "Username or password is incorrect" });
+        if(decrypt(user.password) !== password) return res.status(400).json({ success: false, message: "Username or password is incorrect" });
         
         req.session.authorized = true
         req.session.user = user.uid

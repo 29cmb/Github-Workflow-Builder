@@ -14,6 +14,8 @@ const logging = require("./config/logging.json")
 const app = express()
 db.init()
 
+
+
 middlewareConfig.AuthNeeded.forEach(route => {
     app.get(route, authNeeded)
 })
@@ -22,6 +24,17 @@ middlewareConfig.RedirectIfAuth.forEach(route => {
     app.get(route, redirectIfAuth)
 })
 
+app.use(session({
+    secret: process.env.COOKIE_SIGNING_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: new sessionSave({
+        uri: db.uri,
+        collection: process.env.SESSIONSCOLLECTION
+    })
+}))
+
+app.use(express.json())
 const apiPath = path.join(__dirname, "api")
 const apiFiles = fs.readdirSync(apiPath).filter(file => file.endsWith('.js'))
 
@@ -38,16 +51,6 @@ for (const file of apiFiles) {
    
 }
 
-app.use(express.json())
-app.use(session({
-    secret: process.env.COOKIE_SIGNING_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: new sessionSave({
-        uri: db.uri,
-        collection: process.env.SESSIONSCOLLECTION
-    })
-}))
 app.use(express.static(path.join(__dirname, "views")))
 app.listen(process.env.PORT || 3000, () => {
     console.log(`✅ | Backend express server has started on port ${process.env.PORT || 3000}.`)

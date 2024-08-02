@@ -10,7 +10,9 @@ module.exports = (app) => {
             || typeof username != "string"
             || typeof password != "string"
         ) return res.status(400).json({ success: false, message: "Username or password not provided or not formatted properly" }) // im sorry but did I just type a semicolon
-
+        if(username.length < 3) return res.status(400).json({ success: false, message: "Username must be at least 3 characters" })
+        if(password.length < 6) return res.status(400).json({ success: false, message: "Password must be at least 6 characters" })
+            
         await db.client.connect()
         const user = await db.collections.credentials.findOne({ username: username })
         if(user) return res.status(400).json({ success: false, message: "User is already registered" })
