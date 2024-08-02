@@ -8,7 +8,7 @@
 - [x] Delete teams
 - [x] Edit teams
 - [x] Invite user to team
-- [ ] Join a team from an invite link
+- [x] Join a team from an invite link
 - [ ] Change user rank in team
 
 # Read API
