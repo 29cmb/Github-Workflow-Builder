@@ -9,7 +9,10 @@
 - [x] Edit teams
 - [x] Invite user to team
 - [x] Join a team from an invite link
-- [ ] Change user rank in team
+- [x] Change user rank in team
+- [ ] Kick user from group
+- [ ] Leave a group
+
 
 # Read API
 - [x] Log in

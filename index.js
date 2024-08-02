@@ -50,5 +50,5 @@ app.use(session({
 }))
 app.use(express.static(path.join(__dirname, "views")))
 app.listen(process.env.PORT || 3000, () => {
-    console.log("✅ | Backend express server has started.")
+    console.log(`✅ | Backend express server has started on port ${process.env.PORT || 3000}.`)
 })
