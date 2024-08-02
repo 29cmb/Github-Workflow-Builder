@@ -1,7 +1,8 @@
 const db = require("../modules/db")
+const { authNeeded } = require("../modules/middleware")
 
 module.exports = (app) => {
-    app.post("/api/v1/teams/kick", async (req, res) => {
+    app.post("/api/v1/teams/kick", authNeeded, async (req, res) => {
         await db.client.connect()
         const { tid, uid } = req.body
         if(

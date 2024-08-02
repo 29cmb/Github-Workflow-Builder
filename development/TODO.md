@@ -10,8 +10,8 @@
 - [x] Invite user to team
 - [x] Join a team from an invite link
 - [x] Change user rank in team
-- [ ] Kick user from group
-- [ ] Leave a group
+- [x] Kick user from team
+- [x] Leave a team
 
 
 # Read API

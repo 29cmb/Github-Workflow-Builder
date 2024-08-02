@@ -20,7 +20,7 @@ module.exports = (app) => {
 
         const user = await db.collections.profiles.findOne({ uid })
         if(user == undefined) return res.status(400).json({ success: false, message: "User does not exist" });
-        if(!(user.uid in team.members)) return res.status(400).json({ success: false, message: "User is not in the group" })
+        if(!(user.uid in team.members)) return res.status(400).json({ success: false, message: "User is not in the team" })
         if(user == req.session.user) return res.status(400).json({ success: false, message: "You cannot change your own rank" })
         
         await db.collections.teams.updateOne({ tid },
