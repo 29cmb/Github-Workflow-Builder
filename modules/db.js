@@ -1,5 +1,6 @@
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const logging = require("../config/logging.json")
 const uri = `mongodb+srv://${process.env.DATABASEUSER}:${process.env.DATABASEPASS}@${process.env.DATABASEURI}/?retryWrites=true&w=majority&appName=${process.env.DATABASEAPPNAME}`;
 const client = new MongoClient(uri, {
   serverApi: {
@@ -29,16 +30,18 @@ module.exports = {
             this.collections.projects = this.databases.projects.collection(process.env.PROJECTSCOLLECTION)
             this.collections.teams = this.databases.teams.collection(process.env.TEAMSCOLLECTION)
             this.collections.profiles = this.databases.users.collection(process.env.PROFILESCOLLECTION)
-            this.collections.invites = this.databases.invites.collection(process.env.INVITESCOLLECTION)
+            this.collections.invites = this.databases.teams.collection(process.env.INVITESCOLLECTION)
 
             // ping
             await this.databases.users.command({ ping: 1 });
-            console.log("🏓 | Pinged the users database!");
-            await this.databases.projects.command({ ping: 1});
-            console.log("🏓 | Pinged the projects database!");
-            await this.databases.teams.command({ ping: 1});
-            console.log("🏓 | Pinged the teams database!");
-            console.log("🎉 | Database has been set up!")
+            if(logging.logDatabaseSetup) console.log("🏓 | Pinged the users database!");
+            await this.databases.projects.command({ ping: 1 });
+            if(logging.logDatabaseSetup) console.log("🏓 | Pinged the projects database!");
+            await this.databases.teams.command({ ping: 1 });
+            if(logging.logDatabaseSetup){ 
+              console.log("🏓 | Pinged the teams database!") 
+              console.log("🎉 | All databases have been pinged and are online!") 
+            }
         } finally {
             await client.close();
         }

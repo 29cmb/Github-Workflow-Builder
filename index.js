@@ -8,6 +8,7 @@ const fs = require("fs")
 const db = require("./modules/db.js")
 const { authNeeded, redirectIfAuth } = require("./modules/middleware.js")
 const middlewareConfig = require("./config/middlewareConfig.json")
+const logging = require("./config/logging.json")
 
 // Methods
 const app = express()
@@ -27,11 +28,14 @@ const apiFiles = fs.readdirSync(apiPath).filter(file => file.endsWith('.js'))
 for (const file of apiFiles) {
     const filePath = path.join(apiPath, file)
     const data = require(filePath)(app)
-    if(data.method && data.route){
-        console.log(`✅ | API route ${data.method} '${data.route}' has been setup successfully!`)
-    } else {
-        console.log(`❌ | API route '${filePath}' did not return data.method or did not return data.route.`)
+    if(logging.logRouteSetup){
+        if(data.method && data.route){
+            console.log(`✅ | API route ${data.method} '${data.route}' has been setup successfully!`)
+        } else {
+            console.log(`❌ | API route '${filePath}' did not return data.method or did not return data.route.`)
+        }
     }
+   
 }
 
 app.use(express.json())
