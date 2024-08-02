@@ -69,14 +69,14 @@ body {
 }
 
 #EasyToUse {
-    font-size: 100px;
+    font-size: 80px;
     text-align: right;
     padding: 40px;
     line-height: 0.2;
 }
 
 #dragAndDrop {
-    font-size: 120px;
+    font-size: 80px;
     background: linear-gradient(0deg, #008cff, #00ccff);
     -webkit-background-clip: text;
     background-clip: text;
@@ -90,7 +90,7 @@ body {
     font-size: 100px;
     text-align: left;
     padding: 40px;
-    padding-top: 100px;
+    padding-top: 150px;
     line-height: 0.2;
 }
 
