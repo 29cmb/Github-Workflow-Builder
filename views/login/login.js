@@ -12,7 +12,7 @@ function login(){
             username: username.value, password: password.value
         })
     }).then(response => response.json()).then(data => {
-        console.log(data)
+        if(data.success) return window.location.href = "/dashboard"
         note.innerHTML = data.message
     })
 }

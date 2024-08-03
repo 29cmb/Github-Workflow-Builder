@@ -15,5 +15,10 @@ function signup(){
     }).then(response => response.json()).then(data => {
         console.log(data)
         note.innerHTML = data.message
+        if(data.success == true){
+            note.style.color = "rgb(0,255,0)"
+        } else {
+            note.style.color = "rgb(255,0,0)"
+        }
     })
 }

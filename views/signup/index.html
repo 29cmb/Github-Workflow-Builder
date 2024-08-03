@@ -2,17 +2,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup</title>
+    <title>Login</title>
     <link href="./style.css" rel="stylesheet">
 </head>
 <body>
+    <div id="topbar">
+        <button onclick="window.location.href = '/'" id="topbarBtn">Home</button>
+    </div>
     <h1>Signup</h1>
-    <input id="email" type="email" placeholder="Email">
-    <input id="username" type="text" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
-    <button onclick="signup()">Signup</button>
-    <br>
-    <p id="note"></p>
+    <div id="loginContainer">
+        <input id="email" type="text" placeholder="Email">
+        <br>
+        <input id="username" type="text" placeholder="Username">
+        <br>
+        <input id="password" type="password" placeholder="Password">
+        <br>
+        <p id="noAccount">Already have an account?<br>Log in <a href="/login">here!</a></p>
+        <button onclick="signup()">Signup</button>
+        <br>
+        <p id="note"></p>
+    </div>
+    
 </body>
 <script src="./signup.js"></script>
 </html>

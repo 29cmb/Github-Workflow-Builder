@@ -82,9 +82,32 @@ body {
     height: 75px;
     width: 92%;
 }
+
+#note {
+    color: rgb(255, 27, 27);
+}
+
+#loginContainer button:active {
+    background-color:#219434
+}
+
 #noAccount {
     bottom: 80px;
     position: absolute;
     left: 40%;
     transform: translateX(-32.5%);
+}
+
+a:link {
+    color: #0084E4
+}
+
+a:visited {
+    color: #0084E4
+}
+
+#iForgor_skull {
+    padding-left: 35px;
+    margin-top: 5px;
+    text-align: left;
 }
