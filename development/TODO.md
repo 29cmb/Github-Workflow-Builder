@@ -29,9 +29,9 @@
 - [x] Merge deleteProject and deleteTeamProject
 
 # Fontend
-- [ ] Home page
-- [ ] Signup page
-- [ ] Login page
+- [x] Home page
+- [x] Signup page
+- [x] Login page
 ## Dashboard
 - [ ] Projects page
 - [ ] Teams page
