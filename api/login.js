@@ -12,7 +12,6 @@ module.exports = (app) => {
             || typeof password != "string"
         ) return res.status(400).json({ success: false, message: "Username or password not provided or not formatted properly" });
 
-        await db.client.connect()
         const user = await db.collections.credentials.findOne({ username: username });
         if(!user) return res.status(400).json({ success: false, message: "Username or password is incorrect" });
 
@@ -22,7 +21,6 @@ module.exports = (app) => {
         req.session.user = user.uid
 
         res.status(200).json({ success: true, message: "You have logged in successfully" });
-        await db.client.close()
     });
 
     return {

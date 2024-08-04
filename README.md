@@ -1,5 +1,5 @@
 # Github Workflow Builder
-A drag-and-drop system for creating github workflows designed in Figma and implemented with nodejs and html!
+A drag-and-drop system for creating github workflows designed in Figma and implemented with nodejs and react!
 
 I made this because making workflows was always a tedious task for me to do efficiently and accurately
 

@@ -3,7 +3,6 @@ const { authNeeded } = require("../modules/middleware")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/edit", authNeeded, async (req, res) => {
-        await db.client.connect()
         const { tid, name, description } = req.body
         if(
             tid == undefined 
@@ -28,7 +27,6 @@ module.exports = (app) => {
         if(isManager == false) return res.status(400).json({ success: false, message: "You are not authorized to edit this team!" })
 
         await db.collections.teams.updateOne({ tid }, {"$set": { name, description }})
-        await db.client.close()
     })
     return {
         method: "POST",

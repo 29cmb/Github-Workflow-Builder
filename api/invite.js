@@ -5,7 +5,6 @@ const limits = require("../config/limits.json")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/invite", authNeeded, async (req, res) => {
-        await db.client.connect()
         const { uid, tid } = req.body
         if(uid == undefined || tid == undefined || typeof uid != "number" || typeof tid != "number") return res.status(400).json({ success: false, message: "UID or TID not provided or not formatted properly" })
         const user = await db.collections.profiles.findOne({ uid })
@@ -35,7 +34,6 @@ module.exports = (app) => {
             expiration: Date.now() + 604800000 // 1 week later
         })
         res.status(200).json({ success: true, message: "User has been invited" })
-        await db.client.close()
     })
     return {
         method: "POST",

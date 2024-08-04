@@ -3,7 +3,6 @@ const { authNeeded } = require("../modules/middleware")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/join", authNeeded, async (req, res) => {
-        await db.client.connect()
         const { iid } = req.body
         if(iid == undefined || typeof iid != "string") return res.status(400).json({ success: false, message: "TID is invalid or not formatted properly" })
         const invite = await db.collections.invites.findOne({ iid })
@@ -20,7 +19,6 @@ module.exports = (app) => {
         )
         await db.collections.invites.deleteOne({ tid })
         res.status(200).json({ success: true, message: "Joined successfully"})
-        await db.client.close()
     })
     return {
         method: "POST",

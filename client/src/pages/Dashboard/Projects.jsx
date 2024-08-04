@@ -5,6 +5,17 @@ import "../../styles/Projects.css";
 import Project from "../../components/Project";
 
 function Projects() {
+    const getProjects = async () => {
+        await fetch("/api/v1/user/projects/get", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        }).then(r => r.json()).then(data => {
+            console.log(data)
+        })
+    }
+    getProjects()
     return (
         <>
             <Topbar buttons={[
@@ -12,7 +23,7 @@ function Projects() {
             ]}>
             </Topbar>
             <Sidebar buttons={[
-                ["/", "Projects", true],
+                ["/dashboard", "Projects", true],
                 ["/", "Teams", false],
                 ["/", "Account", false]
             ]}></Sidebar>

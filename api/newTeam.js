@@ -4,7 +4,6 @@ const limits = require("../config/limits.json")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/new", authNeeded, async (req, res) => {
-        await db.client.connect()
         const teams = await db.collections.teams.find({ oid: req.session.uid }).toArray() || []
         if(teams.length >= limits.teamsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed teams!" })
 
@@ -30,7 +29,6 @@ module.exports = (app) => {
         })
 
         res.status(200).json({ success: false, message: "Team has been created successfully!" })
-        await db.client.close()
     })
     
     return {

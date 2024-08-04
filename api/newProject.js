@@ -4,7 +4,6 @@ const limits = require("../config/limits.json")
 
 module.exports = (app) => {
     app.post("/api/v1/projects/new", authNeeded, async (req, res) => {
-        await db.client.connect()
         const { name, description, type, tid } = req.body
         if(
             name == undefined 
@@ -37,8 +36,6 @@ module.exports = (app) => {
             contributors: [],
             public: false
         })
-
-        await db.client.close()
 
         res.status(200).json({ success: true, message: "New project created successfully!" })
     })

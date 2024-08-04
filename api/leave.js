@@ -3,7 +3,6 @@ const { authNeeded } = require("../modules/middleware")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/leave", authNeeded, async (req, res) => {
-        await db.client.connect()
         const { tid, uid } = req.body
         if(
             tid == undefined 
@@ -28,7 +27,6 @@ module.exports = (app) => {
         )
         
         res.status(200).json({ success: true, message: "Left successfully" })
-        await db.client.close()
     })
     return {
         method: "POST",

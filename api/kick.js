@@ -3,7 +3,6 @@ const { authNeeded } = require("../modules/middleware")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/kick", authNeeded, async (req, res) => {
-        await db.client.connect()
         const { tid, uid } = req.body
         if(
             tid == undefined 
@@ -41,7 +40,6 @@ module.exports = (app) => {
         )
 
         res.status(200).json({ success: true, message: "User has been kicked" })
-        await db.client.close()
     })
     return {
         method: "POST",

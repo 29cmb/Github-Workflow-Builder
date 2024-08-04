@@ -4,7 +4,6 @@ const limits = require("../config/limits.json")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/delete", authNeeded, async (req, res) => {
-        await db.client.connect()
         const { tid } = req.body
         if(tid == undefined || typeof tid != "number") return res.status(400).json({ success: false, message: "TID not provided or not formatted properly" })
         const team = await db.collections.teams.findOne({ tid })
@@ -13,7 +12,6 @@ module.exports = (app) => {
 
         await db.collections.teams.deleteOne({ tid }) // delete the team
         await db.collections.projects.delete({ creator: { type: "team", id: tid } }) // delete all team projects
-        await db.client.close()
 
         res.status(200).json({ success: true, message: "Team has been deleted." })
     })

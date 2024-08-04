@@ -3,7 +3,6 @@ const { authNeeded } = require("../modules/middleware")
 
 module.exports = (app) => {
     app.post("/api/v1/projects/save", authNeeded, async (req, res) => {
-        await db.client.connect()
         const { pid, data } = req.body
         if(
             pid == undefined 
@@ -24,7 +23,6 @@ module.exports = (app) => {
         }
 
         await db.collections.projects.updateOne({ pid }, {"$set": { data }})
-        await db.client.close()
         res.status(200).json({ success: true, message: "Project saved successfully" })
     })
     return {

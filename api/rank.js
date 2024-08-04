@@ -2,7 +2,6 @@ const db = require("../modules/db.js")
 const { authNeeded } = require("../modules/middleware.js")
 module.exports = (app) => {
     app.post("/api/v1/teams/rank", authNeeded, async (req, res) => {
-        await db.client.connect()
         const { tid, uid, rank } = req.body
         if(
             tid == undefined 
@@ -38,7 +37,6 @@ module.exports = (app) => {
         )
 
         res.status(200).json({ success: true, message: "User has been ranked" })
-        await db.client.close()
     })
     return {
         method: "POST",

@@ -16,34 +16,34 @@ module.exports = {
     databases: {},
     collections: {},
     async init() {
-        try {
-            await client.connect();
+      try {
+          await client.connect();
 
-            // assign databases
-            this.databases.users = client.db(process.env.USERSDATABASE)
-            this.databases.projects = client.db(process.env.PROJECTSDATABASE)
-            this.databases.teams = client.db(process.env.TEAMSDATABASE)
-            
-            // assign collections
-            this.collections.credentials = this.databases.users.collection(process.env.CREDENTIALSCOLLECTION)
-            this.collections.sessions = this.databases.users.collection(process.env.SESSIONSCOLLECTION)
-            this.collections.projects = this.databases.projects.collection(process.env.PROJECTSCOLLECTION)
-            this.collections.teams = this.databases.teams.collection(process.env.TEAMSCOLLECTION)
-            this.collections.profiles = this.databases.users.collection(process.env.PROFILESCOLLECTION)
-            this.collections.invites = this.databases.teams.collection(process.env.INVITESCOLLECTION)
+          // assign databases
+          this.databases.users = client.db(process.env.USERSDATABASE);
+          this.databases.projects = client.db(process.env.PROJECTSDATABASE);
+          this.databases.teams = client.db(process.env.TEAMSDATABASE);
+          
+          // assign collections
+          this.collections.credentials = this.databases.users.collection(process.env.CREDENTIALSCOLLECTION);
+          this.collections.sessions = this.databases.users.collection(process.env.SESSIONSCOLLECTION);
+          this.collections.projects = this.databases.projects.collection(process.env.PROJECTSCOLLECTION);
+          this.collections.teams = this.databases.teams.collection(process.env.TEAMSCOLLECTION);
+          this.collections.profiles = this.databases.users.collection(process.env.PROFILESCOLLECTION);
+          this.collections.invites = this.databases.teams.collection(process.env.INVITESCOLLECTION);
 
-            // ping
-            await this.databases.users.command({ ping: 1 });
-            if(logging.logDatabaseSetup) console.log("🏓 | Pinged the users database!");
-            await this.databases.projects.command({ ping: 1 });
-            if(logging.logDatabaseSetup) console.log("🏓 | Pinged the projects database!");
-            await this.databases.teams.command({ ping: 1 });
-            if(logging.logDatabaseSetup){ 
-              console.log("🏓 | Pinged the teams database!") 
-              console.log("🎉 | All databases have been pinged and are online!") 
-            }
-        } finally {
-            await client.close();
-        }
-    },
+          // ping
+          await this.databases.users.command({ ping: 1 });
+          if(logging.logDatabaseSetup) console.log("🏓 | Pinged the users database!");
+          await this.databases.projects.command({ ping: 1 });
+          if(logging.logDatabaseSetup) console.log("🏓 | Pinged the projects database!");
+          await this.databases.teams.command({ ping: 1 });
+          if(logging.logDatabaseSetup){ 
+            console.log("🏓 | Pinged the teams database!") 
+            console.log("🎉 | All databases have been pinged and are online!") 
+          }
+      } catch (error) {
+          console.log("❌ | Failed to initialize database connections:", error);
+      }
+    }
 }

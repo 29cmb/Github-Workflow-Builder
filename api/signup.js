@@ -15,7 +15,6 @@ module.exports = (app) => {
         if(username.length < 3) return res.status(400).json({ success: false, message: "Username must be at least 3 characters" })
         if(password.length < 6) return res.status(400).json({ success: false, message: "Password must be at least 6 characters" })
             
-        await db.client.connect()
         const user = await db.collections.credentials.findOne({ username: username })
         const otherUser = await db.collections.credentials.findOne({ email })
         if(user != undefined || otherUser != undefined) return res.status(400).json({ success: false, message: "User is already registered" })
@@ -35,7 +34,6 @@ module.exports = (app) => {
         })
 
         res.status(200).json({ success: true, message: "You have signed up successfully" })
-        await db.client.close()
     }) 
 
     return {
