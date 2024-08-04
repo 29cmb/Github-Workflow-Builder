@@ -8,8 +8,8 @@ function Form({ inputs, subtext, buttonData }) {
     }
     return (
         <div id="formContainer">
-            {inputs.map((input, index) => (
-                <div id={index}>
+            {inputs.map(input => (
+                <div>
                     <input id={input.id} type={input.type} placeholder={input.placeholder} />
                     <br />
                 </div>
@@ -18,7 +18,6 @@ function Form({ inputs, subtext, buttonData }) {
             <p id="note"></p>
             <button onClick={submit}>{buttonData[0]}</button>
             <br/>
-            
         </div>
     )
 }
