@@ -1,0 +1,11 @@
+body {
+    background-color: #0A0A0A;
+    color: white;
+    text-align: center;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 30px;
+    font-style: normal;
+}

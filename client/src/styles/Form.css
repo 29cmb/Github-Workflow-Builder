@@ -1,0 +1,72 @@
+#formContainer {
+    background-color: #171717;
+    width: 30%;
+    height: 60%;
+    border-radius: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+#formContainer input,
+#formContainer button {
+    font-size: 40px;
+    width: 90%;
+}
+
+#formContainer input {
+    background-color: #0A0A0A;
+    border: none;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 20px;
+    height: 15%;
+    color: white;
+}
+
+#formContainer button {
+    background-color: #2AB941;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 70px;
+    font-size: 40px;
+    padding: 10px 0;
+    transition: all 0.25s ease;
+}
+#formContainer button:hover {
+    font-size: 45px;
+    height: 75px;
+    width: 92%;
+}
+
+#note {
+    color: rgb(255, 27, 27);
+    padding: 30px;
+}
+
+#formContainer button:active {
+    background-color:#219434
+}
+
+#noAccount {
+    bottom: 80px;
+    position: absolute;
+    left: 40%;
+    transform: translateX(-32.5%);
+}
+
+a:link {
+    color: #0084E4
+}
+
+a:visited {
+    color: #0084E4
+}
