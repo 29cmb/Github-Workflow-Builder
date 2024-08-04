@@ -6,7 +6,17 @@
     padding-top: 20px
 }
 
-#topbar button {
+#topbar .regular {
+    background-color: rgb(0,0,0,0);
+    color: white;
+    padding-top: 0px;
+    width: 10vw;
+    font-size: 35px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+#topbar .green {
     background-color: #259c3f;
     color: white;
     padding-top: 0px;
@@ -16,8 +26,14 @@
     border-radius: 15px;
     transition: all 0.3s ease;
 }
-#topbar button:hover {
+
+#topbar .green:hover {
     font-size: 40px;
     background-color: #1d7a31;
+    transition: all 0.3s ease;
+}
+
+#topbar .regular:hover {
+    font-size: 40px;
     transition: all 0.3s ease;
 }

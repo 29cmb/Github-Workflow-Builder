@@ -1,12 +1,14 @@
 import React from "react";
 import "../styles/Topbar.css";
 
-function topbar(){
+function Topbar({ buttons }) {
     return (
         <div id="topbar">
-            <button onClick={() => {window.location.href = '/login'}} id="topbarBtn">Login</button>
+            {buttons.map((b, index) => (
+                <button key={index} onClick={() => {window.location.href = b[0]}} id="topbarBtn" class={b[2] === true ? "green" : "regular"}>{b[1]}</button>
+            ))}
         </div>
-    )
+    );
 }
 
-export default topbar;
+export default Topbar;
