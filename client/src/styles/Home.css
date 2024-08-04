@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    margin: 0;
+    background-color: #0A0A0A;
+    color: white;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 30px;
+    font-style: normal;
+}
+
+#title {
+    line-height: 1;
+}
+
+
+#title {
+    margin-top: 75px;
+}
+
+#easyText {
+    background: linear-gradient(0deg, #ff5e00, #ffbb00);
+    font-size: 125px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: block;
+    margin-top: -30px; 
+}
+
+#titleSubtext {
+    font-family: "Istok Web", sans-serif;
+    font-style: normal;
+    font-weight: 100;
+}
+
+#bottom {
+    background-color: #1A1A1A;
+    height: 150%;
+    width: 100%;
+    margin-top: 50px;
+    position: absolute;
+}
+
+#EasyToUse {
+    font-size: 80px;
+    text-align: right;
+    padding: 40px;
+    line-height: 0.2;
+}
+
+#dragAndDrop {
+    font-size: 80px;
+    background: linear-gradient(0deg, #008cff, #00ccff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: block;
+    line-height: 1;
+    padding-top: 30px;
+}
+
+#ImportWorkflows {
+    font-size: 100px;
+    text-align: left;
+    padding: 40px;
+    padding-top: 150px;
+    line-height: 0.2;
+}
+
+#existing {
+    font-size: 120px;
+    background: linear-gradient(0deg, #ff0000, #ff00b3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: block;
+    line-height: 1;
+    padding-top: 30px;
+}
+
+#EditWorkflows {
+    font-size: 100px;
+    text-align: right;
+    padding: 40px;
+    padding-top: 80px;
+    line-height: 0.8;
+}
+
+#visually {
+    font-size: 120px;
+    background: linear-gradient(0deg, #00ff9d, #2bff00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: block;
+    line-height: 0.7;
+    padding-top: 20px;
+}
+
+#img1, #img2, #img3 {
+    position: absolute;
+}
+#img1 {
+    left: 100px;
+    top: 100px;
+}
+#img2 {
+    right: 100px;
+    top: 525px;
+}
+#img3 {
+    left: 100px;
+    top: 950px;
+    padding-bottom: 40px;
+}
