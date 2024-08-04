@@ -1,0 +1,38 @@
+#sidebar {
+    height:100%;
+    width:20%;
+    background-color: #1f1f1f;
+    text-align: left;
+}
+
+#sidebar button {
+    border: none;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    font-size: 40px;
+    margin: 10px;
+    width: 90%;
+    text-align: left;
+    transition: font-size 0.3s ease;
+}
+
+#sidebar button.selected {
+    font-weight: 600;
+    font-size: 45px;
+}
+
+#sidebar button:hover {
+    font-size: 45px;
+    transition: font-size 0.3s ease;
+}
+
+#sidebar button.selected:hover {
+    font-size: 47.5px;
+    transition: font-size 0.3s ease;
+}
+
+#sidebar .seperator {
+    height: 0.1vh;
+    width: 100%;
+    background-color: #272727;
+}
