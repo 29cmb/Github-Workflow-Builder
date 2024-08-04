@@ -4,16 +4,28 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import Loading from './components/Loading';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    setIsLoading(true);
     fetch('/api/v1/user/info')
       .then(response => response.json())
-      .then(data => setIsAuthenticated(data.success))
-      .catch(error => console.error('Error fetching auth status:', error));
+      .then(data => {
+        setIsAuthenticated(data.success);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching auth status:', error);
+        setIsLoading(false);
+      });
   }, []);
+
+  if (isLoading) {
+    return <Loading></Loading>
+  }
 
   return (
     <Router>
@@ -24,7 +36,6 @@ function App() {
         <Route path="/dashboard" element={isAuthenticated ? <Dashboard/> : <Navigate to="/login" replace />}></Route>
       </Routes>
     </Router>
-   
   );
 }
 

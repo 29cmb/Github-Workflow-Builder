@@ -25,7 +25,7 @@ app.use(session({
     })
 }))
 
-const server = http.createServer({ maxHeaderSize: 80 * 1024 }, app);
+
 
 app.use(express.json())
 const apiPath = path.join(__dirname, "api")
@@ -43,10 +43,7 @@ for (const file of apiFiles) {
     }
    
 }
-
-
 // app.use(express.static(path.join(__dirname, "views")))
-app.use(express.static(path.join(__dirname, 'client/build')));
 app.listen(process.env.PORT || 3000, () => {
     console.log(`✅ | Backend express server has started on port ${process.env.PORT || 3000}.`)
 })
