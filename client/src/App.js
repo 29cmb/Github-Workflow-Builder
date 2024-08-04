@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Dashboard from './pages/Dashboard';
+import Projects from './pages/Dashboard/Projects.jsx';
 import Loading from './components/Loading';
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={!isAuthenticated ? <Login/> : <Navigate to="/dashboard" replace />}></Route>
         <Route path="/signup" element={!isAuthenticated ? <Signup/> : <Navigate to="/dashboard" replace />}></Route>
-        <Route path="/dashboard" element={isAuthenticated ? <Dashboard/> : <Navigate to="/login" replace />}></Route>
+        <Route path="/dashboard" element={isAuthenticated ? <Projects/> : <Navigate to="/login" replace />}></Route>
       </Routes>
     </Router>
   );
