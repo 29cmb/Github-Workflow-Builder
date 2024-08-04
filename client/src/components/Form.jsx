@@ -8,9 +8,9 @@ function Form({ inputs, subtext, buttonData }) {
     }
     return (
         <div id="formContainer">
-            {inputs.map(input => (
-                <div>
-                    <input id={input.id} type={input.type} placeholder={input.placeholder} />
+            {inputs.map((input, index) => (
+                <div key={index}>
+                    <input key={index} id={input.id} type={input.type} placeholder={input.placeholder} />
                     <br />
                 </div>
             ))}

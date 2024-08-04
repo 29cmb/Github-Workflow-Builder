@@ -6,7 +6,8 @@
     padding-top: 20px
 }
 
-#topbar .regular {
+#topbar .regular,
+#topbarText {
     background-color: rgb(0,0,0,0);
     color: white;
     padding-top: 0px;

@@ -7,8 +7,8 @@ const path = require("path")
 const fs = require("fs")
 const db = require("./modules/db.js")
 const { authNeeded, redirectIfAuth } = require("./modules/middleware.js")
-const middlewareConfig = require("./config/middlewareConfig.json")
 const logging = require("./config/logging.json")
+const http = require("http")
 
 // Methods
 const app = express()
@@ -25,14 +25,7 @@ app.use(session({
     })
 }))
 
-
-middlewareConfig.AuthNeeded.forEach(route => {
-    app.get(route, authNeeded)
-})
-
-middlewareConfig.RedirectIfAuth.forEach(route => {
-    app.get(route, redirectIfAuth)
-})
+const server = http.createServer({ maxHeaderSize: 80 * 1024 }, app);
 
 app.use(express.json())
 const apiPath = path.join(__dirname, "api")
@@ -50,6 +43,7 @@ for (const file of apiFiles) {
     }
    
 }
+
 
 // app.use(express.static(path.join(__dirname, "views")))
 app.use(express.static(path.join(__dirname, 'client/build')));

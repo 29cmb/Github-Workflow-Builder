@@ -5,7 +5,7 @@ function Topbar({ buttons }) {
     return (
         <div id="topbar">
             {buttons.map((b, index) => (
-                <button key={index} onClick={() => {window.location.href = b[0]}} id="topbarBtn" class={b[2] === true ? "green" : "regular"}>{b[1]}</button>
+                <button key={index} onClick={() => {window.location.href = b[0]}} id="topbarBtn" className={b[2] === true ? "green" : "regular"}>{b[1]}</button>
             ))}
         </div>
     );
