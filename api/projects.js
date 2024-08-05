@@ -4,7 +4,7 @@ const { authNeeded } = require("../modules/middleware")
 module.exports = (app) => {
     app.post("/api/v1/user/projects/get", authNeeded, async (req, res) => {
         var { user } = req.body
-        if(((user == undefined || typeof user != "number") && req.session.id != undefined)) user = req.session.id
+        if(((user == undefined || typeof user != "number") && req.session.user != undefined)) user = req.session.user
         if(user == undefined) return res.status(400).json({ success: false, message: "User not provided or not formatted properly" })
 
         const userTeams = await db.collections.teams.find({ members: { $in: [user] } }).toArray()

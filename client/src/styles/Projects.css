@@ -8,3 +8,11 @@
     height: 100%;
     overflow-x: hidden;
 }
+
+#new {
+    border: none;
+    background-color: rgb(0,0,0,0);
+    position: absolute;
+    right: 0%;
+    z-index: 1;
+}

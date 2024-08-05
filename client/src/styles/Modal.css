@@ -22,6 +22,10 @@
     padding-top: 10px;
     padding-bottom: 10px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 #modalContent input,
@@ -34,27 +38,31 @@
     background-color: #0A0A0A;
     border: none;
     border-radius: 10px;
-    margin: 5px;
+    margin: 0px;
     padding: 20px;
     height: 15%;
     color: white;
 }
 
 #modalContent button {
-    background-color: #2AB941;
     color: white;
     border: none;
     border-radius: 15px;
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
     width: 90%;
     height: 70px;
     font-size: 40px;
     padding: 10px 0;
     transition: all 0.25s ease;
 }
+
+#modalContent button.submit {
+    background-color: #2AB941;
+}
+
+#modalContent button.cancel {
+    background-color: #313131;
+}
+
 #modalContent button:hover {
     font-size: 45px;
     height: 75px;

@@ -1,11 +1,10 @@
 import React from "react";
 import "../styles/Modal.css";
-import Dropdown from 'react-bootstrap/Dropdown';
 
-function Modal({ title, inputs, button }){
-    const submit = () => {
+function Modal({ title, inputs, buttons }){
+    const submit = (button) => {
         var values = inputs.map(input => document.getElementById(input.id).value)
-        button[1](...values)
+        button.submit(...values)
     }
     return (
         <div id="modal">
@@ -14,7 +13,16 @@ function Modal({ title, inputs, button }){
                 {inputs.map((input, index) => (
                     <input key={index} id={input.id} type={input.type} placeholder={input.placeholder} />
                 ))}
-                <button onClick={submit}>{button[0]}</button>
+                {buttons.map(button => {
+                    switch(button.style){
+                        case "submit":
+                            return <button onClick={() => {submit(button)}} className={button.style}>{button.text}</button>;
+                        case "cancel":
+                            return <button onClick={() => button.submit()} className={button.style}>{button.text}</button>;
+                        default:
+                            return <button className={button.style}>{button.text}</button>;
+                    }
+                })}
             </div>
         </div>
     )

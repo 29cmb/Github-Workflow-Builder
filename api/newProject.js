@@ -15,19 +15,21 @@ module.exports = (app) => {
             || typeof description != "string"
             || typeof type != "string"
             || (type == "team" && typeof tid != "number")
+            || name.length < 1
+            || description.length < 1
         ) return res.status(400).json({ success: false, message: "Name or description not provided or not formatted properly" })
 
-        const projects = await db.collections.projects.find({ creator: { type, id: type == "user" ? req.session.uid : tid } }).toArray() || []
+        const projects = await db.collections.projects.find({ creator: { type, id: type == "user" ? req.session.user : tid } }).toArray() || []
         if(projects.length >= limits.projectsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed projects!" })
 
         if(type == "team"){
             const team = await db.collections.teams.findOne({ tid })
-            if(!(req.session.uid in team.members)) return res.status(403).json({ success: false, message: "You do not have permission to create a project under this team" })
+            if(!(req.session.user in team.members)) return res.status(403).json({ success: false, message: "You do not have permission to create a project under this team" })
         }
 
-        await db.collections.projects.insertOne({
+        const project = {
             pid: (await db.collections.projects.countDocuments()) + 1,
-            creator: { type, id: type == "user" ? req.session.uid : tid },
+            creator: { type, id: type == "user" ? req.session.user : tid },
             name,
             description,
             data: {
@@ -35,9 +37,11 @@ module.exports = (app) => {
             },
             contributors: [],
             public: false
-        })
+        }
 
-        res.status(200).json({ success: true, message: "New project created successfully!" })
+        await db.collections.projects.insertOne(project)
+
+        res.status(200).json({ success: true, message: "New project created successfully!", project })
     })
     return {
         method: "POST",

@@ -28,7 +28,10 @@ function Projects() {
     useEffect(() => {
         getProjects().then(data => {
             if (data.projects) {
+                console.log(data.projects);
                 setProjects(data.projects);
+            } else {
+                console.log("error")
             }
         }).catch(error => console.error("Error setting projects:", error));
     }, []);
@@ -50,10 +53,32 @@ function Projects() {
                     {id: "projectName", type: "text", placeholder: "Project Name"},
                     {id: "projectDesc", type: "text", placeholder: "Project Description"},
                 ]}
-                button={["Create", (pName, pDesc) => {
-                    console.log("is he creating right now!??!!??!!!!?!?!?!??!?!?", pName, pDesc)
-                }]}
+                buttons={[
+                    {id: "create", text: "Create", style: "submit", submit: (name, description) => {
+                        setModalVisible(false); // TODO: Make the modal lock you out of clicking buttons
+                        fetch("/api/v1/projects/new", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                name,
+                                description,
+                                type: "user" // TODO: Add team project creation
+                            })
+                        }).then(r => r.json()).then(data => {
+                            console.log(data)
+                            if(data.success === true){
+                                window.location.href = `/projects/${data.project.pid}`
+                            }
+                        })
+                    }},
+                    {id: "cancel", text: "Cancel", style: "cancel", submit: () => {
+                        setModalVisible(false);
+                    }}
+                ]}
             ></Modal> : null}
+            <button id="new" onClick={() => {setModalVisible(true)}}><img src="/assets/NewProject.png" alt="New"></img></button>
             <div id="projects">
                 {
                     projects.map(project => (

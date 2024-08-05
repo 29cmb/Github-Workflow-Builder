@@ -12,7 +12,7 @@ module.exports = (app) => {
             if(project.owner.id != req.session.user) return res.status(403).json({ success: false, message: "You do not have permission to delete this project"})
         } else if(project.owner.type == "team"){
             const team = await db.collections.teams.findOne({ tid: project.owner.id })
-            if(!(req.session.uid in team.members)) return res.status(403).json({ success: false, message: "You do not have permission to delete this project"})
+            if(!(req.session.user in team.members)) return res.status(403).json({ success: false, message: "You do not have permission to delete this project"})
         }
      
         await db.collections.projects.deleteOne({ pid })
