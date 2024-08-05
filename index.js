@@ -6,9 +6,7 @@ const sessionSave = require("connect-mongodb-session")(session)
 const path = require("path")
 const fs = require("fs")
 const db = require("./modules/db.js")
-const { authNeeded, redirectIfAuth } = require("./modules/middleware.js")
 const logging = require("./config/logging.json")
-const http = require("http")
 
 // Methods
 const app = express()
