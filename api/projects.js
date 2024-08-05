@@ -26,6 +26,23 @@ module.exports = (app) => {
                 ]
             }).toArray()
         }
+
+        projects = await Promise.all(projects.map(async proj => {
+            switch (proj.creator.type) {
+                case "user":
+                    const user = await db.collections.profiles.findOne({ uid: proj.creator.id });
+                    proj.creator.name = user ? user.username : "Unknown";
+                    break;
+                case "team":
+                    const team = await db.collections.teams.findOne({ tid: proj.creator.id }); 
+                    proj.creator.name = team ? team.name : "Unknown";
+                    break;
+                default:
+                    proj.creator.name = "Unknown";
+                    break;
+            }
+            return proj;
+        }));
         
         res.status(200).json({ success: true, projects: (projects || []) })
     })

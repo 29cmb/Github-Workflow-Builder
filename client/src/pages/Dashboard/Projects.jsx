@@ -3,6 +3,7 @@ import Topbar from "../../components/Topbar";
 import Sidebar from "../../components/Sidebar";
 import "../../styles/Projects.css";
 import Project from "../../components/Project";
+import Modal from "../../components/Modal";
 
 function Projects() {
     const getProjects = async () => {
@@ -22,6 +23,7 @@ function Projects() {
     };
 
     const [projects, setProjects] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         getProjects().then(data => {
@@ -30,25 +32,6 @@ function Projects() {
             }
         }).catch(error => console.error("Error setting projects:", error));
     }, []);
-
-    const getUserFromID = async (uid) => {
-        try {
-            const response = await fetch("/api/v1/user/get", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    uid
-                })
-            });
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error("Failed to fetch user:", error);
-            return {};
-        }
-    };
 
     return (
         <>
@@ -61,10 +44,20 @@ function Projects() {
                 ["/", "Teams", false],
                 ["/", "Account", false]
             ]}></Sidebar>
+            {modalVisible ? <Modal
+                title="Create Project"
+                inputs={[
+                    {id: "projectName", type: "text", placeholder: "Project Name"},
+                    {id: "projectDesc", type: "text", placeholder: "Project Description"},
+                ]}
+                button={["Create", (pName, pDesc) => {
+                    console.log("is he creating right now!??!!??!!!!?!?!?!??!?!?", pName, pDesc)
+                }]}
+            ></Modal> : null}
             <div id="projects">
                 {
                     projects.map(project => (
-                        <Project key={project.id} name={project.name} owner={project.creator} />
+                        <Project key={project.id} name={project.name} owner={{name: project.creator.name, type: project.creator.type}} />
                     ))
                 }
             </div>
