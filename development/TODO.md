@@ -33,8 +33,15 @@
 - [x] Signup page
 - [x] Login page
 ## Dashboard
-- [ ] Projects page
+- [x] Projects page
+    - [x] Display projects
+    - [x] Create a new project
+    - [x] Open project
 - [ ] Teams page
+    - [x] Display teams
+    - [x] Make teams
+    - [ ] Display members
+    - [ ] Edit team
 - [ ] Account settings page
 ## Workflow Builder
 - [ ] Sidebar

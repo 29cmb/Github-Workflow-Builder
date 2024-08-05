@@ -57,7 +57,7 @@ function Projects() {
                 ]}
                 buttons={[
                     {id: "create", text: "Create", style: "submit", submit: (name, description) => {
-                        setModalVisible(false); // TODO: Make the modal lock you out of clicking buttons
+                        setModalVisible(false);
                         toast("Creating project...", {icon: "🚀", style: {color: "white", backgroundColor: "#333", padding: "10px", borderRadius: "10px"}});
                         fetch("/api/v1/projects/new", {
                             method: "POST",
@@ -73,7 +73,7 @@ function Projects() {
                             console.log(data)
                             if(data.success === true){
                                 toast(`Your project has been created successfully! Redirecting...`, {
-                                    icon: "❌",
+                                    icon: "✅",
                                     style: {
                                         color: "white",
                                         backgroundColor: "#333",
@@ -106,7 +106,7 @@ function Projects() {
             <div id="projects">
                 {
                     projects.map(project => (
-                        <Project key={project.id} name={project.name} owner={{name: project.creator.name, type: project.creator.type}} />
+                        <Project key={project.id} id={project.id} name={project.name} owner={{name: project.creator.name, type: project.creator.type}} />
                     ))
                 }
             </div>

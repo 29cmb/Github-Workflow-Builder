@@ -30,7 +30,7 @@ module.exports = (app) => {
             ]
         })
 
-        res.status(200).json({ success: false, message: "Team has been created successfully!" })
+        res.status(200).json({ success: true, message: "Team has been created successfully!" })
     })
     
     return {

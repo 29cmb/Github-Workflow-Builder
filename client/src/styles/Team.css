@@ -22,7 +22,9 @@
     transform: translateY(-50%);
 }
 .team #name,
-.team #owner {
+.team #owner,
+.team #role {
+    font-size: 20px;
     text-align: left;
     margin-left: 50px;
     margin-top: 0px;

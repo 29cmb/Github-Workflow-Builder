@@ -4,12 +4,13 @@ import Sidebar from "../../components/Sidebar";
 import "../../styles/Teams.css";
 import Team from "../../components/Team";
 import Modal from "../../components/Modal";
+import toast, { Toaster } from 'react-hot-toast';
 
 function Teams() {
     const getTeams = async () => {
         try {
             const response = await fetch("/api/v1/user/teams", {
-                method: "POST",
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -31,7 +32,7 @@ function Teams() {
                 console.log(data.teams);
                 setTeams(data.teams);
             } else {
-                console.log("error")
+                console.log("error", data)
             }
         }).catch(error => console.error("Error setting teams:", error));
     }, []);
@@ -47,6 +48,7 @@ function Teams() {
                 ["/dashboard/teams", "Teams", true],
                 ["/", "Account", false]
             ]}></Sidebar>
+            <Toaster />
             {modalVisible ? <Modal
                 title="Create Team"
                 inputs={[
@@ -55,7 +57,43 @@ function Teams() {
                 ]}
                 buttons={[
                     {id: "create", text: "Create", style: "submit", submit: (name, description) => {
-                        // TODO: Make team
+                        setModalVisible(false)
+                        fetch("/api/v1/teams/new", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                name,
+                                description
+                            })
+                        }).then(response => response.json()).then(data => {
+                            console.log(data)
+                            if(data.success === true){
+                                toast(`Your team has been created successfully! Reloading...`, {
+                                    icon: "✅",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 1000)
+                            } else {
+                                toast(`There was an error creating your team: ${data.message}`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                            }
+                        })
                     }},
                     {id: "cancel", text: "Cancel", style: "cancel", submit: () => {
                         setModalVisible(false);
@@ -64,10 +102,10 @@ function Teams() {
             ></Modal> : null}
             <button id="new" onClick={() => {setModalVisible(true)}}><img src="/assets/NewProject.png" alt="New"></img></button>
             <div id="teams">
-                <Team name={"Funi Dog Games"} owner={{name: "DevCmb"}} />
+
                 {
                     teams.map(team => (
-                        <Team key={team.id} name={team.name} owner={{name: team.creator.name, type: team.creator.type}} />
+                        <Team key={team.id} name={team.name} owner={{name: team.owner}} role={team.role} />
                     ))
                 }
             </div>
