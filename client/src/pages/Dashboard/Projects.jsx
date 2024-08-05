@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Topbar from "../../components/Topbar";
 import Sidebar from "../../components/Sidebar";
 import "../../styles/Projects.css";
@@ -6,16 +6,50 @@ import Project from "../../components/Project";
 
 function Projects() {
     const getProjects = async () => {
-        await fetch("/api/v1/user/projects/get", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        }).then(r => r.json()).then(data => {
-            console.log(data)
-        })
-    }
-    getProjects()
+        try {
+            const response = await fetch("/api/v1/user/projects/get", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error("Failed to fetch projects:", error);
+            return [];
+        }
+    };
+
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        getProjects().then(data => {
+            if (data.projects) {
+                setProjects(data.projects);
+            }
+        }).catch(error => console.error("Error setting projects:", error));
+    }, []);
+
+    const getUserFromID = async (uid) => {
+        try {
+            const response = await fetch("/api/v1/user/get", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    uid
+                })
+            });
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error("Failed to fetch user:", error);
+            return {};
+        }
+    };
+
     return (
         <>
             <Topbar buttons={[
@@ -28,18 +62,11 @@ function Projects() {
                 ["/", "Account", false]
             ]}></Sidebar>
             <div id="projects">
-                <Project
-                    name="Workflow #1"
-                    owner={{name: "You", type: "user"}}
-                />
-                <Project
-                    name="Workflow #2"
-                    owner={{name: "Nibbl_z", type: "user"}}
-                />
-                <Project
-                    name="Workflow #3"
-                    owner={{name: "Funi Dog Games", type: "team"}}
-                />
+                {
+                    projects.map(project => (
+                        <Project key={project.id} name={project.name} owner={project.creator} />
+                    ))
+                }
             </div>
         </>
     );
