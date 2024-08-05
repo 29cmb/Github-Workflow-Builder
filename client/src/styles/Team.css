@@ -1,0 +1,74 @@
+.team {
+    width: 85%;
+    height: 30%;
+    margin-top: 50px;
+    margin-left: 40px;
+    background-color: #222222;
+    border-radius: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.team img {
+    width: 50%;
+    height: auto;
+    border-radius: 0px;
+    object-fit: scale-down;
+    position: absolute;
+    -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0), rgb(139, 139, 139) 85%);
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0), rgb(139, 139, 139, 0.3) 85%);
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.team #name,
+.team #owner {
+    text-align: left;
+    margin-left: 50px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-bottom: 2px;
+}
+
+.team #name {
+    margin-top: 50px;
+    font-size: 40px;
+}
+
+
+.team #owner {
+    font-size: 20px;
+}
+
+.team .user {
+    color: #47D03B
+}
+
+.team .team {
+    color: #FF55B1
+}
+
+.team #open {
+    border: solid 2px black;
+    padding: 5px;
+    background-color: #2AB941;
+    color: white;
+    font-size: 40px;
+    border-radius: 20px;
+    width: 85%;
+    font-weight: 800;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-shadow: black 3px 3px 3px 3px;
+    -webkit-text-stroke: 1.5px black;
+    -webkit-text-stroke-position: outside;
+    transition: all 0.3s ease;
+}
+
+.team #open:hover {
+    transition: all 0.3s ease;
+    background-color: #176925;
+    font-size: 42px;
+}

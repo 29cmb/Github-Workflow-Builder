@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Projects from './pages/Dashboard/Projects.jsx';
 import Loading from './components/Loading';
+import Teams from './pages/Dashboard/Teams.jsx';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -34,6 +35,7 @@ function App() {
         <Route path="/login" element={!isAuthenticated ? <Login/> : <Navigate to="/dashboard" replace />}></Route>
         <Route path="/signup" element={!isAuthenticated ? <Signup/> : <Navigate to="/dashboard" replace />}></Route>
         <Route path="/dashboard" element={isAuthenticated ? <Projects/> : <Navigate to="/login" replace />}></Route>
+        <Route path="/dashboard/teams" element={isAuthenticated ? <Teams/> : <Navigate to="/login" replace />}></Route>
       </Routes>
     </Router>
   );

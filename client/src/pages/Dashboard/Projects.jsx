@@ -45,7 +45,7 @@ function Projects() {
             </Topbar>
             <Sidebar buttons={[
                 ["/dashboard", "Projects", true],
-                ["/", "Teams", false],
+                ["/dashboard/teams", "Teams", false],
                 ["/", "Account", false]
             ]}></Sidebar>
             <Toaster />
