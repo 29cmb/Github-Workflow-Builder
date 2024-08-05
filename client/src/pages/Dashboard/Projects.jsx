@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import "../../styles/Projects.css";
 import Project from "../../components/Project";
 import Modal from "../../components/Modal";
+import toast, { Toaster } from 'react-hot-toast';
 
 function Projects() {
     const getProjects = async () => {
@@ -47,6 +48,7 @@ function Projects() {
                 ["/", "Teams", false],
                 ["/", "Account", false]
             ]}></Sidebar>
+            <Toaster />
             {modalVisible ? <Modal
                 title="Create Project"
                 inputs={[
@@ -56,6 +58,7 @@ function Projects() {
                 buttons={[
                     {id: "create", text: "Create", style: "submit", submit: (name, description) => {
                         setModalVisible(false); // TODO: Make the modal lock you out of clicking buttons
+                        toast("Creating project...", {icon: "🚀", style: {color: "white", backgroundColor: "#333", padding: "10px", borderRadius: "10px"}});
                         fetch("/api/v1/projects/new", {
                             method: "POST",
                             headers: {
@@ -69,7 +72,28 @@ function Projects() {
                         }).then(r => r.json()).then(data => {
                             console.log(data)
                             if(data.success === true){
-                                window.location.href = `/projects/${data.project.pid}`
+                                toast(`Your project has been created successfully! Redirecting...`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                                setTimeout(() => {
+                                    window.location.href = `/projects/${data.project.pid}`
+                                }, 1000)
+                            } else {
+                                toast(`There was an error creating your project: ${data.message}`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
                             }
                         })
                     }},
