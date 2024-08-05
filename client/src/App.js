@@ -15,8 +15,8 @@ function App() {
     fetch('/api/v1/user/info')
       .then(response => response.json())
       .then(data => {
-        setIsAuthenticated(data.success);
         setIsLoading(false);
+        setIsAuthenticated(data.success);
       })
       .catch(error => {
         console.error('Error fetching auth status:', error);
@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <Loading></Loading>
+    return <Loading />
   }
 
   return (

@@ -106,7 +106,7 @@ function Projects() {
             <div id="projects">
                 {
                     projects.map(project => (
-                        <Project key={project.id} id={project.id} name={project.name} owner={{name: project.creator.name, type: project.creator.type}} />
+                        <Project key={project.pid} id={project.pid} name={project.name} owner={{name: project.creator.name, type: project.creator.type}} />
                     ))
                 }
             </div>
