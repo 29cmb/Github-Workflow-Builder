@@ -41,8 +41,17 @@ function Teams() {
         const fetchMemberImages = async () => {
             const newMembersData = {};
             for (const team of teams) {
-                newMembersData[team.id] = await Promise.all(team.members.map(async (member) => {
-                    const response = await fetch(`/api/v1/user/${member}/pfp`);
+                const response = await fetch('/api/v1/teams/members', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ tid: team.tid }),
+                });
+
+                const { members } = await response.json();
+                newMembersData[team.id] = await Promise.all(members.map(async (member) => {
+                    const response = await fetch(`/api/v1/user/${member.uid}/pfp`);
                     const img = response.url;
                     return {
                         name: member.username,
@@ -53,9 +62,7 @@ function Teams() {
             setMembersData(newMembersData);
         };
 
-        if (teams.length > 0) {
-            fetchMemberImages();
-        }
+        fetchMemberImages();
     }, [teams]);
 
     return (

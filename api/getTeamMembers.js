@@ -1,3 +1,5 @@
+const db = require("../modules/db")
+
 module.exports = (app) => {
     app.post("/api/v1/teams/members", async (req, res) => {
         const { tid } = req.body
