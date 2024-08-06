@@ -8,10 +8,13 @@ import toast, { Toaster } from 'react-hot-toast';
 function Account() {
     const [user, setUser] = useState({});
     const [profile, setProfile] = useState({});
+
     const [emailModalOpen, setEmailModalOpen] = useState(false);
     const [emailRevealed, revealEmail] = useState(false)
 
     const [usernameModalOpen, setUsernameModalOpen] = useState(false);
+
+    const [passwordModalOpen, setPasswordModalOpen] = useState(false);
 
     useEffect(() => {
         fetch("/api/v1/user/credentials", {
@@ -144,6 +147,71 @@ function Account() {
                     }}
                 ]}
             ></Modal> : null}
+            {passwordModalOpen ? <Modal
+                title="Change Password"
+                inputs={[
+                    {id: "old", type: "password", placeholder: "Old Password"},
+                    {id: "new", type: "password", placeholder: "New Password"},
+                    {id: "confNew", type: "password", placeholder: "Confirm New Password"},
+                ]}
+                buttons={[
+                    {id: "email", text: "Submit", style: "submit", submit: (oldPass, newPass, confirmNewPass) => {
+                        if(newPass !== confirmNewPass){
+                            toast(`Passwords do not match!`, {
+                                icon: "❌",
+                                style: {
+                                    color: "white",
+                                    backgroundColor: "#333",
+                                    borderRadius: "10px",
+                                    maxWidth: "60%",
+                                }
+                            });
+                            return;
+                        }
+                        
+                        setPasswordModalOpen(false);
+                        fetch("/api/v1/user/update", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                confirmation: oldPass,
+                                password: newPass
+                            })
+                        }).then(r => r.json()).then(data => {
+                            console.log(data)
+                            if(data.success === true){
+                                toast(`Your password has been changed successfully! Logging out...`, {
+                                    icon: "✅",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                                setTimeout(() => {
+                                    window.location.href = "/login"
+                                }, 1500)
+                            } else {
+                                toast(`Something went wrong when trying to change your password: ${data.message}`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                            }
+                        })
+                    }},
+                    {id: "cancel", text: "Cancel", style: "cancel", submit: () => {
+                        setPasswordModalOpen(false);
+                    }}
+                ]}
+            ></Modal> : null}
             <div id="account">
                 <h2 id="accountInfo">Account Information</h2>
                 <p>Email</p>
@@ -158,7 +226,10 @@ function Account() {
                     <button onClick={() => {setUsernameModalOpen(true)}}><u>Change</u></button>
                 </p>
                 <p>Password</p>
-                <p id="password">*************</p>
+                <p id="password">
+                    *************
+                    <button onClick={() => {setPasswordModalOpen(true)}}><u>Change</u></button>
+                </p>
                 <h2 id="Appearance">Appearance</h2>
                 <p>Bio</p>
                 <p id="bio">{profile.bio}</p>
