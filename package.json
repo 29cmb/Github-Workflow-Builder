@@ -2,7 +2,6 @@
   "name": "github-workflow-builder",
   "version": "1.0.0",
   "main": "index.js",
-  "proxy": "http://localhost:3001",
   "scripts": {
     "start": "concurrently \"npm run server\" \"cd client && npm start\"",
     "server": "nodemon index.js",

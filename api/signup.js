@@ -33,7 +33,7 @@ module.exports = (app) => {
         await db.collections.profiles.insertOne({
             uid,
             username,
-            bio: ""
+            bio: "This is a bio."
         });
 
         fs.readdir(path.join(__dirname, "../avatars/default"), (err, files) => {

@@ -8,7 +8,6 @@ function Topbar({ buttons }) {
             <img src="/assets/SmallLogoFull.png" alt="Overflow"></img>
             {buttons.map((b, index) => (
                 (() => {
-                    console.log(b[3]);
                     if (b[3] === undefined) {
                         return (
                             <button
