@@ -44,6 +44,8 @@
     padding: 20px;
     height: 15%;
     color: white;
+    position: relative;
+    z-index: 1001;
 }
 
 #modalContent button {
