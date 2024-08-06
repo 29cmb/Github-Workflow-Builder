@@ -46,7 +46,7 @@ function Projects() {
             <Sidebar buttons={[
                 ["/dashboard", "Projects", true],
                 ["/dashboard/teams", "Teams", false],
-                ["/", "Account", false]
+                ["/dashboard/account", "Account", false]
             ]}></Sidebar>
             <Toaster />
             {modalVisible ? <Modal
