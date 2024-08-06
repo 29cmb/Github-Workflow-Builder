@@ -33,14 +33,14 @@ for (const file of apiFiles) {
     const filePath = path.join(apiPath, file)
     const data = require(filePath)(app)
     if(logging.logRouteSetup){
-        if(data.method && data.route){
+        if(data && data.method && data.route){
             console.log(`✅ | API route ${data.method} '${data.route}' has been setup successfully!`)
         } else {
             console.log(`❌ | API route '${filePath}' did not return data.method or did not return data.route.`)
         }
     }
-   
 }
+
 // app.use(express.static(path.join(__dirname, "views")))
 app.listen(process.env.PORT || 3000, () => {
     console.log(`✅ | Backend express server has started on port ${process.env.PORT || 3000}.`)

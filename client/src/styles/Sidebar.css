@@ -19,14 +19,15 @@
 #logout {
     border: none;
     background-color: rgba(0,0,0,0);
-    color: rgb(136, 23, 23);
+    color: rgb(184, 27, 27);
     font-size: 40px;
     margin: 10px;
     width: 90%;
     text-align: left;
-    transition: all 0.3s ease;
     position: absolute;
     bottom: 90px;
+    font-weight: 700;
+    transition: all 0.3s ease;
 }
 
 #logout:hover {

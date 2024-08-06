@@ -1,0 +1,22 @@
+#account {
+    position: relative;
+    text-align: left;
+    margin-left: 27.5%;
+    margin-top: 7.5vh;
+}
+
+#account p:not([id]) {
+    color: rgb(167, 167, 167);
+    font-size: 35px;
+}
+
+#account p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5%;
+}
+
+#account h2 {
+    margin: 0;
+}
+
