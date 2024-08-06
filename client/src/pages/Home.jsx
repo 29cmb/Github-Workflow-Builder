@@ -6,7 +6,8 @@ function Home(){
     return (
         <div>
             <Topbar buttons={[
-                ["/login", "Login", true]
+                ["/login", "Login", true, false],
+                ["/dashboard", "Dashboard", true, true]
             ]}></Topbar>
             <h1 id="title">Github workflows<br/>made<br/><span id="easyText">easy</span></h1>
             <p id="titleSubtext"><i>Easy to use Github Workflow Builder Tool</i></p>

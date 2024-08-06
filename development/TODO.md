@@ -41,7 +41,7 @@
     - [x] Display teams
     - [x] Make teams
     - [x] Display members
-    - [ ] Edit team
+    - [ ] Edit team `<- Skip`
     - [ ] Invitation accept/deny page
 - [ ] Account settings
     - [ ] Username/Password
