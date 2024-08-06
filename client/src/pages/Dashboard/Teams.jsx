@@ -24,18 +24,39 @@ function Teams() {
     };
 
     const [teams, setTeams] = useState([]);
+    const [membersData, setMembersData] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         getTeams().then(data => {
             if (data.teams) {
-                console.log(data.teams);
                 setTeams(data.teams);
             } else {
                 console.log("error", data)
             }
         }).catch(error => console.error("Error setting teams:", error));
     }, []);
+
+    useEffect(() => {
+        const fetchMemberImages = async () => {
+            const newMembersData = {};
+            for (const team of teams) {
+                newMembersData[team.id] = await Promise.all(team.members.map(async (member) => {
+                    const response = await fetch(`/api/v1/user/${member}/pfp`);
+                    const img = response.url;
+                    return {
+                        name: member.username,
+                        img: img
+                    };
+                }));
+            }
+            setMembersData(newMembersData);
+        };
+
+        if (teams.length > 0) {
+            fetchMemberImages();
+        }
+    }, [teams]);
 
     return (
         <>
@@ -68,7 +89,6 @@ function Teams() {
                                 description
                             })
                         }).then(response => response.json()).then(data => {
-                            console.log(data)
                             if(data.success === true){
                                 toast(`Your team has been created successfully! Reloading...`, {
                                     icon: "✅",
@@ -103,30 +123,14 @@ function Teams() {
             <button id="new" onClick={() => {setModalVisible(true)}}><img src="/assets/NewProject.png" alt="New"></img></button>
             <div id="teams">
                 {
-                    teams.map(team => (
-                        <Team key={team.id} name={team.name} owner={{name: team.owner}} role={team.role} /**members={team.members}**/ members={[
-                            {
-                                name: "Bibbles",
-                                img: "/assets/Red.png"
-                            },
-                            {
-                                name: "Bibbles",
-                                img: "/assets/Orange.png"
-                            },
-                            {
-                                name: "Bibbles",
-                                img: "/assets/Green.png"
-                            },
-                            {
-                                name: "Bibbles",
-                                img: "/assets/Blue.png"
-                            },
-                            {
-                                name: "Bibbles",
-                                img: "/assets/Purple.png"
-                            },
-                        ]} />
-                    ))
+                    teams.map(team => {
+                        const members = membersData[team.id] || team.members.map(member => ({
+                            name: member.username,
+                            img: ''
+                        }));
+
+                        return (<Team key={team.id} name={team.name} owner={{name: team.owner}} role={team.role} members={members}/>)
+                    })
                 }
             </div>
         </>
