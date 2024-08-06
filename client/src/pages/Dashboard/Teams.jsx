@@ -102,10 +102,30 @@ function Teams() {
             ></Modal> : null}
             <button id="new" onClick={() => {setModalVisible(true)}}><img src="/assets/NewProject.png" alt="New"></img></button>
             <div id="teams">
-
                 {
                     teams.map(team => (
-                        <Team key={team.id} name={team.name} owner={{name: team.owner}} role={team.role} />
+                        <Team key={team.id} name={team.name} owner={{name: team.owner}} role={team.role} /**members={team.members}**/ members={[
+                            {
+                                name: "Bibbles",
+                                img: "/assets/Red.png"
+                            },
+                            {
+                                name: "Bibbles",
+                                img: "/assets/Orange.png"
+                            },
+                            {
+                                name: "Bibbles",
+                                img: "/assets/Green.png"
+                            },
+                            {
+                                name: "Bibbles",
+                                img: "/assets/Blue.png"
+                            },
+                            {
+                                name: "Bibbles",
+                                img: "/assets/Purple.png"
+                            },
+                        ]} />
                     ))
                 }
             </div>

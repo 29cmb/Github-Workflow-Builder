@@ -15,7 +15,8 @@
     background-color: gray;
     border-radius: 100%;
     width: 70px;
-    margin-right: 20px;
+    margin-right: -20px;
+    z-index: 1;
 }
 
 #members p {
@@ -26,9 +27,6 @@
     border-radius: 100%;
     width: 70px;
     height: 70px;
-    margin-left: -50px;
-}
-
-#members img:not(:first-child) {
-    margin-left: -50px;
+    margin-right: -20px;
+    z-index: 2;
 }
