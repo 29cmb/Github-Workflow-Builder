@@ -1,0 +1,34 @@
+#members {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 50px;
+    margin-top: 20px;
+}
+
+#members img, #members p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#members img {
+    background-color: gray;
+    border-radius: 100%;
+    width: 70px;
+    margin-right: 20px;
+}
+
+#members p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    border-radius: 100%;
+    width: 70px;
+    height: 70px;
+    margin-left: -50px;
+}
+
+#members img:not(:first-child) {
+    margin-left: -50px;
+}

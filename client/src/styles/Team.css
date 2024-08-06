@@ -9,7 +9,7 @@
     overflow: hidden;
 }
 
-.team img {
+.team > img {
     width: 50%;
     height: auto;
     border-radius: 0px;
@@ -21,6 +21,7 @@
     top: 50%;
     transform: translateY(-50%);
 }
+
 .team #name,
 .team #owner,
 .team #role {
