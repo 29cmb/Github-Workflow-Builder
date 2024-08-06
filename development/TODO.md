@@ -28,24 +28,32 @@
 - [x] Merge newProject and newTeamProject
 - [x] Merge deleteProject and deleteTeamProject
 
-# Fontend
+# Frontend
 - [x] Home page
 - [x] Signup page
 - [x] Login page
 ## Dashboard
-- [x] Projects page
+- [x] Projects
     - [x] Display projects
     - [x] Create a new project
     - [x] Open project
-- [ ] Teams page
+- [ ] Teams
     - [x] Display teams
     - [x] Make teams
-    - [ ] Display members
+    - [x] Display members
     - [ ] Edit team
-- [ ] Account settings page
+    - [ ] Invitation accept/deny page
+- [ ] Account settings
+    - [ ] Username/Password
+    - [ ] Bio
+    - [ ] Profile Picture
 ## Workflow Builder
 - [ ] Sidebar
 - [ ] Component placing
+- [ ] Compile to yml
+- [ ] Import existing yml
 ## Teams Manager
 - [ ] Edit members
 - [ ] Edit details
+## Misc
+- [ ] Profile page

@@ -5,8 +5,7 @@
     text-align: left;
     position: absolute;
 }
-
-#sidebar button {
+#sidebarButton {
     border: none;
     background-color: rgba(0,0,0,0);
     color: white;
@@ -15,6 +14,24 @@
     width: 90%;
     text-align: left;
     transition: font-size 0.3s ease;
+}
+
+#logout {
+    border: none;
+    background-color: rgba(0,0,0,0);
+    color: rgb(136, 23, 23);
+    font-size: 40px;
+    margin: 10px;
+    width: 90%;
+    text-align: left;
+    transition: all 0.3s ease;
+    position: absolute;
+    bottom: 90px;
+}
+
+#logout:hover {
+    color: rgb(255,23,23);
+    transition: all 0.3s ease;
 }
 
 #sidebar button.selected {
