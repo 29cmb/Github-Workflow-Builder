@@ -36,3 +36,15 @@
     font-size: 32px;
     transition: all 0.3s ease
 }
+
+#account #pfp {
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    border: solid 1px white;
+}
+#account .pfp button {
+    position: absolute;
+    margin-top: 30px;
+    margin-left: 20px;
+}

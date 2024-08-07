@@ -6,19 +6,23 @@ module.exports = (app) => {
         const { uid } = req.params;
         const avatarsDir = path.join(__dirname, "../avatars");
 
-        fs.readdir(avatarsDir, (err, files) => {
-            if (err) {
-                return res.status(500).json({ success: false, message: "Internal server error." });
-            }
-
+        try {
+            const files = await fs.promises.readdir(avatarsDir);
             const profilePicture = files.find(file => file.startsWith(uid + "."));
+
             if (!profilePicture) {
                 return res.status(404).json({ success: false, message: "Profile picture not found." });
             }
 
             const filePath = path.join(avatarsDir, profilePicture);
-            res.sendFile(filePath);
-        });
+            res.sendFile(filePath, (err) => {
+                if (err) {
+                    res.status(500).json({ success: false, message: "Internal server error." });
+                }
+            });
+        } catch (err) {
+            res.status(500).json({ success: false, message: "Internal server error." });
+        }
     });
 
     return {

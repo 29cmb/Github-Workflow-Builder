@@ -11,10 +11,12 @@ function Account() {
 
     const [emailModalOpen, setEmailModalOpen] = useState(false);
     const [emailRevealed, revealEmail] = useState(false)
-
     const [usernameModalOpen, setUsernameModalOpen] = useState(false);
-
     const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+    const [bioModalOpen, setBioModalOpen] = useState(false);
+    const [avatarModalOpen, setAvatarModalOpen] = useState(false);
+
+    const [pfp, setPfp] = useState("");
 
     useEffect(() => {
         fetch("/api/v1/user/credentials", {
@@ -36,7 +38,10 @@ function Account() {
             }
         }).then(response => response.json()).then(data => {
             setProfile(data.user);
-        }).catch(error => console.error("Failed to fetch user:", error));
+            fetch(`/api/v1/user/${data.user.uid}/pfp`).then(data => {
+                setPfp(data.url)
+            })
+        }).catch(error => console.error("Failed to fetch user:", error));        
     }, []);
 
     return (
@@ -212,6 +217,108 @@ function Account() {
                     }}
                 ]}
             ></Modal> : null}
+            {bioModalOpen ? <Modal
+                title="Change Bio"
+                inputs={[
+                    {id: "new", type: "text", placeholder: "New Bio"},
+                ]}
+                buttons={[
+                    {id: "bio", text: "Submit", style: "submit", submit: (bio) => {
+                        setBioModalOpen(false);
+                        fetch("/api/v1/user/profile/update", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                bio
+                            })
+                        }).then(r => r.json()).then(data => {
+                            console.log(data)
+                            if(data.success === true){
+                                toast(`Your bio has been changed successfully! Reloading...`, {
+                                    icon: "✅",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 1500)
+                            } else {
+                                toast(`Something went wrong when trying to change your bio: ${data.message}`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                            }
+                        })
+                    }},
+                    {id: "cancel", text: "Cancel", style: "cancel", submit: () => {
+                        setBioModalOpen(false);
+                    }}
+                ]}
+            ></Modal> : null}
+                       {avatarModalOpen ? <Modal
+                title="Change Picture"
+                inputs={[
+                    { id: "newPfp", type: "file", placeholder: "New Profile Picture" },
+                ]}
+                buttons={[
+                    {
+                        id: "pfp", text: "Submit", style: "submit", submit: (file) => {
+                            setAvatarModalOpen(false);
+                            const formData = new FormData();
+                            formData.append("avatar", file);
+            
+                            fetch("/api/v1/user/avatar/set", {
+                                method: "POST",
+                                body: formData,
+                            }).then(r => r.json()).then(data => {
+                                console.log(data)
+                                if (data.success === true) {
+                                    toast(`Your profile picture has been changed successfully! Reloading...`, {
+                                        icon: "✅",
+                                        style: {
+                                            color: "white",
+                                            backgroundColor: "#333",
+                                            borderRadius: "10px",
+                                            maxWidth: "60%",
+                                        }
+                                    });
+                                    setTimeout(() => {
+                                        window.location.reload()
+                                    }, 1500)                                    
+                                } else {
+                                    toast(`Something went wrong when trying to change your profile picture: ${data.message}`, {
+                                        icon: "❌",
+                                        style: {
+                                            color: "white",
+                                            backgroundColor: "#333",
+                                            borderRadius: "10px",
+                                            maxWidth: "60%",
+                                        }
+                                    });
+                                }
+                            }).catch(error => {
+                                console.log(error)
+                            });
+                        }
+                    },
+                    {
+                        id: "cancel", text: "Cancel", style: "cancel", submit: () => {
+                            setAvatarModalOpen(false);
+                        }
+                    }
+                ]}
+            /> : null}
             <div id="account">
                 <h2 id="accountInfo">Account Information</h2>
                 <p>Email</p>
@@ -232,7 +339,16 @@ function Account() {
                 </p>
                 <h2 id="Appearance">Appearance</h2>
                 <p>Bio</p>
-                <p id="bio">{profile.bio}</p>
+                <p id="bio">
+                    {profile.bio}
+                    <button onClick={() => {setBioModalOpen(true)}}><u>Change</u></button>
+                </p>
+                <p>Profile Picture</p>
+                <p class="pfp">
+                    <img id="pfp" src={pfp} alt="Profile"></img>
+                    <button onClick={() => {setAvatarModalOpen(true)}}><u>Change</u></button>
+                </p>
+               
             </div>
         </>
     );

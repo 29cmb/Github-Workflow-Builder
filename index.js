@@ -7,6 +7,7 @@ const path = require("path")
 const fs = require("fs")
 const db = require("./modules/db.js")
 const logging = require("./config/logging.json")
+const fileUpload = require("express-fileupload")
 
 // Methods
 const app = express()
@@ -26,6 +27,7 @@ app.use(session({
 
 
 app.use(express.json())
+app.use(fileUpload());
 const apiPath = path.join(__dirname, "api")
 const apiFiles = fs.readdirSync(apiPath).filter(file => file.endsWith('.js'))
 
