@@ -43,10 +43,10 @@
     - [x] Display members
     - [ ] Edit team `<- Skip`
     - [ ] Invitation accept/deny page
-- [ ] Account settings
-    - [ ] Username/Password
-    - [ ] Bio
-    - [ ] Profile Picture
+- [x] Account settings
+    - [x] Username/Password
+    - [x] Bio
+    - [x] Profile Picture
 ## Workflow Builder
 - [ ] Sidebar
 - [ ] Component placing

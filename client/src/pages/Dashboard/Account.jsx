@@ -278,10 +278,6 @@ function Account() {
                             setAvatarModalOpen(false);
                             const formData = new FormData();
                             formData.append("avatar", fileInputRef.current.files[0]);
-
-                            for (let [key, value] of formData.entries()) {
-                                console.log(key, value);
-                            }
                             
                             fetch("/api/v1/user/avatar/set", {
                                 method: "POST",
