@@ -21,7 +21,7 @@ function Modal({ title, inputs, buttons }){
                                 );
                             default:
                                 return (
-                                    <input key={index} id={input.id} type={input.type} placeholder={input.placeholder} />
+                                    <input key={index} id={input.id} type={input.type} placeholder={input.placeholder} ref={input.ref || null}/>
                                 );
                         }
                     })();

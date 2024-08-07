@@ -1,31 +1,44 @@
+const multer = require("multer");
 const { authNeeded } = require("../modules/middleware");
-const fileUpload = require("express-fileupload");
 const path = require("path");
-const fs = require("fs");
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, "../avatars"));
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${req.session.user}.png`);
+    }
+});
+
+const upload = multer({
+    storage,
+    limits: { fileSize: 5000000 },
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = /jpeg|jpg|png|gif/;
+        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = allowedTypes.test(file.mimetype);
+
+        if (mimetype && extname) {
+            return cb(null, true);
+        } else {
+            cb(new Error("Only images of type png, jpg, or gif are allowed."));
+        }
+    }
+}).single('avatar');
 
 module.exports = (app) => {
-    app.post("/api/v1/user/avatar/set", authNeeded, async (req, res) => {
-        if (!req.files || Object.keys(req.files).length === 0) {
-            return res.status(400).json({ message: "No files were uploaded." });
-        }
-
-        const avatar = req.files.avatar;
-        const allowedTypes = /jpeg|jpg|png|gif/;
-        const extname = allowedTypes.test(path.extname(avatar.name).toLowerCase());
-        const mimetype = allowedTypes.test(avatar.mimetype);
-
-        if (!extname || !mimetype) {
-            return res.status(400).json({ message: "Only images of type png, jpg, or gif are allowed." });
-        }
-
-        const uploadPath = path.join(__dirname, "../avatars", `${req.session.user}.png`);
-
-        avatar.mv(uploadPath, (err) => {
+    app.post("/api/v1/user/avatar/set", authNeeded, (req, res) => {
+        upload(req, res, (err) => {
+            console.log("Got avatar request");
             if (err) {
-                return res.status(500).json({ message: "Failed to update avatar." });
+                return res.status(400).json({ success: false, message: err.message });
+            }
+            if (!req.file) {
+                return res.status(400).json({ success: false, message: "No files were uploaded." });
             }
 
-            res.status(200).json({ message: "Avatar updated successfully." });
+            res.status(200).json({ success: true, message: "Avatar updated successfully." });
         });
     });
 

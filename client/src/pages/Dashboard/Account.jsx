@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Topbar from "../../components/Topbar";
 import Sidebar from "../../components/Sidebar";
 import "../../styles/Account.css";
@@ -17,6 +17,7 @@ function Account() {
     const [avatarModalOpen, setAvatarModalOpen] = useState(false);
 
     const [pfp, setPfp] = useState("");
+    const fileInputRef = useRef(null);
 
     useEffect(() => {
         fetch("/api/v1/user/credentials", {
@@ -266,23 +267,27 @@ function Account() {
                     }}
                 ]}
             ></Modal> : null}
-                       {avatarModalOpen ? <Modal
+            {avatarModalOpen ? <Modal
                 title="Change Picture"
                 inputs={[
-                    { id: "newPfp", type: "file", placeholder: "New Profile Picture" },
+                    { id: "newPfp", type: "file", placeholder: "New Profile Picture", ref: fileInputRef },
                 ]}
                 buttons={[
                     {
                         id: "pfp", text: "Submit", style: "submit", submit: (file) => {
                             setAvatarModalOpen(false);
                             const formData = new FormData();
-                            formData.append("avatar", file);
-            
+                            formData.append("avatar", fileInputRef.current.files[0]);
+
+                            for (let [key, value] of formData.entries()) {
+                                console.log(key, value);
+                            }
+                            
                             fetch("/api/v1/user/avatar/set", {
                                 method: "POST",
                                 body: formData,
                             }).then(r => r.json()).then(data => {
-                                console.log(data)
+                                console.log(data);
                                 if (data.success === true) {
                                     toast(`Your profile picture has been changed successfully! Reloading...`, {
                                         icon: "✅",
@@ -294,8 +299,8 @@ function Account() {
                                         }
                                     });
                                     setTimeout(() => {
-                                        window.location.reload()
-                                    }, 1500)                                    
+                                        window.location.reload();
+                                    }, 1500);
                                 } else {
                                     toast(`Something went wrong when trying to change your profile picture: ${data.message}`, {
                                         icon: "❌",
@@ -308,7 +313,7 @@ function Account() {
                                     });
                                 }
                             }).catch(error => {
-                                console.log(error)
+                                console.log(error);
                             });
                         }
                     },
