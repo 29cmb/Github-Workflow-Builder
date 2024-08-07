@@ -1,8 +1,8 @@
 const db = require("../modules/db")
-const { authNeeded } = require("../modules/middleware")
+const { authNeeded, writeRateLimit, readRateLimit } = require("../modules/middleware")
 
 module.exports = (app) => {
-    app.post("/api/v1/user/projects/get", authNeeded, async (req, res) => {
+    app.post("/api/v1/user/projects/get", authNeeded, readRateLimit, async (req, res) => {
         var { user } = req.body
         if(((user == undefined || typeof user != "number") && req.session.user != undefined)) user = req.session.user
         if(user == undefined) return res.status(400).json({ success: false, message: "User not provided or not formatted properly" })

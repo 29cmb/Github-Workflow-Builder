@@ -1,9 +1,9 @@
 const db = require("../modules/db")
-const { authNeeded } = require("../modules/middleware")
+const { authNeeded, writeRateLimit } = require("../modules/middleware")
 const limits = require("../config/limits.json")
 
 module.exports = (app) => {
-    app.post("/api/v1/teams/new", authNeeded, async (req, res) => {
+    app.post("/api/v1/teams/new", authNeeded, writeRateLimit, async (req, res) => {
         const teams = await db.collections.teams.find({ oid: req.session.user }).toArray() || []
         if(teams.length >= limits.teamsLimit) return res.status(400).json({ success: false, message: "You've reached the limit of allowed teams!" })
 

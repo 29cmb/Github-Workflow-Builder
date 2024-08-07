@@ -1,9 +1,9 @@
 const db = require("../modules/db")
-const { authNeeded } = require("../modules/middleware")
+const { authNeeded, writeRateLimit } = require("../modules/middleware")
 const limits = require("../config/limits.json")
 
 module.exports = (app) => {
-    app.post("/api/v1/projects/new", authNeeded, async (req, res) => {
+    app.post("/api/v1/projects/new", authNeeded, writeRateLimit, async (req, res) => {
         const { name, description, type, tid } = req.body
         if(
             name == undefined 

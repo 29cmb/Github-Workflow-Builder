@@ -1,8 +1,8 @@
 const db = require("../modules/db")
-const { authNeeded } = require("../modules/middleware")
+const { authNeeded, readRateLimit } = require("../modules/middleware")
 
 module.exports = (app) => {
-    app.get("/api/v1/user/teams", authNeeded, async (req, res) => {
+    app.get("/api/v1/user/teams", authNeeded, readRateLimit, async (req, res) => {
         const teams = await db.collections.teams.find({ members: { $in: [req.session.user] } }).toArray() || []
         await Promise.all(teams.map(async team => {
             const owner = await db.collections.profiles.findOne({ uid: team.oid })

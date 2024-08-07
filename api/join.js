@@ -1,8 +1,8 @@
 const db = require("../modules/db")
-const { authNeeded } = require("../modules/middleware")
+const { authNeeded, writeRateLimit } = require("../modules/middleware")
 
 module.exports = (app) => {
-    app.post("/api/v1/teams/join", authNeeded, async (req, res) => {
+    app.post("/api/v1/teams/join", authNeeded, writeRateLimit, async (req, res) => {
         const { iid } = req.body
         if(iid == undefined || typeof iid != "string") return res.status(400).json({ success: false, message: "TID is invalid or not formatted properly" })
         const invite = await db.collections.invites.findOne({ iid })

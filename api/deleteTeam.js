@@ -1,9 +1,9 @@
 const db = require("../modules/db")
-const { authNeeded } = require("../modules/middleware")
+const { authNeeded, writeRateLimit } = require("../modules/middleware")
 const limits = require("../config/limits.json")
 
 module.exports = (app) => {
-    app.post("/api/v1/teams/delete", authNeeded, async (req, res) => {
+    app.post("/api/v1/teams/delete", authNeeded, writeRateLimit, async (req, res) => {
         const { tid } = req.body
         if(tid == undefined || typeof tid != "number") return res.status(400).json({ success: false, message: "TID not provided or not formatted properly" })
         const team = await db.collections.teams.findOne({ tid })

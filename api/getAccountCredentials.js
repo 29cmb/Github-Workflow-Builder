@@ -1,8 +1,8 @@
 const db = require("../modules/db")
-const { authNeeded } = require("../modules/middleware")
+const { authNeeded, readRateLimit } = require("../modules/middleware")
 
 module.exports = (app) => {
-    app.post("/api/v1/user/credentials", authNeeded, async(req, res) => {
+    app.post("/api/v1/user/credentials", authNeeded, readRateLimit, async(req, res) => {
         try {
             const user = await db.collections.credentials.findOne({ uid: req.session.user })
             if(user == undefined) return res.status(400).json({ success: false, message: "User not found."})

@@ -1,8 +1,8 @@
 const db = require("../modules/db")
-const { authNeeded } = require("../modules/middleware")
+const { authNeeded, writeRateLimit } = require("../modules/middleware")
 
 module.exports = (app) => {
-    app.post("/api/v1/teams/edit", authNeeded, async (req, res) => {
+    app.post("/api/v1/teams/edit", authNeeded, writeRateLimit, async (req, res) => {
         const { tid, name, description } = req.body
         if(
             tid == undefined 

@@ -1,5 +1,5 @@
 const multer = require("multer");
-const { authNeeded } = require("../modules/middleware");
+const { authNeeded, writeRateLimit } = require("../modules/middleware");
 const path = require("path");
 
 const storage = multer.diskStorage({
@@ -28,7 +28,7 @@ const upload = multer({
 }).single('avatar');
 
 module.exports = (app) => {
-    app.post("/api/v1/user/avatar/set", authNeeded, (req, res) => {
+    app.post("/api/v1/user/avatar/set", authNeeded, writeRateLimit, (req, res) => {
         upload(req, res, (err) => {
             console.log("Got avatar request");
             if (err) {

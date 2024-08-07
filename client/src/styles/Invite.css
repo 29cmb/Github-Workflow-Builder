@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    margin: 0;
+    background-color: #0A0A0A;
+    color: white;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 30px;
+    font-style: normal;
+}
+
+h1 {
+    margin-top: 90px;
+}
+
+#content {
+    background-color: #1f1f1f;
+    min-width: 500px;
+    min-height: 300px;
+    max-height: fit-content;
+    max-width: fit-content;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border-radius: 20px;
+    border: 2px solid rgb(58, 58, 58);
+}
+
+#content > p {
+    margin-bottom: 5px;
+}
+
+#content .main {
+    font-size: 40px;
+}
+
+#content .note {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 300;
+}
+
+#content > a {
+    margin-top: 0;
+}

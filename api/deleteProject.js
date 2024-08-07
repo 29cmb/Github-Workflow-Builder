@@ -1,8 +1,8 @@
 const db = require("../modules/db")
-const { authNeeded } = require("../modules/middleware")
+const { authNeeded, writeRateLimit } = require("../modules/middleware")
 
 module.exports = (app) => {
-    app.post("/api/v1/projects/delete", authNeeded, async (req, res) => {
+    app.post("/api/v1/projects/delete", authNeeded, writeRateLimit, async (req, res) => {
         const { pid } = req.body
         if(pid == undefined || typeof pid != "number") return res.status(400).json({ success: false, message: "PID not provided or not formatted properly" })
         const project = await db.collections.projects.findOne({ pid })

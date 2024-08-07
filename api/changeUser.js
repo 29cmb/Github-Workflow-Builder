@@ -1,9 +1,9 @@
 const db = require("../modules/db");
 const { encrypt, decrypt } = require("../modules/encrypt");
-const { authNeeded } = require("../modules/middleware");
+const { authNeeded, writeRateLimit } = require("../modules/middleware");
 
 module.exports = (app) => {
-    app.post("/api/v1/user/update", authNeeded, async (req, res) => {
+    app.post("/api/v1/user/update", authNeeded, writeRateLimit, async (req, res) => {
         var { email, username, password, confirmation } = req.body
         const user = await db.collections.credentials.findOne({ uid: req.session.user })
         if(user == undefined) return res.status(400).json({ success: false, message: "You are not logged in."})

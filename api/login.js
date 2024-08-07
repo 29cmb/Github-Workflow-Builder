@@ -1,9 +1,9 @@
 const db = require("../modules/db.js");
 const { decrypt } = require("../modules/encrypt.js");
-const { redirectIfAuth } = require("../modules/middleware.js");
+const { redirectIfAuth, writeRateLimit } = require("../modules/middleware.js");
 
 module.exports = (app) => {
-    app.post("/api/v1/user/login", redirectIfAuth, async (req, res) => {
+    app.post("/api/v1/user/login", redirectIfAuth, writeRateLimit, async (req, res) => {
         const { username, password } = req.body
         if(
             username == undefined 

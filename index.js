@@ -7,11 +7,12 @@ const path = require("path")
 const fs = require("fs")
 const db = require("./modules/db.js")
 const logging = require("./config/logging.json")
+const rateLimit = require("express-rate-limit")
 
 // Methods
 const app = express()
 db.init()
-
+app.set("trust proxy", 1)
 app.use(session({
     secret: process.env.COOKIE_SIGNING_SECRET,
     resave: false,
@@ -22,8 +23,6 @@ app.use(session({
         collection: process.env.SESSIONSCOLLECTION
     })
 }))
-
-
 
 app.use(express.json())
 const apiPath = path.join(__dirname, "api")

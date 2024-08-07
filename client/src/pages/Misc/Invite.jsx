@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/Loading';
+import "../../styles/Invite.css"
 
 const Invite = () => {
   const { id } = useParams();
@@ -35,7 +36,11 @@ const Invite = () => {
   if(data.success === false){
     return (<>
         <h1>Error</h1>
-        <p>{data.message}</p>
+        <div id="content">
+            <p class="main">{data.message}</p>
+            <p class="note"><i>Invites expire after 7 days</i></p>
+            <a href="/dashboard">Return to Dashboard</a>
+        </div>
     </>)
   }
 
