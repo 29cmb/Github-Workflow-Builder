@@ -36,7 +36,7 @@ const Invite = () => {
   if(data.success === false){
     return (<>
         <h1>Error</h1>
-        <div id="content">
+        <div id="content" class="error">
             <p class="main">{data.message}</p>
             <p class="note"><i>Invites expire after 7 days</i></p>
             <a href="/dashboard">Return to Dashboard</a>

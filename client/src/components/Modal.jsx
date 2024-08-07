@@ -21,7 +21,7 @@ function Modal({ title, inputs, buttons }){
                                 );
                             default:
                                 return (
-                                    <input key={index} id={input.id} type={input.type} placeholder={input.placeholder} ref={input.ref || null}/>
+                                    <input key={index} id={input.id} type={input.type} disabled={input.disabled || false} placeholder={input.placeholder} ref={input.ref || null}/>
                                 );
                         }
                     })();
@@ -30,10 +30,8 @@ function Modal({ title, inputs, buttons }){
                     switch(button.style){
                         case "submit":
                             return <button onClick={() => {submit(button)}} className={button.style}>{button.text}</button>;
-                        case "cancel":
-                            return <button onClick={() => button.submit()} className={button.style}>{button.text}</button>;
                         default:
-                            return <button className={button.style}>{button.text}</button>;
+                            return <button onClick={() => button.submit()} className={button.style}>{button.text}</button>;
                     }
                 })}
             </div>

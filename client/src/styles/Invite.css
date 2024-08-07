@@ -19,7 +19,7 @@ h1 {
 #content {
     background-color: #1f1f1f;
     min-width: 500px;
-    min-height: 300px;
+    min-height: 100px;
     max-height: fit-content;
     max-width: fit-content;
     padding: 10px;
@@ -30,8 +30,17 @@ h1 {
     border: 2px solid rgb(58, 58, 58);
 }
 
+#content.error {
+    background-color: #490000;
+    border: 2px solid rgb(99, 24, 24);
+}
+
 #content > p {
     margin-bottom: 5px;
+}
+
+#content > a {
+    margin-bottom: 40px;
 }
 
 #content .main {

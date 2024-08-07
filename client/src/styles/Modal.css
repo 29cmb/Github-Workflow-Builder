@@ -67,6 +67,10 @@
     background-color: #313131;
 }
 
+#modalContent button.info {
+    background-color: rgb(15, 99, 255);
+}
+
 #modalContent button:hover {
     font-size: 45px;
     height: 75px;

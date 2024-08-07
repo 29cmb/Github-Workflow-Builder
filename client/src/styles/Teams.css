@@ -1,6 +1,6 @@
 #teams {
-    display: flex; /* Use Flexbox */
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    display: flex;
+    flex-wrap: wrap;
     position: absolute;
     top: 9.8vh;
     left: 20%;

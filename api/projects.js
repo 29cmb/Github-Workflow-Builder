@@ -1,5 +1,5 @@
 const db = require("../modules/db")
-const { authNeeded, writeRateLimit, readRateLimit } = require("../modules/middleware")
+const { authNeeded, readRateLimit } = require("../modules/middleware")
 
 module.exports = (app) => {
     app.post("/api/v1/user/projects/get", authNeeded, readRateLimit, async (req, res) => {
