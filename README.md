@@ -1,6 +1,9 @@
 ![Overflow](client/public/assets/FullLogo.png)
 
-A drag-and-drop system for creating github workflows designed in Figma and implemented with nodejs and react!
+A drag-and-drop system for creating github workflows! 
+
+> [!NOTE]\
+> All design files for figma can be found in the Designs directory!
 
 I made this because making workflows was always a tedious task for me to do efficiently and accurately
 
