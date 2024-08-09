@@ -36,7 +36,7 @@ module.exports = (app) => {
 
         const user = await db.collections.profiles.findOne({ uid })
         if(user == undefined) return res.status(400).json({ success: false, message: "User does not exist" })
-        if(!team.members.contains(user.uid)) return res.status(400).json({ success: false, message: "User is not in the team" })
+        if(!team.members.includes(user.uid)) return res.status(400).json({ success: false, message: "User is not in the team" })
         if(user.uid == req.session.user) return res.status(400).json({ success: false, message: "You cannot kick yourself" })
 
         var isUserManager = false

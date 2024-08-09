@@ -68,10 +68,10 @@ function Team({ tid, name, owner, role, members }) {
                 title={"Edit Members"}
                 inputs={[
                    {type: "combobox", id: "member", options: members.map((m) => m.name)},
-                   {type: "combobox", id: "role", options: ["Member", "Manager"]}
+                   ...(role === "Owner" ? [{type: "combobox", id: "role", options: ["Member", "Manager"]}] : [])
                 ]}
                 buttons = {[
-                    {text: "Save", style: "submit", sendArgs: true, submit: (username, role) => {
+                    ...(role === "Owner" ? [{text: "Save", style: "submit", sendArgs: true, submit: (username, role) => {
                         openEditMembersModal(false)
                         fetch(`/api/v1/user/username/${username}`).then(r => r.json()).then(data => {
                             if(data.success === true){
@@ -125,18 +125,70 @@ function Team({ tid, name, owner, role, members }) {
                             }
                         })
                         console.log(username, role)
-                    }},
-                    {text: "Kick", style: "danger", submit: () => {
-                        // TODO: Kick
+                    }}]: []),
+                    {text: "Kick", style: "danger", sendArgs: true, submit: (username, _) => {
+                        openEditMembersModal(false)
+                        fetch(`/api/v1/user/username/${username}`).then(r => r.json()).then(data => {
+                            console.log(data)
+                            if(data.success === true){
+                                console.log(data)
+                                fetch("/api/v1/teams/kick", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        tid,
+                                        uid: data.user.uid
+                                    })
+                                }).then(r => r.json()).then(data2 => {
+                                    if(data2.success === true){
+                                        toast(`Kicked member successfully! Reloading...`, {
+                                            icon: "✅",
+                                            style: {
+                                                color: "white",
+                                                backgroundColor: "#333",
+                                                borderRadius: "10px",
+                                                maxWidth: "60%",
+                                            }
+                                        });
+                                        setTimeout(() => {
+                                            window.location.reload()
+                                        }, 1000)
+                                    } else {
+                                        toast(`An error occured while kicking this member: ${data2.message}`, {
+                                            icon: "❌",
+                                            style: {
+                                                color: "white",
+                                                backgroundColor: "#333",
+                                                borderRadius: "10px",
+                                                maxWidth: "60%",
+                                            }
+                                        });
+                                    }
+                                })
+                            } else {
+                                toast(`An error occured while editing your team: ${data.message}`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                            }
+                        })
                     }},
                     {text: "Invite new user", style: "info", submit: () => {
-                        // TODO: Kick
+                        // TODO: Invite modal
                     }},
                     {text: "Cancel", style: "cancel", submit: () => {
                         openEditMembersModal(false)
                         openEditModal(true)
                     }}
                 ]}
+                // TODO: Leave team
             />}
             <div className="team">
                 <button id="settingsLogo" onClick={() => {openEditModal(true)}}><img src="/assets/Settings.png" alt="Settings"></img></button>
