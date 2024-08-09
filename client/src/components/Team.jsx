@@ -72,6 +72,7 @@ function Team({ tid, name, owner, role, members }) {
                 ]}
                 buttons = {[
                     {text: "Save", style: "submit", sendArgs: true, submit: (username, role) => {
+                        openEditMembersModal(false)
                         fetch(`/api/v1/user/username/${username}`).then(r => r.json()).then(data => {
                             if(data.success === true){
                                 console.log(data)

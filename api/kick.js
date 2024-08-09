@@ -37,6 +37,27 @@ module.exports = (app) => {
         const user = await db.collections.profiles.findOne({ uid })
         if(user == undefined) return res.status(400).json({ success: false, message: "User does not exist" })
         if(!team.members.contains(user.uid)) return res.status(400).json({ success: false, message: "User is not in the team" })
+        if(user.uid == req.session.user) return res.status(400).json({ success: false, message: "You cannot kick yourself" })
+
+        var isUserManager = false
+        if (team.roles && Array.isArray(team.roles)) {
+            [2, 3].forEach(rank => {
+                const role = team.roles.find(r => r.rank === rank);
+                if (role) {
+                    role.users.forEach(user => {
+                        if (user === user.uid) {
+                            isUserManager = true;
+                        }
+                    });
+                } else {
+                    console.error(`Role with rank ${rank} not found`);
+                }
+            });
+        } else {
+            console.error("Roles are not defined or not an array");
+        }
+
+        if(isUserManager && team.oid != req.session.user) return res.status(400).json({ success: false, message: "You cannot kick a manager" })
         
         await db.collections.teams.updateOne(
             { tid },
