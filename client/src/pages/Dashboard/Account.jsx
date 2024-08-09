@@ -61,7 +61,7 @@ function Account() {
                     {id: "new", type: "text", placeholder: "New Email"},
                 ]}
                 buttons={[
-                    {id: "email", text: "Submit", style: "submit", submit: (email) => {
+                    {id: "email", text: "Submit", sendArgs: true, style: "submit", submit: (email) => {
                         setEmailModalOpen(false);
                         fetch("/api/v1/user/update", {
                             method: "POST",
@@ -110,7 +110,7 @@ function Account() {
                     {id: "new", type: "text", placeholder: "New Username"},
                 ]}
                 buttons={[
-                    {id: "username", text: "Submit", style: "submit", submit: (username) => {
+                    {id: "username", text: "Submit", sendArgs: true, style: "submit", submit: (username) => {
                         setUsernameModalOpen(false);
                         fetch("/api/v1/user/update", {
                             method: "POST",
@@ -161,7 +161,7 @@ function Account() {
                     {id: "confNew", type: "password", placeholder: "Confirm New Password"},
                 ]}
                 buttons={[
-                    {id: "email", text: "Submit", style: "submit", submit: (oldPass, newPass, confirmNewPass) => {
+                    {id: "email", text: "Submit", style: "submit", sendArgs: true, submit: (oldPass, newPass, confirmNewPass) => {
                         if(newPass !== confirmNewPass){
                             toast(`Passwords do not match!`, {
                                 icon: "❌",
@@ -224,7 +224,7 @@ function Account() {
                     {id: "new", type: "text", placeholder: "New Bio"},
                 ]}
                 buttons={[
-                    {id: "bio", text: "Submit", style: "submit", submit: (bio) => {
+                    {id: "bio", text: "Submit", style: "submit", sendArgs: true, submit: (bio) => {
                         setBioModalOpen(false);
                         fetch("/api/v1/user/profile/update", {
                             method: "POST",
@@ -274,7 +274,7 @@ function Account() {
                 ]}
                 buttons={[
                     {
-                        id: "pfp", text: "Submit", style: "submit", submit: (file) => {
+                        id: "pfp", text: "Submit", style: "submit", submit: () => {
                             setAvatarModalOpen(false);
                             const formData = new FormData();
                             formData.append("avatar", fileInputRef.current.files[0]);

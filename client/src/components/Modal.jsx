@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/Modal.css";
-import Combobox from "react-widgets/Combobox";
 
 function Modal({ title, inputs, buttons }){
     const submit = (button) => {
@@ -16,7 +15,7 @@ function Modal({ title, inputs, buttons }){
                         switch(input.type) {
                             case "combobox":
                                 return (
-                                    <select>
+                                    <select id={input.id} defaultValue={input.default || input.options[0]}>
                                         {input.options.map((option, index) => (
                                             <option value={option} key={index}>{option}</option>
                                         ))}
@@ -29,14 +28,18 @@ function Modal({ title, inputs, buttons }){
                         }
                     })();
                 })}
-                {buttons.map(button => {
-                    switch(button.style){
-                        case "submit":
-                            return <button id="modalButton" onClick={() => {submit(button)}} className={button.style}>{button.text}</button>;
-                        default:
-                            return <button id="modalButton" onClick={() => button.submit()} className={button.style}>{button.text}</button>;
-                    }
-                })}
+                {buttons.map((button, index) => (
+                    <button
+                        key={index}
+                        id="modalButton"
+                        onClick={() => {
+                            button.sendArgs === true ? submit(button) : button.submit();
+                        }}
+                        className={button.style}
+                    >
+                        {button.text}
+                    </button>
+                ))}
             </div>
         </div>
     )

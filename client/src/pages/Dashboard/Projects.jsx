@@ -56,7 +56,7 @@ function Projects() {
                     {id: "projectDesc", type: "text", placeholder: "Project Description"},
                 ]}
                 buttons={[
-                    {id: "create", text: "Create", style: "submit", submit: (name, description) => {
+                    {id: "create", text: "Create", style: "submit", sendArgs: true, submit: (name, description) => {
                         setModalVisible(false);
                         toast("Creating project...", {icon: "🚀", style: {color: "white", backgroundColor: "#333", padding: "10px", borderRadius: "10px"}});
                         fetch("/api/v1/projects/new", {

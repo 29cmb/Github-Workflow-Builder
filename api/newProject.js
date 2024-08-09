@@ -24,7 +24,7 @@ module.exports = (app) => {
 
         if(type == "team"){
             const team = await db.collections.teams.findOne({ tid })
-            if(!(req.session.user in team.members)) return res.status(403).json({ success: false, message: "You do not have permission to create a project under this team" })
+            if(!team.members.contains(req.session.user)) return res.status(403).json({ success: false, message: "You do not have permission to create a project under this team" })
         }
 
         const project = {

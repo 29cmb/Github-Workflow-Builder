@@ -13,7 +13,7 @@ module.exports = (app) => {
 
         const team = await db.collections.teams.findOne({ tid })
         if(team == undefined) return res.status(400).json({ success: false, message: "Team does not exist" })
-        if(!(req.session.user in team.members)) return res.status(400).json({ success: false, message: "You are not in this team" })
+        if(!team.members.contains(req.session.user)) return res.status(400).json({ success: false, message: "You are not in this team" })
         if(team.oid == req.session.user) return res.status(400).json({ success: false, message: "You cannot leave your own team!" })
 
         await db.collections.teams.updateOne(

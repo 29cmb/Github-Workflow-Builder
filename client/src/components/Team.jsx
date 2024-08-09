@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 function Team({ tid, name, owner, role, members }) {
     const [editModalOpen, openEditModal] = useState(false)
     const [editMembersModalOpen, openEditMembersModal] = useState(false)
+
     return (
         <>
             <Toaster />
@@ -21,7 +22,7 @@ function Team({ tid, name, owner, role, members }) {
                         openEditModal(false)
                         openEditMembersModal(true)
                     }}] : []),
-                    ...(role === "Owner" ? [{text: "Save", style: "submit", submit: (name, description) => {
+                    ...(role === "Owner" ? [{text: "Save", style: "submit", sendArgs: true, submit: (name, description) => {
                         openEditModal(false)
                         fetch("/api/v1/teams/edit", {
                             method: "POST",
@@ -66,9 +67,70 @@ function Team({ tid, name, owner, role, members }) {
             {editMembersModalOpen && <Modal
                 title={"Edit Members"}
                 inputs={[
-                   {type: "combobox", options: ["Add Member", "Remove Member"], onChange: (e) => {}}
+                   {type: "combobox", id: "member", options: members.map((m) => m.name)},
+                   {type: "combobox", id: "role", options: ["Member", "Manager"]}
                 ]}
                 buttons = {[
+                    {text: "Save", style: "submit", sendArgs: true, submit: (username, role) => {
+                        fetch(`/api/v1/user/username/${username}`).then(r => r.json()).then(data => {
+                            if(data.success === true){
+                                console.log(data)
+                                fetch("/api/v1/teams/rank", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        tid,
+                                        uid: data.user.uid,
+                                        rank: role === "Manager" ? 1 : 0
+                                    })
+                                }).then(r => r.json()).then(data2 => {
+                                    if(data2.success === true){
+                                        toast(`Saved member successfully! Reloading...`, {
+                                            icon: "✅",
+                                            style: {
+                                                color: "white",
+                                                backgroundColor: "#333",
+                                                borderRadius: "10px",
+                                                maxWidth: "60%",
+                                            }
+                                        });
+                                        setTimeout(() => {
+                                            window.location.reload()
+                                        }, 1000)
+                                    } else {
+                                        toast(`An error occured while editing your team: ${data2.message}`, {
+                                            icon: "❌",
+                                            style: {
+                                                color: "white",
+                                                backgroundColor: "#333",
+                                                borderRadius: "10px",
+                                                maxWidth: "60%",
+                                            }
+                                        });
+                                    }
+                                })
+                            } else {
+                                toast(`An error occured while editing your team: ${data.message}`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                            }
+                        })
+                        console.log(username, role)
+                    }},
+                    {text: "Kick", style: "danger", submit: () => {
+                        // TODO: Kick
+                    }},
+                    {text: "Invite new user", style: "info", submit: () => {
+                        // TODO: Kick
+                    }},
                     {text: "Cancel", style: "cancel", submit: () => {
                         openEditMembersModal(false)
                         openEditModal(true)

@@ -77,7 +77,7 @@ function Teams() {
                     {id: "teamDesc", type: "text", placeholder: "Team Description"},
                 ]}
                 buttons={[
-                    {id: "create", text: "Create", style: "submit", submit: (name, description) => {
+                    {id: "create", text: "Create", style: "submit", sendArgs: true, submit: (name, description) => {
                         setModalVisible(false)
                         fetch("/api/v1/teams/new", {
                             method: "POST",

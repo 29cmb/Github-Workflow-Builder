@@ -11,6 +11,7 @@ module.exports = (app) => {
             || typeof uid != "number" 
             || typeof rank != "number"
             || rank > 2
+            || rank < 0
         ) return res.status(400).json({ success: false, message: "TID, UID, or Rank not provided or not formatted properly" }); // that is infact a semicolon
         
         const team = await db.collections.teams.findOne({ tid })
@@ -19,8 +20,8 @@ module.exports = (app) => {
 
         const user = await db.collections.profiles.findOne({ uid })
         if(user == undefined) return res.status(400).json({ success: false, message: "User does not exist" });
-        if(!(user.uid in team.members)) return res.status(400).json({ success: false, message: "User is not in the team" })
-        if(user == req.session.user) return res.status(400).json({ success: false, message: "You cannot change your own rank" })
+        if(!team.members.includes(uid)) return res.status(400).json({ success: false, message: "User is not in the team" })
+        if(user.uid == req.session.user) return res.status(400).json({ success: false, message: "You cannot change your own rank" })
         
         await db.collections.teams.updateOne({ tid },
             {
