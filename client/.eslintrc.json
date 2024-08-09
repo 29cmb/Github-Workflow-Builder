@@ -1,0 +1,21 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends":[
+      "react-app",
+      "react-app/jest"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "plugins": ["react", "react-hooks"],
+    "rules": {
+      "no-var": "off"
+    }
+}  

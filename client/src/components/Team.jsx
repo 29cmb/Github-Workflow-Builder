@@ -2,11 +2,13 @@ import React, {useState} from "react";
 import "../styles/Team.css";
 import MemberDisplay from "./MemberDisplay";
 import Modal from "./Modal";
+import toast, { Toaster } from "react-hot-toast";
 
-function Team({ name, owner, role, members }) {
+function Team({ tid, name, owner, role, members }) {
     const [editModalOpen, openEditModal] = useState(false)
     return (
         <>
+            <Toaster />
             {editModalOpen && <Modal
                 title={"Edit Team"}
                 inputs={[
@@ -18,9 +20,44 @@ function Team({ name, owner, role, members }) {
                         openEditModal(false)
                         // TODO: Make another modal for editing members
                     }}] : []),
-                    {text: "Save", style: "submit", submit: (name) => {
+                    {text: "Save", style: "submit", submit: (name, description) => {
                         openEditModal(false)
-                        // TODO: Make saving work
+                        fetch("/api/v1/teams/edit", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                tid,
+                                name,
+                                description
+                            })
+                        }).then(r => r.json()).then(data => {
+                            if(data.success === true){
+                                toast(`Your team has been edited successfully! Reloading...`, {
+                                    icon: "✅",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 1000)
+                            } else {
+                                toast(`An error occured while editing your team: ${data.message}`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                            }
+                        })
                     }},
                     {text: "Cancel", style: "cancel", submit: () => {openEditModal(false)}}
                 ]}

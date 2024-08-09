@@ -129,7 +129,7 @@ function Teams() {
                             img: ''
                         }));
 
-                        return (<Team key={team.id} name={team.name} owner={{name: team.owner}} role={team.role} members={members}/>)
+                        return (<Team key={team.tid} tid={team.tid} name={team.name} owner={{name: team.owner}} role={team.role} members={members}/>)
                     })
                 }
             </div>

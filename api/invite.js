@@ -17,14 +17,23 @@ module.exports = (app) => {
         if(invite != undefined && Date.now() < invite.expiration) return res.status(400).json({ success: false, message: "User already has a pending invite" })
 
         var isManager = false
-        [2,3].forEach(rnk => {
-            team.roles.find(r => r.rank === rnk).users.forEach((u) => {
-                if(u == req.session.user){
-                    isManager = true
+        if (team.roles && Array.isArray(team.roles)) {
+            [2, 3].forEach(rank => {
+                const role = team.roles.find(r => r.rank === rank);
+                if (role) {
+                    role.users.forEach(user => {
+                        if (user === req.session.user) {
+                            isManager = true;
+                        }
+                    });
+                } else {
+                    console.error(`Role with rank ${rank} not found`);
                 }
-            })
-        })
-
+            });
+        } else {
+            console.error("Roles are not defined or not an array");
+        }
+        
         if(isManager == false) return res.status(400).json({ success: false, message: "You are not authorized to invite people to this team!" })
 
         await db.collections.invites.insertOne({
