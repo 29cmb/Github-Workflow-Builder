@@ -30,8 +30,8 @@
     gap: 10px;
 }
 
-#modalContent input,
-#modalContent button {
+#modalContent .modalInput,
+#modalContent #modalButton {
     font-size: 30px;
     width: 90%;
 }
@@ -48,7 +48,7 @@
     z-index: 1001;
 }
 
-#modalContent button {
+#modalContent #modalButton {
     color: white;
     border: none;
     border-radius: 15px;
@@ -59,20 +59,38 @@
     transition: all 0.25s ease;
 }
 
-#modalContent button.submit {
+#modalContent #modalButton.submit {
     background-color: #2AB941;
 }
 
-#modalContent button.cancel {
+#modalContent #modalButton.cancel {
     background-color: #313131;
 }
 
-#modalContent button.info {
+#modalContent #modalButton.info {
     background-color: rgb(15, 99, 255);
 }
 
-#modalContent button:hover {
+#modalContent #modalButton.danger {
+    background-color: #FF0000;
+}
+
+#modalContent #modalButton:hover {
     font-size: 45px;
     height: 75px;
     width: 92%;
+}   
+
+#modalContent select {
+    background-color: #0A0A0A;
+    border: none;
+    border-radius: 10px;
+    margin: 0px;
+    padding: 20px;
+    font-size: 40px;
+    height: 15%;
+    color: white;
+    position: relative;
+    z-index: 1001;
+    width: 90%;
 }

@@ -6,21 +6,22 @@ import toast, { Toaster } from "react-hot-toast";
 
 function Team({ tid, name, owner, role, members }) {
     const [editModalOpen, openEditModal] = useState(false)
+    const [editMembersModalOpen, openEditMembersModal] = useState(false)
     return (
         <>
             <Toaster />
             {editModalOpen && <Modal
                 title={"Edit Team"}
                 inputs={[
-                    ...(role === "Owner" ? [{ id: "name", type: "text", placeholder: "Team Name" }] : [{ id: "name", type: "text", placeholder: "Team Name (❌)", disabled: true }]),
-                    ...(role === "Owner" ? [{ id: "description", type: "text", placeholder: "Team Description" }] : [{ id: "description", type: "text", placeholder: "Team Description (❌)", disabled: true }]),
+                    ...(role === "Owner" ? [{ id: "name", type: "text", placeholder: "Team Name" }] : []),
+                    ...(role === "Owner" ? [{ id: "description", type: "text", placeholder: "Team Description" }] : []),
                 ]}
                 buttons = {[
                     ...(role === "Owner" || role === "Manager" ? [{text: "Edit Members", style: "info", submit: () => {
                         openEditModal(false)
-                        // TODO: Make another modal for editing members
+                        openEditMembersModal(true)
                     }}] : []),
-                    {text: "Save", style: "submit", submit: (name, description) => {
+                    ...(role === "Owner" ? [{text: "Save", style: "submit", submit: (name, description) => {
                         openEditModal(false)
                         fetch("/api/v1/teams/edit", {
                             method: "POST",
@@ -58,8 +59,20 @@ function Team({ tid, name, owner, role, members }) {
                                 });
                             }
                         })
-                    }},
+                    }}] : []),
                     {text: "Cancel", style: "cancel", submit: () => {openEditModal(false)}}
+                ]}
+            />}
+            {editMembersModalOpen && <Modal
+                title={"Edit Members"}
+                inputs={[
+                   {type: "combobox", options: ["Add Member", "Remove Member"], onChange: (e) => {}}
+                ]}
+                buttons = {[
+                    {text: "Cancel", style: "cancel", submit: () => {
+                        openEditMembersModal(false)
+                        openEditModal(true)
+                    }}
                 ]}
             />}
             <div className="team">

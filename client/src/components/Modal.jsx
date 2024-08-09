@@ -1,7 +1,6 @@
 import React from "react";
 import "../styles/Modal.css";
-// eslint-disable-next-line no-unused-vars
-import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react'
+import Combobox from "react-widgets/Combobox";
 
 function Modal({ title, inputs, buttons }){
     const submit = (button) => {
@@ -17,11 +16,15 @@ function Modal({ title, inputs, buttons }){
                         switch(input.type) {
                             case "combobox":
                                 return (
-                                    <></> // TODO: use combobox
+                                    <select>
+                                        {input.options.map((option, index) => (
+                                            <option value={option} key={index}>{option}</option>
+                                        ))}
+                                    </select>
                                 );
                             default:
                                 return (
-                                    <input key={index} id={input.id} type={input.type} disabled={input.disabled || false} placeholder={input.placeholder} ref={input.ref || null}/>
+                                    <input key={index} id={input.id} class="modalInput" type={input.type} disabled={input.disabled || false} placeholder={input.placeholder} ref={input.ref || null}/>
                                 );
                         }
                     })();
@@ -29,9 +32,9 @@ function Modal({ title, inputs, buttons }){
                 {buttons.map(button => {
                     switch(button.style){
                         case "submit":
-                            return <button onClick={() => {submit(button)}} className={button.style}>{button.text}</button>;
+                            return <button id="modalButton" onClick={() => {submit(button)}} className={button.style}>{button.text}</button>;
                         default:
-                            return <button onClick={() => button.submit()} className={button.style}>{button.text}</button>;
+                            return <button id="modalButton" onClick={() => button.submit()} className={button.style}>{button.text}</button>;
                     }
                 })}
             </div>
