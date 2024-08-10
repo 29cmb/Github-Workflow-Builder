@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "../styles/Team.css";
 import MemberDisplay from "./MemberDisplay";
 import Modal from "./Modal";
@@ -8,6 +8,29 @@ function Team({ tid, name, owner, role, members }) {
     const [editModalOpen, openEditModal] = useState(false)
     const [editMembersModalOpen, openEditMembersModal] = useState(false)
     const [inviteUserModalOpen, openInviteUserModal] = useState(false)
+    const [pendingInvitesModalOpen, openPendingInvitesModal] = useState(false)
+    const [pendingInvites, setPendingInvites] = useState([])
+
+    useEffect(() => {
+        if(role === "Manager" || role === "Owner"){
+            fetch(`/api/v1/team/${tid}/invites`).then(r => r.json()).then(data => {
+                if(data.success === true){
+                    setPendingInvites(data.invites)
+                    console.log(data.invites)
+                } else {
+                    toast(`An error occured while fetching your team's invites: ${data.message}`, {
+                        icon: "❌",
+                        style: {
+                            color: "white",
+                            backgroundColor: "#333",
+                            borderRadius: "10px",
+                            maxWidth: "60%",
+                        }
+                    });
+                }
+            })
+        }
+    }, [role, tid])
 
     return (
         <>
@@ -265,7 +288,7 @@ function Team({ tid, name, owner, role, members }) {
                             }
                         })
                     }},
-                    {text: "Invite new user", style: "info", submit: () => {
+                    {text: "Invites", style: "info", submit: () => {
                         openEditMembersModal(false)
                         openInviteUserModal(true)
                     }},
@@ -274,7 +297,6 @@ function Team({ tid, name, owner, role, members }) {
                         openEditModal(true)
                     }}
                 ]}
-                // TODO: Leave team
             />}
             {inviteUserModalOpen && <Modal
                 title={"Invite User"}
@@ -299,7 +321,7 @@ function Team({ tid, name, owner, role, members }) {
                                     })
                                 }).then(r => r.json()).then(data2 => {
                                     if(data2.success === true){
-                                        toast(`Invited user successfully!`, {
+                                        toast(`Invited user successfully! Reloading...`, {
                                             icon: "✅",
                                             style: {
                                                 color: "white",
@@ -308,6 +330,9 @@ function Team({ tid, name, owner, role, members }) {
                                                 maxWidth: "60%",
                                             }
                                         });
+                                        setTimeout(() => {
+                                            window.location.reload()
+                                        }, 1000)
                                     } else {
                                         toast(`An error occured while inviting this user: ${data2.message}`, {
                                             icon: "❌",
@@ -333,12 +358,82 @@ function Team({ tid, name, owner, role, members }) {
                             }
                         })
                     }},
+                    {text: "Pending Invites", style: "info", submit: () => {
+                        openInviteUserModal(false)
+                        openPendingInvitesModal(true)
+                    }},
                     {text: "Cancel", style: "cancel", submit: () => {
                         openInviteUserModal(false)
                         openEditMembersModal(true)
                     }}
                 ]}
             />}
+            {pendingInvitesModalOpen && <Modal
+                    title={"Pending Invites"}
+                    inputs={[
+                        {type: "combobox", id: "invite", options: pendingInvites.map(i => i.user.username)}
+                    ]}
+                    buttons = {[
+                        {text: "Remove Invite", style: "danger", sendArgs: true, submit: (username) => {
+                            if(pendingInvites.length === 0) return;
+                            openPendingInvitesModal(false)
+                            fetch(`/api/v1/user/username/${username}`).then(r => r.json()).then(data => {
+                                if(data.success){
+                                    fetch("/api/v1/team/invite/cancel", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify({
+                                            tid,
+                                            uid: data.user.uid
+                                        })
+                                    }).then(r => r.json()).then(data2 => {
+                                        if(data2.success){
+                                            toast(`Invite removed successfully! Reloading...`, {
+                                                icon: "✅",
+                                                style: {
+                                                    color: "white",
+                                                    backgroundColor: "#333",
+                                                    borderRadius: "10px",
+                                                    maxWidth: "60%",
+                                                }
+                                            });
+                                            setTimeout(() => {
+                                                window.location.reload()
+                                            }, 1000)
+                                        } else {
+                                            toast(`An error occured while removing the invite: ${data2.message}`, {
+                                                icon: "❌",
+                                                style: {
+                                                    color: "white",
+                                                    backgroundColor: "#333",
+                                                    borderRadius: "10px",
+                                                    maxWidth: "60%",
+                                                }
+                                            });
+                                        }
+                                    })
+                                }
+                            }).catch(e => {
+                                toast(`An error occured while removing the invite: ${e}`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                            })
+                        }},
+                        {text: "Cancel", style: "cancel", submit: () => {
+                            openPendingInvitesModal(false)
+                            openInviteUserModal(true)
+                        }}
+                    ]}
+                />
+            }
             <div className="team">
                 <button id="settingsLogo" onClick={() => {openEditModal(true)}}><img src="/assets/Settings.png" alt="Settings"></img></button>
                 <img src="/assets/FullLogo.png" alt="Team" id="teamLogo"></img>

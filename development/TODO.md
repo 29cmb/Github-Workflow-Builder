@@ -47,7 +47,8 @@
         - [x] Edit member roles
         - [x] Invite members
         - [ ] Pending invites page
-        - [ ] Leave team
+        - [x] Leave team
+        - [x] Delete team
     - [x] Invitation accept/deny page
 - [x] Account settings
     - [x] Username/Password
@@ -55,8 +56,16 @@
     - [x] Profile Picture
 ## Workflow Builder
 - [ ] Sidebar
+    - [ ] Components
+    - [ ] Templates
 - [ ] Component placing
+- [ ] Camera moving
+- [ ] Connecting components
 - [ ] Compile to yml
 - [ ] Import existing yml
-## Misc
+
+# Second update
 - [ ] Profile page
+- [ ] 2FA
+- [ ] Github login
+- [ ] Better confirmation popup
