@@ -6,7 +6,7 @@ A drag-and-drop system for creating github workflows! Definitely my biggest proj
 I made this because making workflows was always a tedious task for me to do efficiently and accurately, but with Overflow, the task of making github workflows is easier than ever with our visual-based system.
 
 > [!WARNING]\
-> Overflow is a work in progress, and a todo list can be found [here](./development/TODO.md)
+> Overflow is a work in progress and is made by a singular person (me), don't expect extremely frequent updates, and a todo list can be found [here](./development/TODO.md)
 
 - [x] Design
 - [x] Backend
@@ -17,4 +17,4 @@ I made this because making workflows was always a tedious task for me to do effi
 > All the figma design files for the website can be found in the Designs directory!
 
 ## Contributions
-Contributions are accepted! If you find any issues put them in the issues tab or open a pull request!
+Contributions are accepted! If you find any issues, put them in the issues tab or open a pull request!
