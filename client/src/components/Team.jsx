@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 function Team({ tid, name, owner, role, members }) {
     const [editModalOpen, openEditModal] = useState(false)
     const [editMembersModalOpen, openEditMembersModal] = useState(false)
+    const [inviteUserModalOpen, openInviteUserModal] = useState(false)
 
     return (
         <>
@@ -181,7 +182,8 @@ function Team({ tid, name, owner, role, members }) {
                         })
                     }},
                     {text: "Invite new user", style: "info", submit: () => {
-                        // TODO: Invite modal
+                        openEditMembersModal(false)
+                        openInviteUserModal(true)
                     }},
                     {text: "Cancel", style: "cancel", submit: () => {
                         openEditMembersModal(false)
@@ -189,6 +191,69 @@ function Team({ tid, name, owner, role, members }) {
                     }}
                 ]}
                 // TODO: Leave team
+            />}
+            {inviteUserModalOpen && <Modal
+                title={"Invite User"}
+                inputs={[
+                    {type: "text", id: "username", placeholder: "Username"}
+                ]}
+                buttons = {[
+                    {text: "Invite", style: "submit", sendArgs: true, submit: (username) => {
+                        openInviteUserModal(false)
+                        fetch(`/api/v1/user/username/${username}`).then(r => r.json()).then(data => {
+                            console.log(data)
+                            if(data.success === true){
+                                console.log(data)
+                                fetch("/api/v1/teams/invite", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        tid,
+                                        uid: data.user.uid
+                                    })
+                                }).then(r => r.json()).then(data2 => {
+                                    if(data2.success === true){
+                                        toast(`Invited user successfully!`, {
+                                            icon: "✅",
+                                            style: {
+                                                color: "white",
+                                                backgroundColor: "#333",
+                                                borderRadius: "10px",
+                                                maxWidth: "60%",
+                                            }
+                                        });
+                                    } else {
+                                        toast(`An error occured while inviting this user: ${data2.message}`, {
+                                            icon: "❌",
+                                            style: {
+                                                color: "white",
+                                                backgroundColor: "#333",
+                                                borderRadius: "10px",
+                                                maxWidth: "60%",
+                                            }
+                                        });
+                                    }
+                                })
+                            } else {
+                                toast(`An error occured while editing your team: ${data.message}`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                            }
+                        })
+                    }},
+                    {text: "Cancel", style: "cancel", submit: () => {
+                        openInviteUserModal(false)
+                        openEditMembersModal(true)
+                    }}
+                ]}
             />}
             <div className="team">
                 <button id="settingsLogo" onClick={() => {openEditModal(true)}}><img src="/assets/Settings.png" alt="Settings"></img></button>
