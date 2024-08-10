@@ -2,13 +2,15 @@ const db = require("../modules/db")
 const { authNeeded, writeRateLimit } = require("../modules/middleware")
 const { randomBytes } = require("crypto")
 const limits = require("../config/limits.json")
+const mail = require("../modules/mail")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/invite", authNeeded, writeRateLimit, async (req, res) => {
         const { uid, tid } = req.body
         if(uid == undefined || tid == undefined || typeof uid != "number" || typeof tid != "number") return res.status(400).json({ success: false, message: "UID or TID not provided or not formatted properly" })
         const user = await db.collections.profiles.findOne({ uid })
-        if(user == undefined) return res.status(400).json({ success: false, message: "User does not exist." })
+        const userCreds = await db.collections.credentials.findOne({ uid} )
+        if(user == undefined || userCreds == undefined) return res.status(400).json({ success: false, message: "User does not exist." })
         const team = await db.collections.teams.findOne({ tid })
         if(team == undefined) return res.status(400).json({ success: false, message: "Team does not exist." })
         if(team.members.length >= limits.membersLimit) return res.status(400).json({ success: false, message: "Team is full" })
@@ -36,13 +38,15 @@ module.exports = (app) => {
         
         if(isManager == false) return res.status(400).json({ success: false, message: "You are not authorized to invite people to this team!" })
 
+        const iid = randomBytes(32).toString('base64').replace(/[^a-zA-Z0-9]/g, '').slice(0, 16)
         await db.collections.invites.insertOne({
-            iid: randomBytes(32).toString('base64').replace(/[^a-zA-Z0-9]/g, '').slice(0, 16),
+            iid,
             tid,
             uid,
             expiration: Date.now() + 604800000 // 1 week later
         })
         res.status(200).json({ success: true, message: "User has been invited" })
+        mail.send(userCreds.email, "Invite", "You have been invited to a team!", `Click <a href=${process.env.DOMAIN}/invite/${iid}>here</a> to accept the invite.`)
     })
     return {
         method: "POST",

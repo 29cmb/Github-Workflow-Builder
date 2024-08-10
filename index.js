@@ -8,6 +8,7 @@ const fs = require("fs")
 const db = require("./modules/db.js")
 const logging = require("./config/logging.json")
 const rateLimit = require("express-rate-limit")
+const mail = require("./modules/mail.js")
 
 // Methods
 const app = express()
@@ -23,6 +24,8 @@ app.use(session({
         collection: process.env.SESSIONSCOLLECTION
     })
 }))
+
+mail.connect()
 
 app.use(express.json())
 const apiPath = path.join(__dirname, "api")
