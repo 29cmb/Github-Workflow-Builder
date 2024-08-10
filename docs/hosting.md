@@ -11,7 +11,7 @@ Now the topology of this project is quite weird, so I will try my best to explai
 
 The root directory contains the main express app and api calls (accessible through the [api](../api/) directory), while the react app can be found in the [client](../client/) directory.
 
-> [!INFO]\
+> [!NOTE]\
 > The client folder is a seperate npm instance, meaning to update the packages for the client, you need to do `cd client` first!
 
 ## Serving the server
@@ -32,6 +32,6 @@ Once you've ran the build command, it will take a few minutes to convert the `cl
 npm run serve
 ```
 
-> [!INFO]\
+> [!NOTE]\
 > The serve command will run a script called serve.js in the client directory, if you need to rename anything for any reason, you must update the path in `package.json`
 
