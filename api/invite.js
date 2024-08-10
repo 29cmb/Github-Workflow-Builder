@@ -45,8 +45,11 @@ module.exports = (app) => {
             uid,
             expiration: Date.now() + 604800000 // 1 week later
         })
+
+        const myUser = await db.collections.profiles.findOne({ uid: req.session.user }) || {}
+
         res.status(200).json({ success: true, message: "User has been invited" })
-        mail.send(userCreds.email, "Invite", "You have been invited to a team!", `Click <a href=${process.env.DOMAIN}/invite/${iid}>here</a> to accept the invite.`)
+        mail.send(userCreds.email, "Invite", "You have been invited to a team!", mail.templates.invite(team.name, iid, myUser.name || "Unknown User"))
     })
     return {
         method: "POST",
