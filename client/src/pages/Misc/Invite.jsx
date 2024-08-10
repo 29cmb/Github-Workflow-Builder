@@ -64,7 +64,21 @@ const Invite = () => {
             <p class="main">You have been invited to the<br/>{data.team.name}<br/>team</p>
             <p class="note"><i>Invites expire after 7 days, be quick!</i></p>
             <a href="/dashboard">Return to Dashboard</a>
-            <button className='submit'>Accept</button>
+            <button className='submit' onClick={() => {
+              fetch("/api/v1/teams/join", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ iid: id })
+              }).then(r => r.json()).then(data => {
+                if(data.success){
+                  window.location.href = "/dashboard/teams"
+                }else{
+                  setData(data) 
+                }
+              })
+            }}>Accept</button>
         </div>
     </>
   );

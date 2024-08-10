@@ -42,6 +42,12 @@
     - [x] Make teams
     - [x] Display members
     - [ ] Edit team
+        - [x] Edit name
+        - [x] Edit description
+        - [x] Edit member roles
+        - [x] Invite members
+        - [ ] Pending invites page
+        - [ ] Leave team
     - [ ] Invitation accept/deny page
 - [x] Account settings
     - [x] Username/Password
@@ -52,8 +58,5 @@
 - [ ] Component placing
 - [ ] Compile to yml
 - [ ] Import existing yml
-## Teams Manager
-- [ ] Edit members
-- [ ] Edit details
 ## Misc
 - [ ] Profile page

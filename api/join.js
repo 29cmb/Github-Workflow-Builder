@@ -9,6 +9,9 @@ module.exports = (app) => {
         if(invite == undefined) return res.status(400).json({ success: false, message: "Invite does not exist" })
         if(invite.expiration < Date.now()) return res.status(400).json({ success: false, message: "Invite has expired" })
         if(invite.uid != req.session.user) return res.status(400).json({ success: false, message: "This invite isn't for you!" })
+        const team = await db.collections.teams.findOne({ tid: invite.tid })
+        if(team == undefined) return res.status(400).json({ success: false, message: "Team does not exist" })
+        if(team.members.includes(invite.uid)) return res.status(400).json({ success: false, message: "You are already a member of this team" })
 
         await db.collections.teams.updateOne({ tid: invite.tid }, { $push: {
                 members: invite.uid,
@@ -17,7 +20,7 @@ module.exports = (app) => {
                 arrayFilters: [{ "role.name": "Member" }]
             }
         )
-        await db.collections.invites.deleteOne({ tid })
+        await db.collections.invites.deleteOne({ iid })
         res.status(200).json({ success: true, message: "Joined successfully"})
     })
     return {

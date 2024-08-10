@@ -71,6 +71,7 @@ h1 {
     text-align: center;
     background-color: #2AB941;
     transition: background-color, font-size 0.3s ease;
+    margin-bottom: 20px;
 }
 
 #content > button:hover {
