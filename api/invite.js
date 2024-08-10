@@ -49,7 +49,7 @@ module.exports = (app) => {
         const myUser = await db.collections.profiles.findOne({ uid: req.session.user }) || {}
 
         res.status(200).json({ success: true, message: "User has been invited" })
-        mail.send(userCreds.email, "Invite", "You have been invited to a team!", mail.templates.invite(team.name, iid, myUser.name || "Unknown User"))
+        mail.send(userCreds.email, "Invite", "You have been invited to a team!", mail.templates.invite(team.name, iid, myUser.username || "Unknown User"))
     })
     return {
         method: "POST",
