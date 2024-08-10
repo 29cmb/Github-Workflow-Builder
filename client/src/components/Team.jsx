@@ -62,6 +62,90 @@ function Team({ tid, name, owner, role, members }) {
                             }
                         })
                     }}] : []),
+                    ...(role !== "Owner" ? [{text: "Leave Team", style: "danger", submit: () => {
+                        const leave = window.confirm("Are you sure you would like to leave this team?")
+                        if(leave){
+                            openEditModal(false)
+                            fetch("/api/v1/teams/leave", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    tid
+                                })
+                            }).then(r => r.json()).then(data => {
+                                if(data.success === true){
+                                    toast(`You have left the team successfully! Reloading...`, {
+                                        icon: "✅",
+                                        style: {
+                                            color: "white",
+                                            backgroundColor: "#333",
+                                            borderRadius: "10px",
+                                            maxWidth: "60%",
+                                        }
+                                    });
+                                    setTimeout(() => {
+                                        window.location.reload()
+                                    }, 1000)
+                                } else {
+                                    toast(`An error occured while leaving the team: ${data.message}`, {
+                                        icon: "❌",
+                                        style: {
+                                            color: "white",
+                                            backgroundColor: "#333",
+                                            borderRadius: "10px",
+                                            maxWidth: "60%",
+                                        }
+                                    });
+                                }
+                            })
+                        }
+                    }}] : [
+                        {text: "Delete Team", style: "danger", submit: () => {
+                            const leave = window.confirm("Are you sure you would like to delete this team?")
+                            if(leave){
+                                const confirmation = window.confirm("THIS IS IRREVERSIBLE! All members will be kicked and all team projects will be PERMANENTLY DELETED! Are you sure you would like to continue?")
+                                if(confirmation){
+                                    openEditModal(false)
+                                    fetch("/api/v1/teams/delete", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify({
+                                            tid
+                                        })
+                                    }).then(r => r.json()).then(data => {
+                                        if(data.success === true){
+                                            toast(`You have deleted the team successfully! Reloading...`, {
+                                                icon: "✅",
+                                                style: {
+                                                    color: "white",
+                                                    backgroundColor: "#333",
+                                                    borderRadius: "10px",
+                                                    maxWidth: "60%",
+                                                }
+                                            });
+                                            setTimeout(() => {
+                                                window.location.reload()
+                                            }, 1000)
+                                        } else {
+                                            toast(`An error occured while deleting the team: ${data.message}`, {
+                                                icon: "❌",
+                                                style: {
+                                                    color: "white",
+                                                    backgroundColor: "#333",
+                                                    borderRadius: "10px",
+                                                    maxWidth: "60%",
+                                                }
+                                            });
+                                        }
+                                    })
+                                }   
+                            }
+                        }}
+                    ]),
                     {text: "Cancel", style: "cancel", submit: () => {openEditModal(false)}}
                 ]}
             />}

@@ -48,7 +48,7 @@
         - [x] Invite members
         - [ ] Pending invites page
         - [ ] Leave team
-    - [ ] Invitation accept/deny page
+    - [x] Invitation accept/deny page
 - [x] Account settings
     - [x] Username/Password
     - [x] Bio

@@ -11,7 +11,7 @@ module.exports = (app) => {
         if(team.oid != req.session.user) return res.status(403).json({ success: false, message: "You do not have permission to delete this team" })
 
         await db.collections.teams.deleteOne({ tid }) // delete the team
-        await db.collections.projects.delete({ creator: { type: "team", id: tid } }) // delete all team projects
+        await db.collections.projects.deleteMany({ creator: { type: "team", id: tid } }) // delete all team projects
 
         res.status(200).json({ success: true, message: "Team has been deleted." })
     })
