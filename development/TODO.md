@@ -41,12 +41,12 @@
     - [x] Display teams
     - [x] Make teams
     - [x] Display members
-    - [ ] Edit team
+    - [x] Edit team
         - [x] Edit name
         - [x] Edit description
         - [x] Edit member roles
         - [x] Invite members
-        - [ ] Pending invites page
+        - [x] Pending invites page
         - [x] Leave team
         - [x] Delete team
     - [x] Invitation accept/deny page
