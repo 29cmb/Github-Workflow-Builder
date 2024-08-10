@@ -48,6 +48,7 @@ function Teams() {
                     const img = response.url;
                     return {
                         name: member.username,
+                        rank: member.rank,
                         img: img
                     };
                 }));
@@ -126,7 +127,8 @@ function Teams() {
                     teams.map(team => {
                         const members = membersData[team.id] || team.members.map(member => ({
                             name: member.username,
-                            img: ''
+                            img: '/assets/Loading.png',
+                            rank: 1,
                         }));
 
                         return (<Team key={team.tid} tid={team.tid} name={team.name} owner={{name: team.owner}} role={team.role} members={members}/>)

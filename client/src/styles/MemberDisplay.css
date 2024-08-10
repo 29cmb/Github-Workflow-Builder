@@ -30,3 +30,15 @@
     margin-right: -20px;
     z-index: 2;
 }
+
+#members img.member {
+    border: 3px solid #000000;
+}
+
+#members img.owner {
+    border: 3px solid #47D03B;
+}
+
+#members img.manager {
+    border: 3px solid yellow;
+}

@@ -85,7 +85,7 @@ function Team({ tid, name, owner, role, members }) {
                                     body: JSON.stringify({
                                         tid,
                                         uid: data.user.uid,
-                                        rank: role === "Manager" ? 1 : 0
+                                        rank: role === "Manager" ? 2 : 1
                                     })
                                 }).then(r => r.json()).then(data2 => {
                                     if(data2.success === true){

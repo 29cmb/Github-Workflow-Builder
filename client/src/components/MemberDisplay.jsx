@@ -12,7 +12,16 @@ function MemberDisplay({ members }) {
               return (
                 <>
                   <Tooltip id={`member${index}`} />
-                  <img key={index} src={member.img} alt="Member" data-tooltip-id={`member${index}`} data-tooltip-content={member.name}/>
+                  <img key={index} src={member.img} alt="Member" data-tooltip-id={`member${index}`} className={(() => {
+                    switch(member.rank) {
+                      case 3:
+                        return "owner";
+                      case 2:
+                        return "manager";
+                      default:
+                        return "member";
+                    }
+                  })()} data-tooltip-content={member.name}/>
                 </>
               )
             } else if(index === (members.length) - 1) {

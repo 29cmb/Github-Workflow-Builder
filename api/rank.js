@@ -23,13 +23,19 @@ module.exports = (app) => {
         if(!team.members.includes(uid)) return res.status(400).json({ success: false, message: "User is not in the team" })
         if(user.uid == req.session.user) return res.status(400).json({ success: false, message: "You cannot change your own rank" })
         
+        
         await db.collections.teams.updateOne({ tid },
             {
                 $pull: {
                     "roles.$[].users": uid
                 },
+            }
+        )
+
+        await db.collections.teams.updateOne({ tid }, 
+            {
                 $push: {
-                    "roles.$[role].users": uid
+                    [`roles.$[role].users`]: uid
                 }
             },
             {
