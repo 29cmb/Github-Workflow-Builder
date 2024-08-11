@@ -1,0 +1,39 @@
+#workflowComponent {
+    background-color: #D9D9D9;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+#workflowComponent p {
+    color: white;
+    text-align: center;
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -132%);
+    font-size: 55px;
+    text-shadow: 
+        -1px -1px 0 black,  
+         1px -1px 0 black,
+        -1px  1px 0 black,
+         1px  1px 0 black;
+}
+
+#workflowComponent #background {
+    width: 70%;
+    height: 70%;
+    border: 2px solid black;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
