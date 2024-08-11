@@ -10,7 +10,7 @@
     padding: 10px;
 }
 
-#component-sidebar button {
+#component-sidebar #topButtons button {
     background-color: #2AB941;
     border: solid 2px black;
     color: white;
@@ -18,8 +18,9 @@
     border-radius: 15px;
     font-size: 40px;
     padding: 5px;
+    padding-left: 70px;
+    padding-right: 70px;
     margin: 5px;
-    width: 70%;
     transition: all 0.3s ease;
     -webkit-text-stroke: 1px black;
 }
@@ -29,9 +30,11 @@
     font-size: 45px;
 }
 
-#component-sidebar #settings {
+#component-sidebar #topButtons > #settings {
     background-color: #414141;
-    font-weight: normal;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #component-sidebar #components {
@@ -74,4 +77,8 @@
     flex-direction: row;
     padding-top: 5px;
     margin-left: -5px;
+}
+
+#topButtons {
+    display: flex;
 }

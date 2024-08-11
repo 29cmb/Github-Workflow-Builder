@@ -5,7 +5,9 @@ import WorkflowComponent from "./WorkflowComponent";
 function ComponentSidebar() {
     return( 
         <div id="component-sidebar">
-            <button id="export">Export</button><button id="settings"><i className="fas fa-cog"></i></button>
+            <div id="topButtons">
+                <button id="export">Export</button><button id="settings"><i className="fas fa-cog"></i></button>
+            </div>
             <div id="components">
                 <div id="search">
                     <i className="fas fa-search search-icon"></i>
