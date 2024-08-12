@@ -4,19 +4,53 @@ import MemberDisplay from "./MemberDisplay";
 import Modal from "./Modal";
 import toast, { Toaster } from "react-hot-toast";
 
-function Team({ tid, name, owner, role, members }) {
+function Team({ tid, name, owner, role }) {
     const [editModalOpen, openEditModal] = useState(false)
     const [editMembersModalOpen, openEditMembersModal] = useState(false)
     const [inviteUserModalOpen, openInviteUserModal] = useState(false)
     const [pendingInvitesModalOpen, openPendingInvitesModal] = useState(false)
     const [pendingInvites, setPendingInvites] = useState([])
+    const [memberData, setMemberData] = useState({});
+
+    useEffect(() => {
+        const fetchMembers = async () => {
+            try {
+                const newMembersData = {};
+                const response = await fetch(`/api/v1/teams/${tid}/members`);
+                const data = await response.json();
+                console.log(data.members);
+
+                if (!Array.isArray(data.members)) {
+                    console.error("Expected data.members to be an array, but got:", typeof data.members);
+                    return;
+                }
+
+                newMembersData[tid] = await Promise.all(data.members.map(async (member) => {
+                    const response = await fetch(`/api/v1/user/${member.uid}/pfp`);
+                    const img = response.url;
+                    return {
+                        name: member.username,
+                        rank: member.rank,
+                        img: img
+                    };
+                }));
+
+                console.log(newMembersData)
+
+                setMemberData(newMembersData);
+            } catch (error) {
+                console.error("Error fetching members:", error);
+            }
+        };
+
+        fetchMembers();
+    }, [tid]);
 
     useEffect(() => {
         if(role === "Manager" || role === "Owner"){
             fetch(`/api/v1/team/${tid}/invites`).then(r => r.json()).then(data => {
                 if(data.success === true){
                     setPendingInvites(data.invites)
-                    console.log(data.invites)
                 } else {
                     toast(`An error occured while fetching your team's invites: ${data.message}`, {
                         icon: "❌",
@@ -175,7 +209,7 @@ function Team({ tid, name, owner, role, members }) {
             {editMembersModalOpen && <Modal
                 title={"Edit Members"}
                 inputs={[
-                   {type: "combobox", id: "member", options: members.map((m) => m.name)},
+                   {type: "combobox", id: "member", options: memberData.map((m) => m.name)},
                    ...(role === "Owner" ? [{type: "combobox", id: "role", options: ["Member", "Manager"]}] : [])
                 ]}
                 buttons = {[
@@ -441,7 +475,7 @@ function Team({ tid, name, owner, role, members }) {
                 <p id="owner">Owned by: <span className="user">{owner.name}</span></p>
                 <p id="role">{role}</p>
                 <MemberDisplay
-                    members={members}
+                    members={(memberData !== undefined && memberData[tid] !== undefined && memberData[tid].length > 0) ? memberData[tid] : undefined}
                 />
             </div>
         </>

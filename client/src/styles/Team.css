@@ -1,12 +1,12 @@
 .team {
     width: 85%;
     height: 30%;
-    margin-top: 50px;
     margin-left: 40px;
     background-color: #222222;
     border-radius: 60px;
     position: relative;
     overflow: hidden;
+    z-index: -1;
 }
 
 .team #teamLogo {
@@ -32,7 +32,7 @@
     transform: translateY(-50%);
     background-color: transparent;
     border: none;
-    z-index: 1;
+    z-index: 0;
 }
 
 .team #name,

@@ -3,6 +3,7 @@ import "../styles/MemberDisplay.css";
 import { Tooltip } from "react-tooltip"
 
 function MemberDisplay({ members }) {
+  if(members === undefined) return;
   return (
     <div id="members">
         {members.map((member, index) => {

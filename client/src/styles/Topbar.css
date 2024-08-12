@@ -3,7 +3,10 @@
     height: 7.5vh;
     text-align: right;
     padding-right: 10px;
+    position: fixed;
     padding-top: 20px;
+    width: 100%;
+    z-index: 1;
 }
 
 #topbar img {

@@ -24,7 +24,6 @@ function Teams() {
     };
 
     const [teams, setTeams] = useState([]);
-    const [membersData, setMembersData] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
@@ -36,28 +35,6 @@ function Teams() {
             }
         }).catch(error => console.error("Error setting teams:", error));
     }, []);
-
-    useEffect(() => {
-        const fetchMemberImages = async () => {
-            const newMembersData = {};
-            for (const team of teams) {
-                const response = await fetch(`/api/v1/teams/${team.tid}/members`)
-                const { members } = await response.json();
-                newMembersData[team.id] = await Promise.all(members.map(async (member) => {
-                    const response = await fetch(`/api/v1/user/${member.uid}/pfp`);
-                    const img = response.url;
-                    return {
-                        name: member.username,
-                        rank: member.rank,
-                        img: img
-                    };
-                }));
-            }
-            setMembersData(newMembersData);
-        };
-
-        fetchMemberImages();
-    }, [teams]);
 
     return (
         <>
@@ -125,13 +102,7 @@ function Teams() {
             <div id="teams">
                 {
                     teams.map(team => {
-                        const members = membersData[team.id] || team.members.map(member => ({
-                            name: member.username,
-                            img: '/assets/Loading.png',
-                            rank: 1,
-                        }));
-
-                        return (<Team key={team.tid} tid={team.tid} name={team.name} owner={{name: team.owner}} role={team.role} members={members}/>)
+                        return (<Team key={team.tid} tid={team.tid} name={team.name} owner={{name: team.owner}} role={team.role}/>)
                     })
                 }
             </div>
