@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { cloneElement, useEffect, useRef, useState } from "react";
 import "../styles/ComponentManager.css";
 import WorkflowComponent from "./WorkflowComponent";
 import { CameraZone, useCamPos, useOffset } from "./CameraZone";
@@ -6,9 +6,8 @@ import { CameraZone, useCamPos, useOffset } from "./CameraZone";
 function ComponentManager() {
     const [selected, setSelected] = useState(null);
     const [componentFilter, setComponentFolter] = useState("");
-    const [dragging, setDraggingObject] = useState(null);
+    const [draggingRef, setDraggingObject] = useState(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const draggingPosRef = useRef({ x: 0, y: 0 });
     const camPos = useCamPos()
     const offset = useOffset()
 
@@ -28,10 +27,10 @@ function ComponentManager() {
             setMousePosition({ x: e.clientX, y: e.clientY })
         })
 
-        if(dragging != null){
+        if(draggingRef != null){
             console.log("Dragging")
             console.log(mousePosition.x - offset[0], mousePosition.y - offset[1])
-            draggingPosRef.current = { x:  mousePosition.x + camPos[0] - offset[0] - 50, y:  mousePosition.y + camPos[1] - offset[1] - 50 };
+            draggingRef.current = { x:  mousePosition.x + camPos[0] - offset[0] - 50, y:  mousePosition.y + camPos[1] - offset[1] - 50 };
         }
     })
 
@@ -39,20 +38,12 @@ function ComponentManager() {
         {
             id: 1,
             referer: useRef([0,0]),
-            component: (<div className="dragableComponent" pos={[0,0]} onClick={(e, id) => {
-                console.log("MouseDown")
-                if(dragging === e.currentTarget) return setDraggingObject(null)
-                
-                setDraggingObject(e.currentTarget)
-            }}></div>)
+            component: (<div className="dragableComponent" pos={[0,0]}></div>)
         },
         {
-            component: (<div className="dragableComponent" pos={[200,200]} onClick={(e, id) => {
-                console.log("MouseDown")
-                if(dragging === e.currentTarget) return setDraggingObject(null)
-                
-                setDraggingObject(e.currentTarget)
-            }}></div>)
+            id: 1,
+            referer: useRef([0,0]),
+            component: (<div className="dragableComponent" pos={[200,200]}></div>) 
         }
     ]
 
@@ -82,7 +73,14 @@ function ComponentManager() {
             <div id="workspace-container" style={{zIndex: 0}}>
                 <CameraZone>
                     {dragComponents.map((c, index) => {
-                        return c.component
+                        const refElement = cloneElement(c.component, {
+                            pos: [c.referer.current.x, c.referer.current.y],
+                            onClick: (e) => {
+                                if(draggingRef === c.referer) return setDraggingObject(null)
+                                setDraggingObject(c.referer)
+                            }
+                        });
+                        return cloneElement(refElement, { key: index });
                     })}
                 </CameraZone>
             </div>
