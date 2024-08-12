@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/ComponentManager.css";
 import WorkflowComponent from "./WorkflowComponent";
-import { CameraZone, useCamPos } from "./CameraZone";
+import { CameraZone, useCamPos, useOffset } from "./CameraZone";
 
 function ComponentManager() {
     const [selected, setSelected] = useState(null);
     const [componentFilter, setComponentFolter] = useState("");
     const [dragging, setDraggingObject] = useState(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const draggingPosRef = useRef({ x: 0, y: 0 });
     const camPos = useCamPos()
+    const offset = useOffset()
 
     const components = [
         {color: "red", letter: "A", name: "Action"},
@@ -27,7 +29,9 @@ function ComponentManager() {
         })
 
         if(dragging != null){
-            dragging.pos = [mousePosition.x - camPos.x, mousePosition.y - camPos.y]
+            console.log("Dragging")
+            console.log(mousePosition.x - offset[0], mousePosition.y - offset[1])
+            draggingPosRef.current = { x:  mousePosition.x + camPos[0] - offset[0] - 50, y:  mousePosition.y + camPos[1] - offset[1] - 50 };
         }
     })
 
@@ -56,7 +60,10 @@ function ComponentManager() {
             </div>
             <div id="workspace-container" style={{zIndex: 0}}>
                 <CameraZone>
-                    <div className="dragableComponent" pos={[0,0]} onClick={(e) => {
+                    <div className="dragableComponent" pos={[draggingPosRef.current.x,draggingPosRef.current.y]} onClick={(e) => {
+                        console.log("MouseDown")
+                        if(dragging === e.currentTarget) return setDraggingObject(null)
+                        
                         setDraggingObject(e.currentTarget)
                     }}></div>
                 </CameraZone>

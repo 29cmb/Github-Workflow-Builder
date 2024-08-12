@@ -15,15 +15,20 @@ const useCameraStore = create((set) => ({
     setPosition: (position) => set({ position: position || [0, 0] }),
 }));
 
+const offsetStore = create((set) => ({
+    offset: [window.innerWidth / 2, window.innerHeight / 2],
+    setOffset: (offset) => set({ offset: offset || [window.innerWidth / 2, window.innerHeight / 2] }),
+}))
+
 function CameraZone({ children }) {
     const [position, setPosition] = useCameraStore((state) => [state.position, state.setPosition]);
     const containerRef = useRef(null);
-    const [viewportSize, setViewportSize] = useState([window.innerWidth, window.innerHeight]);
+    const [viewportSize, setViewportSize] = offsetStore((state) => [state.offset, state.setOffset]);
     const [pressedKeys, setPressedKeys] = useState({});
 
     useEffect(() => {
         const handleResize = () => {
-            setViewportSize([window.innerWidth, window.innerHeight]);
+            setViewportSize([window.innerWidth / 2, window.innerHeight / 2]);
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
@@ -73,7 +78,7 @@ function CameraZone({ children }) {
     }, [pressedKeys, position, setPosition]);
 
     const transformStyle = {
-        transform: `translate(${viewportSize[0] / 2 - position[0]}px, ${viewportSize[1] / 2 - position[1]}px)`
+        transform: `translate(${viewportSize[0] - position[0]}px, ${viewportSize[1] - position[1]}px)`
     };
 
     return (
@@ -94,5 +99,6 @@ function CameraZone({ children }) {
     );
 }
 const useCamPos = () => useCameraStore(state => state.position);
+const useOffset = () => offsetStore(state => state.offset);
 
-export { CameraZone, useCamPos };
+export { CameraZone, useCamPos, useOffset };
