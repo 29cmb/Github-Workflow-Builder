@@ -35,6 +35,27 @@ function ComponentManager() {
         }
     })
 
+    const dragComponents = [
+        {
+            id: 1,
+            referer: useRef([0,0]),
+            component: (<div className="dragableComponent" pos={[0,0]} onClick={(e, id) => {
+                console.log("MouseDown")
+                if(dragging === e.currentTarget) return setDraggingObject(null)
+                
+                setDraggingObject(e.currentTarget)
+            }}></div>)
+        },
+        {
+            component: (<div className="dragableComponent" pos={[200,200]} onClick={(e, id) => {
+                console.log("MouseDown")
+                if(dragging === e.currentTarget) return setDraggingObject(null)
+                
+                setDraggingObject(e.currentTarget)
+            }}></div>)
+        }
+    ]
+
     return(
         <>
             <div id="component-sidebar">
@@ -60,12 +81,9 @@ function ComponentManager() {
             </div>
             <div id="workspace-container" style={{zIndex: 0}}>
                 <CameraZone>
-                    <div className="dragableComponent" pos={[draggingPosRef.current.x,draggingPosRef.current.y]} onClick={(e) => {
-                        console.log("MouseDown")
-                        if(dragging === e.currentTarget) return setDraggingObject(null)
-                        
-                        setDraggingObject(e.currentTarget)
-                    }}></div>
+                    {dragComponents.map((c, index) => {
+                        return c.component
+                    })}
                 </CameraZone>
             </div>
         </>
