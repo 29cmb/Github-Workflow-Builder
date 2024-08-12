@@ -1,8 +1,7 @@
 ![Overflow](client/public/assets/FullLogo.png)
 
 A drag-and-drop system for creating github workflows! Definitely my biggest project as of `August 2024`
-
-
+---
 I made this because making workflows was always a tedious task for me to do efficiently and accurately, but with Overflow, the task of making github workflows is easier than ever with our visual-based system.
 
 > [!WARNING]\
