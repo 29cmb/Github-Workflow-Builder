@@ -1,7 +1,7 @@
 import React from "react";
 import Topbar from "../../components/Topbar";
 import "../../styles/EditPage.css"
-import ComponentSidebar from "../../components/ComponentSidebar";
+import ComponentManager from "../../components/ComponentManager";
 
 function EditPage() {
     return (
@@ -9,7 +9,7 @@ function EditPage() {
             <Topbar buttons={[
                 ["/dashboard", "Dashboard", false, true]
             ]} />
-            <ComponentSidebar/>
+            <ComponentManager/>
         </>
     );
 }
