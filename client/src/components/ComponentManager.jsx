@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ComponentManager.css";
 import WorkflowComponent from "./WorkflowComponent";
-import { CameraZone, getCamPos } from "./CameraZone";
+import { CameraZone, useCamPos } from "./CameraZone";
 
 function ComponentManager() {
     const [selected, setSelected] = useState(null);
     const [componentFilter, setComponentFolter] = useState("");
     const [dragging, setDraggingObject] = useState(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const camPos = useCamPos()
 
     const components = [
         {color: "red", letter: "A", name: "Action"},
@@ -25,8 +26,7 @@ function ComponentManager() {
             setMousePosition({ x: e.clientX, y: e.clientY })
         })
 
-        if(dragging != null && mousePosition.x && mousePosition.y){
-            const camPos = getCamPos()
+        if(dragging != null){
             dragging.pos = [mousePosition.x - camPos.x, mousePosition.y - camPos.y]
         }
     })

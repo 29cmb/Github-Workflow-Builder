@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, cloneElement, Children } from "react";
+import { create } from 'zustand'
 
 const CameraData = {
     Speed: 2
@@ -9,8 +10,13 @@ const directions = {
     ArrowUp: [0,1], ArrowLeft: [1,0], ArrowDown: [0,-1], ArrowRight: [-1,0]
 }
 
+const useCameraStore = create((set) => ({
+    position: [0, 0],
+    setPosition: (position) => set({ position: position || [0, 0] }),
+}));
+
 function CameraZone({ children }) {
-    const [position, setPosition] = useState([0, 0]);
+    const [position, setPosition] = useCameraStore((state) => [state.position, state.setPosition]);
     const containerRef = useRef(null);
     const [viewportSize, setViewportSize] = useState([window.innerWidth, window.innerHeight]);
     const [pressedKeys, setPressedKeys] = useState({});
@@ -47,16 +53,24 @@ function CameraZone({ children }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
+            let deltaX = 0;
+            let deltaY = 0;
+    
             Object.keys(pressedKeys).forEach(key => {
                 if (pressedKeys[key]) {
                     const direction = directions[key];
-                    setPosition(prev => [prev[0] + direction[0] * CameraData.Speed, prev[1] + direction[1] * CameraData.Speed]);
+                    deltaX += direction[0] * CameraData.Speed;
+                    deltaY += direction[1] * CameraData.Speed;
                 }
             });
+    
+            if (deltaX !== 0 || deltaY !== 0) {
+                setPosition([position[0] + deltaX, position[1] + deltaY]);
+            }
         }, 1);
-
+    
         return () => clearInterval(interval);
-    }, [pressedKeys]);
+    }, [pressedKeys, position, setPosition]);
 
     const transformStyle = {
         transform: `translate(${viewportSize[0] / 2 - position[0]}px, ${viewportSize[1] / 2 - position[1]}px)`
@@ -79,5 +93,6 @@ function CameraZone({ children }) {
         </div>
     );
 }
-const getCamPos = () => { /* TODO: Make this actually return the camPos */ };
-export { CameraZone, getCamPos };
+const useCamPos = () => useCameraStore(state => state.position);
+
+export { CameraZone, useCamPos };
