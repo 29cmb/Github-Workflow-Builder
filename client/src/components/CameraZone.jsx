@@ -85,7 +85,7 @@ function CameraZone({ children }) {
         <div id="camera-zone" ref={containerRef} style={{ overflow: 'hidden', width: '100%', height: '100%', position: 'relative', zIndex: 1 }}>
             <div style={{ ...transformStyle, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
                 {Children.map(children, child => {
-                    const childPos = child.props.pos || [0, 0];
+                    const childPos = child.props.pos
                     const childStyle = {
                         position: 'absolute',
                         left: `${childPos[0]}px`,
