@@ -9,6 +9,7 @@
     align-items: center;
     padding: 10px;
     top: 9.5%;
+    z-index: 2;
 }
 
 #component-sidebar #topButtons button {
@@ -95,4 +96,11 @@
     height: 100%;
     background: url("../../public/assets/Background.png");
     z-index: -2;
+}
+
+.dragableComponent {
+    background-color: white;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
 }

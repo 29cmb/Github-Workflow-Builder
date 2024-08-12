@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/ComponentManager.css";
 import WorkflowComponent from "./WorkflowComponent";
-import CameraZone from "./CameraZone";
+import { CameraZone, getCamPos } from "./CameraZone";
 
 function ComponentManager() {
     const [selected, setSelected] = useState(null);
     const [componentFilter, setComponentFolter] = useState("");
+    const [dragging, setDraggingObject] = useState(null);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
     const components = [
         {color: "red", letter: "A", name: "Action"},
@@ -16,6 +18,17 @@ function ComponentManager() {
     const filteredComponents = components.filter((component) => {
         if(componentFilter.length < 2) return true
         return component.name.toLowerCase().includes(componentFilter.toLowerCase())
+    })
+
+    useEffect(() => {
+        window.addEventListener("mousemove", (e) => {
+            setMousePosition({ x: e.clientX, y: e.clientY })
+        })
+
+        if(dragging != null && mousePosition.x && mousePosition.y){
+            const camPos = getCamPos()
+            dragging.pos = [mousePosition.x - camPos.x, mousePosition.y - camPos.y]
+        }
     })
 
     return(
@@ -43,7 +56,9 @@ function ComponentManager() {
             </div>
             <div id="workspace-container" style={{zIndex: 0}}>
                 <CameraZone>
-                    <div pos={[0,0]}><p>Centered</p></div>
+                    <div className="dragableComponent" pos={[0,0]} onClick={(e) => {
+                        setDraggingObject(e.currentTarget)
+                    }}></div>
                 </CameraZone>
             </div>
         </>

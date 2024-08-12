@@ -79,5 +79,5 @@ function CameraZone({ children }) {
         </div>
     );
 }
-
-export default CameraZone;
+const getCamPos = () => { /* TODO: Make this actually return the camPos */ };
+export { CameraZone, getCamPos };
