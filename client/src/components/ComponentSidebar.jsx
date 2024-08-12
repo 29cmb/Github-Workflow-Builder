@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/ComponentSidebar.css";
 import WorkflowComponent from "./WorkflowComponent";
 
 function ComponentSidebar() {
+    const [selected, setSelected] = useState(null);
+
+    const components = [
+        {color: "red", letter: "A"},
+        {color: "orange", letter: "C"},
+        {color: "#EBFF00", letter: "U"}
+    ]
+
     return( 
         <div id="component-sidebar">
             <div id="topButtons">
@@ -14,9 +22,12 @@ function ComponentSidebar() {
                     <input type="text" placeholder="Search..."/>
                 </div>
                 <div id="component-container">
-                    <WorkflowComponent color="red" letter="A"/>
-                    <WorkflowComponent color="orange" letter="C"/>
-                    <WorkflowComponent color="#EBFF00" letter="U"/>
+                    {components.map((component, index) => (
+                        <WorkflowComponent key={index} color={component.color} letter={component.letter} onClick={() => {
+                            if(selected === component.color + component.letter) return setSelected(null)
+                            setSelected(component.color + component.letter)
+                        }} selected={selected === component.color + component.letter}/>
+                    ))}
                 </div>
             </div>
         </div>
