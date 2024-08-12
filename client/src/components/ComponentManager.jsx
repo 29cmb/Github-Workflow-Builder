@@ -41,9 +41,9 @@ function ComponentManager() {
                     </div>
                 </div>
             </div>
-            <div id="workspace-container">
+            <div id="workspace-container" style={{zIndex: 0}}>
                 <CameraZone>
-                    <div pos={[0,0]}></div>
+                    <div pos={[0,0]}><p>Centered</p></div>
                 </CameraZone>
             </div>
         </>

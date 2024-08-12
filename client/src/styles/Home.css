@@ -12,13 +12,17 @@ body {
     font-style: normal;
 }
 
+#topbar {
+    top: 0;
+}
+
 #title {
     line-height: 1;
 }
 
 
 #title {
-    margin-top: 75px;
+    margin-top: 145px;
 }
 
 #easyText {
