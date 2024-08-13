@@ -42,6 +42,15 @@ function ComponentManager() {
                 <div className="seperator" style={{marginTop: `10px`}}></div>
                 <button id="edit">Edit</button>
             </div>
+        ), transform: {width: 250, height: 220} },
+        { cid: 4, color: "lime", letter: "N", name: "NodeJS", component: (
+            <div id="nodeComponent">
+                <p id="componentName">Setup NodeJS</p>
+                <div className="seperator"></div>
+                <p id="version">v20</p>
+                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <button id="edit">Edit</button>
+            </div>
         ), transform: {width: 250, height: 175} }
     ];
 

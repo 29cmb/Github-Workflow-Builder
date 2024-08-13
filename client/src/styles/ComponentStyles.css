@@ -4,13 +4,14 @@
 
 #actionComponent,
 #commandComponent,
-#uploadComponent {
+#uploadComponent,
+#nodeComponent {
     position: absolute;
     border-radius: 20px;
     border: 3px solid black;
 }
 
-#actionComponent {
+#actionComponent, #nodeComponent {
     width: 250px;
     height: 175px;
 }
@@ -29,7 +30,8 @@
 
 #actionComponent #actionName,
 #commandComponent #commandName,
-#uploadComponent #uploadRules {
+#uploadComponent #uploadRules,
+#nodeComponent #version {
     font-size: 20px;
     font-weight: 100;
     margin: 10px;
@@ -38,7 +40,8 @@
 
 #actionComponent button,
 #commandComponent button,
-#uploadComponent button {
+#uploadComponent button,
+#nodeComponent button {
     color: white;
     font-size: 40px;
     width: 90%;
@@ -60,14 +63,14 @@
     background-color: #FFD600;
 }
 
+#nodeComponent button {
+    background-color: #2AB941;
+}
+
 #actionComponent > p,
 #commandComponent > p,
-#uploadComponent > p {
+#uploadComponent > p,
+#nodeComponent > p {
     margin: 10px;
     text-align: left;
 }
-
-#actionComponent:hover {
-    background-color: #313131;
-}
-

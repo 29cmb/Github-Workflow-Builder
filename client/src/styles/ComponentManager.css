@@ -83,6 +83,7 @@
 #component-sidebar #components #component-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     padding-top: 5px;
     margin-left: -5px;
 }
