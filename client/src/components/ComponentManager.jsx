@@ -101,7 +101,7 @@ function ComponentManager() {
                 <button id="edit" onClick={() => {
                     setComponentEditData({
                         inputs: [
-                            { id: "version", type: "text", placeholder: "Version" }
+                            { id: "version", type: "text", placeholder: "Node Version" }
                         ],
                         buttons: [
                             { text: "Save", style: "submit", submit: () => {
@@ -138,6 +138,29 @@ function ComponentManager() {
         ), transform: {width: 300, height: 175}, data: [
             {id: "artifactName", dataIndex: "artifactName", default: "Artifact Name"}
         ]},
+        { cid: 6, color: "#3776AB", letter: "P", name: "Python", component: (
+            <div id="pythonComponent">
+                <p id="componentName">Setup Python</p>
+                <div className="seperator"></div>
+                <p id="pythonVersion">Version</p>
+                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <button id="edit" onClick={() => {
+                    setComponentEditData({
+                        inputs: [
+                            { id: "pythonVersion", type: "text", placeholder: "Python Version" }
+                        ],
+                        buttons: [
+                            { text: "Save", style: "submit", submit: () => {
+                                openEditModal(false);
+                            }}
+                        ]
+                    });
+                    openEditModal(true);
+                }}>Edit</button>
+            </div>
+        ), transform: {width: 250, height: 175}, data: [
+            {id: "pythonVersion", dataIndex: "pythonVersion", default: "v3.12"}
+        ] }
     ];
 
     const keybinds = [

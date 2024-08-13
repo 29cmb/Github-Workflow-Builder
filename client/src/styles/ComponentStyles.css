@@ -2,14 +2,15 @@
 #commandComponent,
 #uploadComponent,
 #nodeComponent,
-#downloadComponent {
+#downloadComponent,
+#pythonComponent {
     background-color: #242424;
     position: absolute;
     border-radius: 20px;
     border: 3px solid black;
 }
 
-#actionComponent, #nodeComponent {
+#actionComponent, #nodeComponent, #pythonComponent {
     width: 250px;
     height: 175px;
 }
@@ -35,7 +36,8 @@
 #commandComponent #commandName,
 #uploadComponent #uploadRules,
 #nodeComponent #version,
-#downloadComponent #artifactName {
+#downloadComponent #artifactName,
+#pythonComponent #pythonVersion {
     font-size: 20px;
     font-weight: 100;
     margin: 10px;
@@ -46,7 +48,8 @@
 #commandComponent button,
 #uploadComponent button,
 #nodeComponent button,
-#downloadComponent button {
+#downloadComponent button,
+#pythonComponent button {
     color: white;
     font-size: 40px;
     width: 90%;
@@ -75,12 +78,16 @@
 #downloadComponent button {
     background-color: gray;
 }
+#pythonComponent button {
+    background-color: #306998;
+}
 
 #actionComponent > p,
 #commandComponent > p,
 #uploadComponent > p,
 #nodeComponent > p,
-#downloadComponent > p {
+#downloadComponent > p,
+#pythonComponent > p {
     margin: 10px;
     text-align: left;
 }
