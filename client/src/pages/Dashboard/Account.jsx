@@ -72,7 +72,6 @@ function Account() {
                                 email
                             })
                         }).then(r => r.json()).then(data => {
-                            console.log(data)
                             if(data.success === true){
                                 toast(`Your email has been changed successfully! Reloading...`, {
                                     icon: "✅",
@@ -121,7 +120,6 @@ function Account() {
                                 username
                             })
                         }).then(r => r.json()).then(data => {
-                            console.log(data)
                             if(data.success === true){
                                 toast(`Your username has been changed successfully! Reloading...`, {
                                     icon: "✅",
@@ -186,7 +184,6 @@ function Account() {
                                 password: newPass
                             })
                         }).then(r => r.json()).then(data => {
-                            console.log(data)
                             if(data.success === true){
                                 toast(`Your password has been changed successfully! Logging out...`, {
                                     icon: "✅",
@@ -235,7 +232,6 @@ function Account() {
                                 bio
                             })
                         }).then(r => r.json()).then(data => {
-                            console.log(data)
                             if(data.success === true){
                                 toast(`Your bio has been changed successfully! Reloading...`, {
                                     icon: "✅",
@@ -283,7 +279,6 @@ function Account() {
                                 method: "POST",
                                 body: formData,
                             }).then(r => r.json()).then(data => {
-                                console.log(data);
                                 if (data.success === true) {
                                     toast(`Your profile picture has been changed successfully! Reloading...`, {
                                         icon: "✅",

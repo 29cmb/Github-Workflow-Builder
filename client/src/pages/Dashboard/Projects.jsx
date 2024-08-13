@@ -29,7 +29,6 @@ function Projects() {
     useEffect(() => {
         getProjects().then(data => {
             if (data.projects) {
-                console.log(data.projects);
                 setProjects(data.projects);
             } else {
                 console.log("error")
@@ -70,7 +69,6 @@ function Projects() {
                                 type: "user" // TODO: Add team project creation
                             })
                         }).then(r => r.json()).then(data => {
-                            console.log(data)
                             if(data.success === true){
                                 toast(`Your project has been created successfully! Redirecting...`, {
                                     icon: "✅",

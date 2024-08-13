@@ -17,7 +17,13 @@ function ComponentManager() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const components = [
         { cid: 1, color: "red", letter: "A", name: "Action", component: (
-            <div id="actionComponent"></div>
+            <div id="actionComponent">
+                <p id="componentName">Action</p>
+                <div class="seperator"></div>
+                <p id="actionName">Action Name</p>
+                <div class="seperator" style={{marginTop: `10px`}}></div>
+                <button id="edit">Edit</button>
+            </div>
         ), transform: {width: 250, height: 175} },
         { cid: 2, color: "orange", letter: "C", name: "Command", component: (
             <div id="commandComponent"></div>
@@ -29,8 +35,6 @@ function ComponentManager() {
 
     const keybinds = [
         { key: "Backspace", action: () => {
-            console.log("Backspace clicked");
-            
             const overlappingDragComponents = dragComponents.filter((dragComponent) => {
                 const matchingComponents = components.filter((component) => component.cid === dragComponent.cid);
                 if (matchingComponents.length === 0) return false;
@@ -50,16 +54,12 @@ function ComponentManager() {
                 });
             });
             
-            console.log(overlappingDragComponents);
             if (overlappingDragComponents.length > 0) {
                 setDragComponents((prevComponents) =>
                     prevComponents.filter((c) => {
                         return overlappingDragComponents.some((oc) => {return oc !== c});
                     })
                 );
-                console.log("Removed the overlapping draggable components");
-            } else {
-                console.log("Mouse is not over any draggable component");
             }
         }}
     ]
@@ -77,6 +77,26 @@ function ComponentManager() {
         const handleMouseDown = (e) => {
             if (e.button === 0) {
                 if (selected !== null) {
+                    const overlappingDragComponents = dragComponents.filter((dragComponent) => {
+                        const matchingComponents = components.filter((component) => component.cid === dragComponent.cid);
+                        if (matchingComponents.length === 0) return false;
+                    
+                        return matchingComponents.some((component) => {
+                            const [x, y] = dragComponent.pos;
+                            return collision(
+                                mousePosition.x + camPos[0] - offset[0], 
+                                mousePosition.y + camPos[1] - offset[1],
+                                1,
+                                1,
+                                x, 
+                                y, 
+                                component.transform.width, 
+                                component.transform.height
+                            );
+                        });
+                    });
+
+                    if(overlappingDragComponents.length > 0) return;
                     const component = components.find((c) => c.color + c.letter === selected);
                     setDragComponents((prevComponents) => [
                         ...prevComponents,
@@ -159,6 +179,9 @@ function ComponentManager() {
                             className: "placedWorkflowComponent",
                             pos: c.pos,
                             onClick: (e) => {
+                                const elementUnderMouse = document.elementFromPoint(mousePosition.x, mousePosition.y);
+                                if (elementUnderMouse && elementUnderMouse.tagName.toLowerCase() === 'button') return;
+
                                 if (draggingRef === c.id) return setDraggingObject(null);
                                 setDraggingObject(c.id);
                             }

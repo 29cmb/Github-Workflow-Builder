@@ -18,7 +18,6 @@ function Team({ tid, name, owner, role }) {
                 const newMembersData = {};
                 const response = await fetch(`/api/v1/teams/${tid}/members`);
                 const data = await response.json();
-                console.log(data.members);
 
                 if (!Array.isArray(data.members)) {
                     console.error("Expected data.members to be an array, but got:", typeof data.members);
@@ -34,9 +33,6 @@ function Team({ tid, name, owner, role }) {
                         img: img
                     };
                 }));
-
-                console.log(newMembersData)
-
                 setMemberData(newMembersData);
             } catch (error) {
                 console.error("Error fetching members:", error);
@@ -217,7 +213,6 @@ function Team({ tid, name, owner, role }) {
                         openEditMembersModal(false)
                         fetch(`/api/v1/user/username/${username}`).then(r => r.json()).then(data => {
                             if(data.success === true){
-                                console.log(data)
                                 fetch("/api/v1/teams/rank", {
                                     method: "POST",
                                     headers: {
@@ -266,14 +261,11 @@ function Team({ tid, name, owner, role }) {
                                 });
                             }
                         })
-                        console.log(username, role)
                     }}]: []),
                     {text: "Kick", style: "danger", sendArgs: true, submit: (username, _) => {
                         openEditMembersModal(false)
                         fetch(`/api/v1/user/username/${username}`).then(r => r.json()).then(data => {
-                            console.log(data)
                             if(data.success === true){
-                                console.log(data)
                                 fetch("/api/v1/teams/kick", {
                                     method: "POST",
                                     headers: {
@@ -341,9 +333,7 @@ function Team({ tid, name, owner, role }) {
                     {text: "Invite", style: "submit", sendArgs: true, submit: (username) => {
                         openInviteUserModal(false)
                         fetch(`/api/v1/user/username/${username}`).then(r => r.json()).then(data => {
-                            console.log(data)
                             if(data.success === true){
-                                console.log(data)
                                 fetch("/api/v1/teams/invite", {
                                     method: "POST",
                                     headers: {
