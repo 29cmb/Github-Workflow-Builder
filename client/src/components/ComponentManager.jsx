@@ -1,7 +1,9 @@
 import React, { cloneElement, useEffect, useState } from "react";
 import "../styles/ComponentManager.css";
+import "../styles/ComponentStyles.css"
 import WorkflowComponent from "./WorkflowComponent";
 import { CameraZone, useCamPos, useOffset } from "./CameraZone";
+import collision from "../modules/collision"
 
 function ComponentManager() {
     const [selected, setSelected] = useState(null);
@@ -10,27 +12,57 @@ function ComponentManager() {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const camPos = useCamPos();
     const offset = useOffset();
-    const [dragComponents, setDragComponents] = useState([
-        {
-            id: 1,
-            pos: [0, 0],
-            component: (<div className="dragableComponent" pos={[0, 0]}></div>)
-        },
-        {
-            id: 2,
-            pos: [200, 200],
-            component: (<div className="dragableComponent" pos={[200, 200]}></div>)
-        }
-    ]);
+    const [dragComponents, setDragComponents] = useState([]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const components = [
-        { color: "red", letter: "A", name: "Action", component: (
+        { cid: 1, color: "red", letter: "A", name: "Action", component: (
             <div id="actionComponent"></div>
-        ) },
-        { color: "orange", letter: "C", name: "Command" },
-        { color: "#EBFF00", letter: "U", name: "Upload" }
+        ), transform: {width: 250, height: 175} },
+        { cid: 2, color: "orange", letter: "C", name: "Command", component: (
+            <div id="commandComponent"></div>
+        ), transform: {width: 250, height: 175} },
+        { cid: 3, color: "#EBFF00", letter: "U", name: "Upload", component: (
+            <div id="uploadComponent"></div>
+        ), transform: {width: 250, height: 175} }
     ];
+
+    const keybinds = [
+        { key: "Backspace", action: () => {
+            console.log("Backspace clicked");
+            
+            const overlappingDragComponents = dragComponents.filter((dragComponent) => {
+                const matchingComponents = components.filter((component) => component.cid === dragComponent.cid);
+                if (matchingComponents.length === 0) return false;
+            
+                return matchingComponents.some((component) => {
+                    const [x, y] = dragComponent.pos;
+                    return collision(
+                        mousePosition.x + camPos[0] - offset[0], 
+                        mousePosition.y + camPos[1] - offset[1],
+                        1,
+                        1,
+                        x, 
+                        y, 
+                        component.transform.width, 
+                        component.transform.height
+                    );
+                });
+            });
+            
+            console.log(overlappingDragComponents);
+            if (overlappingDragComponents.length > 0) {
+                setDragComponents((prevComponents) =>
+                    prevComponents.filter((c) => {
+                        return overlappingDragComponents.some((oc) => {return oc !== c});
+                    })
+                );
+                console.log("Removed the overlapping draggable components");
+            } else {
+                console.log("Mouse is not over any draggable component");
+            }
+        }}
+    ]
 
     const filteredComponents = components.filter((component) => {
         if (componentFilter.length < 2) return true;
@@ -43,27 +75,41 @@ function ComponentManager() {
         };
 
         const handleMouseDown = (e) => {
-            if (selected !== null) {
-                const component = components.find((c) => c.color + c.letter === selected);
-                setDragComponents((prevComponents) => [
-                    ...prevComponents,
-                    {
-                        id: prevComponents.length + 1,
-                        pos: [e.clientX, e.clientY],
-                        component: component.component
-                    }
-                ]);
-                setSelected(null);
+            if (e.button === 0) {
+                if (selected !== null) {
+                    const component = components.find((c) => c.color + c.letter === selected);
+                    setDragComponents((prevComponents) => [
+                        ...prevComponents,
+                        {
+                            cid: component.cid,
+                            id: prevComponents.length + 1,
+                            pos: [
+                                mousePosition.x + camPos[0] - offset[0] - 50,
+                                mousePosition.y + camPos[1] - offset[1] - 50
+                            ],
+                            component: component.component
+                        }
+                    ]);
+                }
             }
         };
 
+        const handleKeydown = (e) => {
+            keybinds.forEach((keybind) => {
+                if (keybind.key === e.key) keybind.action();
+            });
+        }
+
         window.addEventListener("mousemove", handleMouseMove);
         window.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("keydown", handleKeydown);
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mousedown", handleMouseDown);
+            window.removeEventListener("keydown", handleKeydown);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selected, components]);
 
     useEffect(() => {
@@ -106,24 +152,11 @@ function ComponentManager() {
                     </div>
                 </div>
             </div>
-            <div id="workspace-container" style={{ zIndex: 0 }} onClick={() => {
-                if(selected !== null){
-                    setDragComponents((prevComponents) => [
-                        ...prevComponents,
-                        {
-                            id: prevComponents.length + 1,
-                            pos: [
-                                mousePosition.x + camPos[0] - offset[0] - 50,
-                                mousePosition.y + camPos[1] - offset[1] - 50
-                            ],
-                            component: components.find((c) => c.color + c.letter === selected).component
-                        }
-                    ])
-                }
-            }}>
+            <div id="workspace-container" style={{ zIndex: 0 }}>
                 <CameraZone>
                     {dragComponents.map((c, index) => {
                         const refElement = cloneElement(c.component, {
+                            className: "placedWorkflowComponent",
                             pos: c.pos,
                             onClick: (e) => {
                                 if (draggingRef === c.id) return setDraggingObject(null);

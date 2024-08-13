@@ -32,6 +32,7 @@ function CameraZone({ children }) {
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -83,6 +84,7 @@ function CameraZone({ children }) {
 
     return (
         <div id="camera-zone" ref={containerRef} style={{ overflow: 'hidden', width: '100%', height: '100%', position: 'relative', zIndex: 1 }}>
+            <p id="posText">{`${Math.floor(position[0]/15)}, ${-Math.floor(position[1]/15)}`}</p>
             <div style={{ ...transformStyle, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
                 {Children.map(children, child => {
                     const childPos = child.props.pos

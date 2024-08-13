@@ -105,9 +105,10 @@
     border-radius: 20px;
 }
 
-#actionComponent {
+#posText {
+    color: white;
+    z-index: 100;
     position: absolute;
-    width: 200px;
-    height: 150px;
-    background-color: red;
+    top: 7.5vh;
+    left: 430px;
 }
