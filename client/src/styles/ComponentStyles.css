@@ -3,7 +3,8 @@
 }
 
 #actionComponent,
-#commandComponent {
+#commandComponent,
+#uploadComponent {
     position: absolute;
     border-radius: 20px;
     border: 3px solid black;
@@ -14,13 +15,12 @@
     height: 175px;
 }
 
-#commandComponent {
+#commandComponent, #uploadComponent {
     width: 250px;
     height: 220px;
 }
 
-#actionComponent .seperator,
-#commandComponent .seperator {
+.seperator {
     background-color: rgb(58, 58, 58);
     width: 100%;
     height: 2px;
@@ -28,7 +28,8 @@
 }
 
 #actionComponent #actionName,
-#commandComponent #commandName {
+#commandComponent #commandName,
+#uploadComponent #uploadRules {
     font-size: 20px;
     font-weight: 100;
     margin: 10px;
@@ -36,7 +37,8 @@
 }
 
 #actionComponent button,
-#commandComponent button {
+#commandComponent button,
+#uploadComponent button {
     color: white;
     font-size: 40px;
     width: 90%;
@@ -54,8 +56,13 @@
     background-color: #FF7A00;
 }
 
+#uploadComponent button {
+    background-color: #FFD600;
+}
+
 #actionComponent > p,
-#commandComponent > p {
+#commandComponent > p,
+#uploadComponent > p {
     margin: 10px;
     text-align: left;
 }

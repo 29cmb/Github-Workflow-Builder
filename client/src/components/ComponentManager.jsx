@@ -35,7 +35,13 @@ function ComponentManager() {
             </div>
         ), transform: {width: 250, height: 220} },
         { cid: 3, color: "#EBFF00", letter: "U", name: "Upload", component: (
-            <div id="uploadComponent"></div>
+            <div id="uploadComponent">
+                <p id="componentName">Upload</p>
+                <div className="seperator"></div>
+                <p id="uploadRules">*.exe<br/>*.dll<br/>*.sys</p>
+                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <button id="edit">Edit</button>
+            </div>
         ), transform: {width: 250, height: 175} }
     ];
 
