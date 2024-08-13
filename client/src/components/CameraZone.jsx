@@ -6,8 +6,8 @@ const CameraData = {
 }
 
 const directions = {
-    w: [0,1], a: [1,0], s: [0,-1], d: [-1,0],
-    ArrowUp: [0,1], ArrowLeft: [1,0], ArrowDown: [0,-1], ArrowRight: [-1,0]
+    w: [0,-1], a: [-1,0], s: [0,1], d: [1,0],
+    ArrowUp: [0,-1], ArrowLeft: [-1,0], ArrowDown: [0,1], ArrowRight: [1,0]
 }
 
 const useCameraStore = create((set) => ({

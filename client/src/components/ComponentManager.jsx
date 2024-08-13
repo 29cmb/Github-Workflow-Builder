@@ -106,7 +106,21 @@ function ComponentManager() {
                     </div>
                 </div>
             </div>
-            <div id="workspace-container" style={{ zIndex: 0 }}>
+            <div id="workspace-container" style={{ zIndex: 0 }} onClick={() => {
+                if(selected !== null){
+                    setDragComponents((prevComponents) => [
+                        ...prevComponents,
+                        {
+                            id: prevComponents.length + 1,
+                            pos: [
+                                mousePosition.x + camPos[0] - offset[0] - 50,
+                                mousePosition.y + camPos[1] - offset[1] - 50
+                            ],
+                            component: components.find((c) => c.color + c.letter === selected).component
+                        }
+                    ])
+                }
+            }}>
                 <CameraZone>
                     {dragComponents.map((c, index) => {
                         const refElement = cloneElement(c.component, {
