@@ -19,15 +19,21 @@ function ComponentManager() {
         { cid: 1, color: "red", letter: "A", name: "Action", component: (
             <div id="actionComponent">
                 <p id="componentName">Action</p>
-                <div class="seperator"></div>
+                <div className="seperator"></div>
                 <p id="actionName">Action Name</p>
-                <div class="seperator" style={{marginTop: `10px`}}></div>
+                <div className="seperator" style={{marginTop: `10px`}}></div>
                 <button id="edit">Edit</button>
             </div>
         ), transform: {width: 250, height: 175} },
         { cid: 2, color: "orange", letter: "C", name: "Command", component: (
-            <div id="commandComponent"></div>
-        ), transform: {width: 250, height: 175} },
+            <div id="commandComponent">
+                <p id="componentName">Command</p>
+                <div className="seperator"></div>
+                <p id="commandName">Linux Command Data<br/>Linux Command Data<br/>Linux Command Data</p>
+                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <button id="edit">Edit</button>
+            </div>
+        ), transform: {width: 250, height: 220} },
         { cid: 3, color: "#EBFF00", letter: "U", name: "Upload", component: (
             <div id="uploadComponent"></div>
         ), transform: {width: 250, height: 175} }
