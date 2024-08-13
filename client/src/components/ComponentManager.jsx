@@ -127,9 +127,9 @@ function ComponentManager() {
                     openEditModal(true);
                 }}>Edit</button>
             </div>
-        ), transform: {width: 300, height: 175}, fillInstructions: [
-            {id: "artifactName", dataIndex: "artifactName"}
-        ] },
+        ), transform: {width: 300, height: 175}, data: [
+            {id: "artifactName", dataIndex: "artifactName", default: "Artifact Name"}
+        ]},
     ];
 
     const keybinds = [
@@ -213,11 +213,16 @@ function ComponentManager() {
                             }
                         ]);
 
+                        var fields = {}
+                        component.data.forEach((instruction) => {
+                            fields[instruction.id] = instruction.default;
+                        })
+                        
                         setComponentData((prevComponents) => [
                             ...prevComponents,
                             {
                                 id: `${component.cid}-${prevComponents.length + 1}`,
-                                artifactName: "Artifact Name"
+                                ...fields
                             }
                         ])
                     }
@@ -265,7 +270,7 @@ function ComponentManager() {
             const component = components.find((component) => component.cid === c.cid);
             if(component === undefined) return null;
 
-            component.fillInstructions.forEach((instruction) => {
+            component.data.forEach((instruction) => {
                 const element = document.querySelector(`.placedWorkflowComponent-${c.cid}-${c.id} #${instruction.id}`);
                 if(element === undefined) return;
 
