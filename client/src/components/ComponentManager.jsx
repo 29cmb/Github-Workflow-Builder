@@ -19,6 +19,7 @@ function ComponentManager() {
         inputs: [],
         buttons: []
     });
+    const [componentData, setComponentData] = useState([]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const components = [
@@ -126,7 +127,9 @@ function ComponentManager() {
                     openEditModal(true);
                 }}>Edit</button>
             </div>
-        ), transform: {width: 300, height: 175} },
+        ), transform: {width: 300, height: 175}, fillInstructions: [
+            {id: "artifactName", dataIndex: "artifactName"}
+        ] },
     ];
 
     const keybinds = [
@@ -209,6 +212,14 @@ function ComponentManager() {
                                 component: component.component
                             }
                         ]);
+
+                        setComponentData((prevComponents) => [
+                            ...prevComponents,
+                            {
+                                id: `${component.cid}-${prevComponents.length + 1}`,
+                                artifactName: "Artifact Name"
+                            }
+                        ])
                     }
                 }
             }, 200)
@@ -249,6 +260,20 @@ function ComponentManager() {
         }
     }, [mousePosition, draggingRef, camPos, offset]);
 
+    useEffect(() => {
+        dragComponents.map((c) => {
+            const component = components.find((component) => component.cid === c.cid);
+            if(component === undefined) return null;
+
+            component.fillInstructions.forEach((instruction) => {
+                const element = document.querySelector(`.placedWorkflowComponent-${c.cid}-${c.id} #${instruction.id}`);
+                if(element === undefined) return;
+
+                element.innerHTML = componentData.find(comp => comp.id === `${c.cid}-${c.id}`)[instruction.dataIndex] || "Unknown";
+            })
+        })
+    })
+
     return (
         <>
            {editModalOpen && <Modal
@@ -285,8 +310,9 @@ function ComponentManager() {
             <div id="workspace-container" style={{ zIndex: 0 }}>
                 <CameraZone>
                     {dragComponents.map((c, index) => {
+                        console.log(c.component)
                         const refElement = cloneElement(c.component, {
-                            className: "placedWorkflowComponent",
+                            className: `placedWorkflowComponent-${c.cid}-${c.id}`,
                             pos: c.pos,
                             onClick: (e) => {
                                 if(editModalOpen) return;

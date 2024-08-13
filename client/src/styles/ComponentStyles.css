@@ -1,12 +1,9 @@
-.placedWorkflowComponent {
-    background-color: #242424;
-}
-
 #actionComponent,
 #commandComponent,
 #uploadComponent,
 #nodeComponent,
 #downloadComponent {
+    background-color: #242424;
     position: absolute;
     border-radius: 20px;
     border: 3px solid black;
