@@ -51,7 +51,16 @@ function ComponentManager() {
                 <div className="seperator" style={{marginTop: `10px`}}></div>
                 <button id="edit">Edit</button>
             </div>
-        ), transform: {width: 250, height: 175} }
+        ), transform: {width: 250, height: 175} },
+        { cid: 5, color: "gray", letter: "D", name: "Download", component: (
+            <div id="downloadComponent">
+                <p id="componentName">Download Artifact</p>
+                <div className="seperator"></div>
+                <p id="artifactName">Artifact Name</p>
+                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <button id="edit">Edit</button>
+            </div>
+        ), transform: {width: 300, height: 175} },
     ];
 
     const keybinds = [
