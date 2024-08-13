@@ -43,7 +43,9 @@ function ComponentManager() {
                     openEditModal(true);
                 }}>Edit</button>
             </div>
-        ), transform: {width: 250, height: 175} },
+        ), transform: {width: 250, height: 175}, data: [
+            {id: "actionName", dataIndex: "actionName", default: "Action Name"}
+        ] },
         { cid: 2, color: "orange", letter: "C", name: "Command", component: (
             <div id="commandComponent">
                 <p id="componentName">Command</p>
@@ -64,7 +66,9 @@ function ComponentManager() {
                     openEditModal(true);
                 }}>Edit</button>
             </div>
-        ), transform: {width: 250, height: 220} },
+        ), transform: {width: 250, height: 220}, data: [
+            {id: "commandName", dataIndex: "commandName", default: "Command Name"}
+        ] },
         { cid: 3, color: "#EBFF00", letter: "U", name: "Upload", component: (
             <div id="uploadComponent">
                 <p id="componentName">Upload</p>
@@ -85,7 +89,9 @@ function ComponentManager() {
                     openEditModal(true);
                 }}>Edit</button>
             </div>
-        ), transform: {width: 250, height: 220} },
+        ), transform: {width: 250, height: 220}, data: [
+            {id: "uploadRules", dataIndex: "uploadRules", default: "*exe"}
+        ] },
         { cid: 4, color: "lime", letter: "N", name: "NodeJS", component: (
             <div id="nodeComponent">
                 <p id="componentName">Setup NodeJS</p>
@@ -106,7 +112,9 @@ function ComponentManager() {
                     openEditModal(true);
                 }}>Edit</button>
             </div>
-        ), transform: {width: 250, height: 175} },
+        ), transform: {width: 250, height: 175}, data: [
+            {id: "version", dataIndex: "version", default: "v20"}
+        ] },
         { cid: 5, color: "gray", letter: "D", name: "Download", component: (
             <div id="downloadComponent">
                 <p id="componentName">Download Artifact</p>
@@ -217,7 +225,7 @@ function ComponentManager() {
                         component.data.forEach((instruction) => {
                             fields[instruction.id] = instruction.default;
                         })
-                        
+
                         setComponentData((prevComponents) => [
                             ...prevComponents,
                             {
@@ -266,6 +274,7 @@ function ComponentManager() {
     }, [mousePosition, draggingRef, camPos, offset]);
 
     useEffect(() => {
+        // eslint-disable-next-line array-callback-return
         dragComponents.map((c) => {
             const component = components.find((component) => component.cid === c.cid);
             if(component === undefined) return null;
