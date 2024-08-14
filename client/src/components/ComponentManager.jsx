@@ -29,15 +29,6 @@ function ComponentManager() {
                 <div className="seperator"></div>
                 <p id="actionName">Action Name</p>
                 <div className="seperator" style={{marginTop: `10px`}}></div>
-                <button id="edit" onClick={() => {
-                    setComponentEditData({
-                        inputs: [
-                            { id: "actionName", type: "text", placeholder: "Action Name" }
-                        ],
-                        buttons: []
-                    });
-                    openEditModal(true);
-                }}>Edit</button>
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "actionName", dataIndex: "actionName", default: "Action Name"}
@@ -48,15 +39,6 @@ function ComponentManager() {
                 <div className="seperator"></div>
                 <p id="commandName">Linux Command Data<br/>Linux Command Data<br/>Linux Command Data</p>
                 <div className="seperator" style={{marginTop: `10px`}}></div>
-                <button id="edit" onClick={() => {
-                    setComponentEditData({
-                        inputs: [
-                            { id: "commandName", type: "text", placeholder: "Commands" }
-                        ],
-                        buttons: []
-                    });
-                    openEditModal(true);
-                }}>Edit</button>
             </div>
         ), transform: {width: 250, height: 220}, data: [
             {id: "commandName", dataIndex: "commandName", default: "Command Name"}
@@ -67,15 +49,6 @@ function ComponentManager() {
                 <div className="seperator"></div>
                 <p id="uploadRules">*.exe<br/>*.dll<br/>*.sys</p>
                 <div className="seperator" style={{marginTop: `10px`}}></div>
-                <button id="edit" onClick={() => {
-                    setComponentEditData({
-                        inputs: [
-                            { id: "uploadRules", type: "text", placeholder: "Upload Filters" }
-                        ],
-                        buttons:  []
-                    });
-                    openEditModal(true);
-                }}>Edit</button>
             </div>
         ), transform: {width: 250, height: 220}, data: [
             {id: "uploadRules", dataIndex: "uploadRules", default: "*exe"}
@@ -86,15 +59,6 @@ function ComponentManager() {
                 <div className="seperator"></div>
                 <p id="version">v20</p>
                 <div className="seperator" style={{marginTop: `10px`}}></div>
-                <button id="edit" onClick={() => {
-                    setComponentEditData({
-                        inputs: [
-                            { id: "version", type: "text", placeholder: "Node Version" }
-                        ],
-                        buttons: []
-                    });
-                    openEditModal(true);
-                }}>Edit</button>
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "version", dataIndex: "version", default: "v20"}
@@ -105,15 +69,6 @@ function ComponentManager() {
                 <div className="seperator"></div>
                 <p id="artifactName">Artifact Name</p>
                 <div className="seperator" style={{marginTop: `10px`}}></div>
-                <button id="edit" onClick={() => {
-                    setComponentEditData({
-                        inputs: [
-                            { id: "artifactName", type: "text", placeholder: "Artifact Name" }
-                        ],
-                        buttons: []
-                    });
-                    openEditModal(true);
-                }}>Edit</button>
             </div>
         ), transform: {width: 300, height: 175}, data: [
             {id: "artifactName", dataIndex: "artifactName", default: "Artifact Name"}
@@ -124,15 +79,6 @@ function ComponentManager() {
                 <div className="seperator"></div>
                 <p id="pythonVersion">Version</p>
                 <div className="seperator" style={{marginTop: `10px`}}></div>
-                <button id="edit" onClick={() => {
-                    setComponentEditData({
-                        inputs: [
-                            { id: "pythonVersion", type: "text", placeholder: "Python Version" }
-                        ],
-                        buttons: []
-                    });
-                    openEditModal(true);
-                }}>Edit</button>
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "pythonVersion", dataIndex: "pythonVersion", default: "v3.12"}
@@ -294,7 +240,20 @@ function ComponentManager() {
                 inputs={componentEditData.inputs}
                 buttons={[...componentEditData.buttons,
                     { text: "Submit", style: "submit", sendArgs: true, submit: (...params) => {
-
+                        openEditModal(false)
+                        const component = components.find((c) => c.cid === componentEditData.cid);
+                        
+                        const updatedComponentData = componentData.map((c) => {
+                            if (c.id === `${componentEditData.cid}-${componentEditData.id}`) {
+                                params.forEach((param, index) => {
+                                    if(param === undefined || param === null || param === "") param = component.data[index].default;
+                                    c[component.data[index].dataIndex] = param;
+                                });
+                            }
+                            return c;
+                        });
+                        
+                        setComponentData(updatedComponentData);
                     } },
                     { text: "Cancel", style: "cancel", submit: () => {
                         openEditModal(false)
@@ -326,7 +285,7 @@ function ComponentManager() {
             <div id="workspace-container" style={{ zIndex: 0 }}>
                 <CameraZone>
                     {dragComponents.map((c, index) => {
-                        console.log(c.component)
+
                         const refElement = cloneElement(c.component, {
                             className: `placedWorkflowComponent-${c.cid}-${c.id}`,
                             pos: c.pos,
@@ -339,7 +298,22 @@ function ComponentManager() {
                                 setDraggingObject(c.id);
                             }
                         });
-                        return cloneElement(refElement, { key: index });
+
+                        const inputs = components.find((component) => component.cid === c.cid).data.map((instruction) => {
+                            return { id: instruction.id, type: "text", placeholder: instruction.default }
+                        });
+
+                        const button = (<button id="edit" onClick={() => {
+                            setComponentEditData({
+                                inputs,
+                                buttons: [],
+                                id: c.id,
+                                cid: c.cid
+                            });
+                            openEditModal(true);
+                        }}>Edit</button>)
+
+                        return cloneElement(refElement, { key: index, children: [...refElement.props.children, button] });
                     })}
                 </CameraZone>
             </div>
