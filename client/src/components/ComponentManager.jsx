@@ -20,6 +20,12 @@ function ComponentManager() {
         buttons: []
     });
     const [componentData, setComponentData] = useState([]);
+    const [connectingData, setConnectingData] = useState({
+        active: false,
+        stage: "from",
+        from: null,
+        to: null
+    })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const components = [
@@ -32,7 +38,7 @@ function ComponentManager() {
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "actionName", dataIndex: "actionName", default: "Action Name"}
-        ] },
+        ], route: "from" },
         { cid: 2, color: "orange", letter: "C", name: "Command", component: (
             <div id="commandComponent">
                 <p id="componentName">Command</p>
@@ -42,7 +48,7 @@ function ComponentManager() {
             </div>
         ), transform: {width: 250, height: 220}, data: [
             {id: "commandName", dataIndex: "commandName", default: "Command Name"}
-        ] },
+        ], route: "to" },
         { cid: 3, color: "#EBFF00", letter: "U", name: "Upload", component: (
             <div id="uploadComponent">
                 <p id="componentName">Upload</p>
@@ -52,7 +58,7 @@ function ComponentManager() {
             </div>
         ), transform: {width: 250, height: 220}, data: [
             {id: "uploadRules", dataIndex: "uploadRules", default: "*exe"}
-        ] },
+        ], route: "to" },
         { cid: 4, color: "lime", letter: "N", name: "NodeJS", component: (
             <div id="nodeComponent">
                 <p id="componentName">Setup NodeJS</p>
@@ -62,7 +68,7 @@ function ComponentManager() {
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "version", dataIndex: "version", default: "v20"}
-        ] },
+        ], route: "to" },
         { cid: 5, color: "gray", letter: "D", name: "Download", component: (
             <div id="downloadComponent">
                 <p id="componentName">Download Artifact</p>
@@ -72,7 +78,7 @@ function ComponentManager() {
             </div>
         ), transform: {width: 300, height: 175}, data: [
             {id: "artifactName", dataIndex: "artifactName", default: "Artifact Name"}
-        ]},
+        ], route: "to" },
         { cid: 6, color: "#2da1ff", letter: "P", name: "Python", component: (
             <div id="pythonComponent">
                 <p id="componentName">Setup Python</p>
@@ -82,7 +88,7 @@ function ComponentManager() {
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "pythonVersion", dataIndex: "pythonVersion", default: "v3.12"}
-        ] }
+        ], route: "to" }
     ];
 
     const keybinds = [
@@ -140,6 +146,7 @@ function ComponentManager() {
         const handleMouseDown = (e) => {
             setTimeout(() => {
                 if(editModalOpen) return;
+                if(connectingData.active) return; // TODO: Set to/from component
                 if (e.button === 0) {
                     if (selected !== null) {
                         const overlappingDragComponents = dragComponents.filter((dragComponent) => {
@@ -216,6 +223,11 @@ function ComponentManager() {
 
     useEffect(() => {
         if (draggingRef != null) {
+            if(connectingData.active){ 
+                setDraggingObject(null);
+                return; 
+            }
+
             setDragComponents((prevComponents) =>
                 prevComponents.map((c) =>
                     c.id === draggingRef ? {
@@ -228,7 +240,7 @@ function ComponentManager() {
                 )
             );
         }
-    }, [mousePosition, draggingRef, camPos, offset]);
+    }, [mousePosition, draggingRef, camPos, offset, connectingData]);
 
     useEffect(() => {
         // eslint-disable-next-line array-callback-return
@@ -282,7 +294,21 @@ function ComponentManager() {
                     <button id="export">Export</button>
                     <button id="settings"><i className="fas fa-cog"></i></button>
                 </div>
-                <button id="connect">Connect</button>
+                {!connectingData.active ? <button id="connect" onClick={() => setConnectingData((previous) => {
+                    return {
+                        active: true,
+                        stage: "from",
+                        from: null,
+                        to: null
+                    }
+                })}>Connect</button> : <button id="stopConnecting" onClick={() => setConnectingData((previous) => {
+                    return {
+                        active: false,
+                        stage: "from",
+                        from: null,
+                        to: null
+                    }
+                })}>Exit Connect</button>}
                 <div id="components">
                     <div id="search">
                         <i className="fas fa-search search-icon"></i>
@@ -303,11 +329,12 @@ function ComponentManager() {
             <div id="workspace-container" style={{ zIndex: 0 }}>
                 <CameraZone>
                     {dragComponents.map((c, index) => {
-
+                        const component = components.find((component) => component.cid === c.cid)
                         const refElement = cloneElement(c.component, {
-                            className: `placedWorkflowComponent-${c.cid}-${c.id}`,
+                            className: `placedWorkflowComponent-${c.cid}-${c.id}${connectingData.active ? (component.route !== connectingData.stage ? " dimmed" : "") : ""}`,
                             pos: c.pos,
                             onClick: (e) => {
+                                if(connectingData.active) return;
                                 if(editModalOpen) return;
                                 const elementUnderMouse = document.elementFromPoint(mousePosition.x, mousePosition.y);
                                 if (elementUnderMouse && elementUnderMouse.tagName.toLowerCase() === 'button') return;
@@ -322,6 +349,7 @@ function ComponentManager() {
                         });
 
                         const button = (<button id="edit" onClick={() => {
+                            if(connectingData.active) return;
                             setComponentEditData({
                                 inputs,
                                 buttons: [],

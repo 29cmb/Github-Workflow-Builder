@@ -27,7 +27,8 @@
     -webkit-text-stroke: 1px black;
 }
 
-#component-sidebar #connect {
+#component-sidebar #connect,
+#component-sidebar #stopConnecting {
     background-color: rgb(32, 136, 255);
     border: none;
     color: white;
@@ -43,11 +44,23 @@
     transition: all 0.3s ease;
 }
 
-#component-sidebar #connect:hover {
+#component-sidebar #connect:hover,
+#component-sidebar #stopConnecting:hover {
     background-color: rgb(24, 101, 189);
     font-size: 42px;
     transition: all 0.3s ease;
 }
+
+#component-sidebar #stopConnecting {
+    font-size: 30px;
+}
+
+#component-sidebar #stopConnecting:hover {
+    font-size: 32px;
+}
+
+
+ 
 
 #component-sidebar #topButtons button:hover {
     background-color: #1d852e;

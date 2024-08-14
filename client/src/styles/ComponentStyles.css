@@ -1,15 +1,14 @@
-#actionComponent,
-#commandComponent,
-#uploadComponent,
-#nodeComponent,
-#downloadComponent,
-#pythonComponent {
+#actionComponent:not(.dimmed),
+#commandComponent:not(.dimmed),
+#uploadComponent:not(.dimmed),
+#nodeComponent:not(.dimmed),
+#downloadComponent:not(.dimmed),
+#pythonComponent:not(.dimmed) {
     background-color: #242424;
     position: absolute;
     border-radius: 20px;
     border: 3px solid black;
 }
-
 #actionComponent, #nodeComponent, #pythonComponent {
     width: 250px;
     height: 175px;
@@ -90,4 +89,12 @@
 #pythonComponent > p {
     margin: 10px;
     text-align: left;
+}
+
+.dimmed {
+    color: gray;
+    background-color: rgb(17, 17, 17);
+    position: absolute;
+    border-radius: 20px;
+    border: 3px solid black;
 }
