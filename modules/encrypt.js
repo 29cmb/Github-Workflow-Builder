@@ -4,7 +4,6 @@ const crypto = require('crypto');
 const algorithm = 'aes-256-gcm';
 const keyLength = 32; // 256 bits
 const ivLength = 12; // 96 bits for GCM
-const authTagLength = 16; // 128 bits
 
 function deriveKey(password) {
     return crypto.scryptSync(password, process.env.ENCRYPTION_SALT, keyLength);

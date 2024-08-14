@@ -19,9 +19,10 @@ module.exports = (app) => {
         switch(project.owner.type){
             case "user":
                 if(req.session.user != project.owner.id && !(project.contributors.includes(req.session.user))) return res.status(403).json({ success: false, message: "You do not have permissions to write to this project" })
+                break;
             case "team":
-                const team = await db.collections.teams.findOne({ tid: project.owner.id })
-                if(!team.members.includes(req.session.user)) return res.status(403).json({ success: false, message: "You do not have permissions to write to this project" })
+                { const team = await db.collections.teams.findOne({ tid: project.owner.id })
+                if(!team.members.includes(req.session.user)) return res.status(403).json({ success: false, message: "You do not have permissions to write to this project" }) }
         }
 
         await db.collections.projects.updateOne({ pid }, {"$set": { data }})

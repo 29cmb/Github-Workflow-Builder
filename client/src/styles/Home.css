@@ -67,30 +67,11 @@ body {
     padding-top: 30px;
 }
 
-#ImportWorkflows {
+#EditWorkflows {
     font-size: 100px;
     text-align: left;
     padding: 40px;
     padding-top: 150px;
-    line-height: 0.2;
-}
-
-#existing {
-    font-size: 120px;
-    background: linear-gradient(0deg, #ff0000, #ff00b3);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: block;
-    line-height: 1;
-    padding-top: 30px;
-}
-
-#EditWorkflows {
-    font-size: 100px;
-    text-align: right;
-    padding: 40px;
-    padding-top: 80px;
     line-height: 0.8;
 }
 

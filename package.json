@@ -9,13 +9,16 @@
     "client": "cd client && npm start",
     "client-install": "cd client && npm install",
     "client-build": "cd client && npm run build",
-    "install-all": "npm install && npm run client-install"
+    "install-all": "npm install && npm run client-install",
+    "eslint": "npx eslint . --ignore-pattern \"client\"",
+    "eslint-client": "cd client && npx eslint"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@eslint/compat": "^1.1.1",
     "connect-mongodb-session": "^5.0.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

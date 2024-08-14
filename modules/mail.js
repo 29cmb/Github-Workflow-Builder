@@ -28,7 +28,7 @@ module.exports = {
         });
 
         request
-            .then((result) => {
+            .then((_result) => {
                 console.log(`📨 | Mail sent successfully to ${to}!`);
             })
             .catch((err) => {

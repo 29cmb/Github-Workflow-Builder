@@ -1,6 +1,5 @@
 const db = require("../modules/db")
 const { authNeeded, writeRateLimit } = require("../modules/middleware")
-const limits = require("../config/limits.json")
 
 module.exports = (app) => {
     app.post("/api/v1/teams/delete", authNeeded, writeRateLimit, async (req, res) => {

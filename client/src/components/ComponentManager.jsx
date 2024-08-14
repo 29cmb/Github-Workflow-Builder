@@ -73,7 +73,7 @@ function ComponentManager() {
         ), transform: {width: 300, height: 175}, data: [
             {id: "artifactName", dataIndex: "artifactName", default: "Artifact Name"}
         ]},
-        { cid: 6, color: "#3776AB", letter: "P", name: "Python", component: (
+        { cid: 6, color: "#2da1ff", letter: "P", name: "Python", component: (
             <div id="pythonComponent">
                 <p id="componentName">Setup Python</p>
                 <div className="seperator"></div>

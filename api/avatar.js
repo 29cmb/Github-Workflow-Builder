@@ -22,6 +22,7 @@ module.exports = (app) => {
             });
         } catch (err) {
             res.status(500).json({ success: false, message: "Internal server error." });
+            console.log(err)
         }
     });
 

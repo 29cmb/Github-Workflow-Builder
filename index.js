@@ -7,7 +7,6 @@ const path = require("path")
 const fs = require("fs")
 const db = require("./modules/db.js")
 const logging = require("./config/logging.json")
-const rateLimit = require("express-rate-limit")
 const mail = require("./modules/mail.js")
 
 // Methods
