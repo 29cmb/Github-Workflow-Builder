@@ -185,7 +185,6 @@ function ComponentManager() {
 
                         var fields = {}
                         component.data.forEach((instruction) => {
-                            console.log(instruction, fields)
                             if(instruction.id === undefined || instruction.default === undefined) return;
                             fields[instruction.id] = instruction.default;
                         })
@@ -194,6 +193,7 @@ function ComponentManager() {
                             ...prevComponents,
                             {
                                 id: `${component.cid}-${prevComponents.length + 1}`,
+                                routes: [],
                                 ...fields
                             }
                         ])
@@ -333,8 +333,42 @@ function ComponentManager() {
                         const refElement = cloneElement(c.component, {
                             className: `placedWorkflowComponent-${c.cid}-${c.id}${connectingData.active ? (component.route !== connectingData.stage ? " dimmed" : "") : ""}`,
                             pos: c.pos,
-                            onClick: (e) => {
-                                if(connectingData.active) return;
+                            onClick: async (e) => {
+                                if(connectingData.active){
+                                    if(connectingData.stage === component.route){
+                                        if(connectingData.stage !== "to"){
+                                            setConnectingData((previous) => {
+                                                return {
+                                                    active: true,
+                                                    stage: "to",
+                                                    from: c,
+                                                    to: null
+                                                }
+                                            })
+                                        } else {
+                                            const fromComponent = components.find((component) => component.cid === connectingData.from.cid);
+                                            if(fromComponent.route !== "from") return;
+                                            if(component.route !== "to") return;
+
+                                            
+                                            setComponentData((previous) => {
+                                                return previous.map((pC) => {
+                                                    if(pC.id === `${fromComponent.cid}-${c.id}`){
+                                                        pC.routes.push({id: `${fromComponent.cid}-${c.id}`, type: "from"});
+                                                    }
+
+                                                    if(pC.id === `${component.cid}-${component.id}`){
+                                                        pC.routes.push({id: `${component.cid}-${component.id}`, type: "to"});
+                                                    }
+
+                                                    return pC;
+                                                })
+                                            })
+                                            setConnectingData({ active: false, stage: "from", from: null, to: null });
+                                        }
+                                    }
+                                    return;
+                                }
                                 if(editModalOpen) return;
                                 const elementUnderMouse = document.elementFromPoint(mousePosition.x, mousePosition.y);
                                 if (elementUnderMouse && elementUnderMouse.tagName.toLowerCase() === 'button') return;
