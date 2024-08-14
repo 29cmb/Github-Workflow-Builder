@@ -34,11 +34,7 @@ function ComponentManager() {
                         inputs: [
                             { id: "actionName", type: "text", placeholder: "Action Name" }
                         ],
-                        buttons: [
-                            { text: "Save", style: "submit", submit: () => {
-                                openEditModal(false);
-                            }}
-                        ]
+                        buttons: []
                     });
                     openEditModal(true);
                 }}>Edit</button>
@@ -55,13 +51,9 @@ function ComponentManager() {
                 <button id="edit" onClick={() => {
                     setComponentEditData({
                         inputs: [
-                            { id: "commands", type: "text", placeholder: "Commands" }
+                            { id: "commandName", type: "text", placeholder: "Commands" }
                         ],
-                        buttons: [
-                            { text: "Save", style: "submit", submit: () => {
-                                openEditModal(false);
-                            }}
-                        ]
+                        buttons: []
                     });
                     openEditModal(true);
                 }}>Edit</button>
@@ -78,13 +70,9 @@ function ComponentManager() {
                 <button id="edit" onClick={() => {
                     setComponentEditData({
                         inputs: [
-                            { id: "fileFilters", type: "text", placeholder: "Upload Filters" }
+                            { id: "uploadRules", type: "text", placeholder: "Upload Filters" }
                         ],
-                        buttons: [
-                            { text: "Save", style: "submit", submit: () => {
-                                openEditModal(false);
-                            }}
-                        ]
+                        buttons:  []
                     });
                     openEditModal(true);
                 }}>Edit</button>
@@ -103,11 +91,7 @@ function ComponentManager() {
                         inputs: [
                             { id: "version", type: "text", placeholder: "Node Version" }
                         ],
-                        buttons: [
-                            { text: "Save", style: "submit", submit: () => {
-                                openEditModal(false);
-                            }}
-                        ]
+                        buttons: []
                     });
                     openEditModal(true);
                 }}>Edit</button>
@@ -126,11 +110,7 @@ function ComponentManager() {
                         inputs: [
                             { id: "artifactName", type: "text", placeholder: "Artifact Name" }
                         ],
-                        buttons: [
-                            { text: "Save", style: "submit", submit: () => {
-                                openEditModal(false);
-                            }}
-                        ]
+                        buttons: []
                     });
                     openEditModal(true);
                 }}>Edit</button>
@@ -149,11 +129,7 @@ function ComponentManager() {
                         inputs: [
                             { id: "pythonVersion", type: "text", placeholder: "Python Version" }
                         ],
-                        buttons: [
-                            { text: "Save", style: "submit", submit: () => {
-                                openEditModal(false);
-                            }}
-                        ]
+                        buttons: []
                     });
                     openEditModal(true);
                 }}>Edit</button>
@@ -317,9 +293,12 @@ function ComponentManager() {
                 title="Edit Component"
                 inputs={componentEditData.inputs}
                 buttons={[...componentEditData.buttons,
+                    { text: "Submit", style: "submit", sendArgs: true, submit: (...params) => {
+
+                    } },
                     { text: "Cancel", style: "cancel", submit: () => {
                         openEditModal(false)
-                    }}
+                    }},
                 ]}
             ></Modal>}
             <div id="component-sidebar">

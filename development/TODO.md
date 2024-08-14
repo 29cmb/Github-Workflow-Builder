@@ -55,11 +55,10 @@
     - [x] Bio
     - [x] Profile Picture
 ## Workflow Builder
-- [ ] Sidebar
-    - [ ] Components
-    - [ ] Templates
-- [ ] Component placing
-- [ ] Camera moving
+- [x] Sidebar
+    - [x] Components
+- [x] Component placing
+- [x] Camera moving
 - [ ] Connecting components
 - [ ] Compile to yml
 - [ ] Import existing yml
@@ -69,3 +68,4 @@
 - [ ] 2FA
 - [ ] Github login
 - [ ] Better confirmation popup
+- [ ] Templates
