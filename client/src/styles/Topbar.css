@@ -21,17 +21,19 @@
     background-color: rgb(0,0,0,0);
     color: white;
     padding-top: 0px;
-    width: 10vw;
+    min-width: calc(10vw + 0.5em);
     font-size: 35px;
     border: none;
     transition: all 0.3s ease;
+    margin-right: 10px;
 }
 
 #topbar .green {
     background-color: #259c3f;
     color: white;
     padding-top: 0px;
-    width: 10vw;
+    margin-right: 10px;
+    width: calc(10vw + 0.5em);
     font-size: 35px;
     border: solid black;
     border-radius: 15px;
@@ -40,11 +42,13 @@
 
 #topbar .green:hover {
     font-size: 40px;
+    width: calc(10vw + 1em);
     background-color: #1d7a31;
     transition: all 0.3s ease;
 }
 
 #topbar .regular:hover {
     font-size: 40px;
+    min-width: calc(10vw + 1em);
     transition: all 0.3s ease;
 }
