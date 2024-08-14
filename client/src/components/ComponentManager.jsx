@@ -113,6 +113,16 @@ function ComponentManager() {
                         return overlappingDragComponents.some((oc) => {return oc !== c});
                     })
                 );
+
+                const cData = componentData.filter((c) => 
+                    overlappingDragComponents.some((dragComponent) => c.id === `${dragComponent.cid}-${dragComponent.id}`)
+                )
+
+                setComponentData((prevComponents) => {
+                    return prevComponents.filter((c) => {
+                        return cData.some((oc) => {return oc !== c})
+                    })
+                })
             }
         }}
     ]
@@ -168,6 +178,8 @@ function ComponentManager() {
 
                         var fields = {}
                         component.data.forEach((instruction) => {
+                            console.log(instruction, fields)
+                            if(instruction.id === undefined || instruction.default === undefined) return;
                             fields[instruction.id] = instruction.default;
                         })
 
@@ -227,8 +239,13 @@ function ComponentManager() {
             component.data.forEach((instruction) => {
                 const element = document.querySelector(`.placedWorkflowComponent-${c.cid}-${c.id} #${instruction.id}`);
                 if(element === undefined) return;
+                const d = componentData.find(comp => comp.id === `${c.cid}-${c.id}`)
+                if(d === undefined || d[[instruction.dataIndex]] === undefined){
+                    element.innerHTML = "Unknown"
+                    return;
+                };
 
-                element.innerHTML = componentData.find(comp => comp.id === `${c.cid}-${c.id}`)[instruction.dataIndex] || "Unknown";
+                element.innerHTML = d[instruction.dataIndex]
             })
         })
     })
@@ -265,6 +282,7 @@ function ComponentManager() {
                     <button id="export">Export</button>
                     <button id="settings"><i className="fas fa-cog"></i></button>
                 </div>
+                <button id="connect">Connect</button>
                 <div id="components">
                     <div id="search">
                         <i className="fas fa-search search-icon"></i>

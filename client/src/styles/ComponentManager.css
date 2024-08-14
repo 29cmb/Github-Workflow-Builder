@@ -27,6 +27,28 @@
     -webkit-text-stroke: 1px black;
 }
 
+#component-sidebar #connect {
+    background-color: rgb(32, 136, 255);
+    border: none;
+    color: white;
+    font-weight: 800;
+    font-size: 40px;
+    width: 90%;
+    padding: 5px;
+    padding-left: 65px;
+    padding-right: 65px;
+    margin: 5px;
+    border-radius: 15px;
+    -webkit-text-stroke: 1px black;
+    transition: all 0.3s ease;
+}
+
+#component-sidebar #connect:hover {
+    background-color: rgb(24, 101, 189);
+    font-size: 42px;
+    transition: all 0.3s ease;
+}
+
 #component-sidebar #topButtons button:hover {
     background-color: #1d852e;
     font-size: 42px;
