@@ -9,8 +9,10 @@ module.exports = (app) => {
             || data == undefined
             || typeof pid != "number" 
             || typeof data != "object" 
-            || data.blocks == undefined 
+            || data.components == undefined
+            || data.componentData == undefined 
             || typeof data.blocks != "object"
+            || typeof data.componentData != "object"
         ) return res.status(400).json({ success: false, message: "PID or Data not provided or not formatted properly." })
 
         const project = await db.collections.projects.findOne({ pid })

@@ -33,7 +33,8 @@ module.exports = (app) => {
             name,
             description,
             data: {
-                blocks: []
+                components: [],
+                componentData: []
             },
             contributors: [],
             public: false
