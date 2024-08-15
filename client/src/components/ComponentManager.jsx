@@ -6,8 +6,9 @@ import { CameraZone, useCamPos, useOffset } from "./CameraZone";
 import collision from "../modules/collision"
 import Modal from "./Modal";
 import Export from "./Export";
+import {Toaster, toast} from "react-hot-toast"
 
-function ComponentManager() {
+function ComponentManager({ pid }) {
     const [selected, setSelected] = useState(null);
     const [componentFilter, setComponentFilter] = useState("");
     const [draggingRef, setDraggingObject] = useState(null);
@@ -28,6 +29,8 @@ function ComponentManager() {
         to: null
     })
     const [exportVisible, setExportVisible] = useState(false);
+
+    
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const components = [
@@ -102,6 +105,42 @@ function ComponentManager() {
             {id: "javaVersion", dataIndex: "javaVersion", default: "v21"}
         ], route: "to" }
     ];
+
+    useEffect(() => {
+        fetch(`/api/v1/projects/${pid}/get`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === true) {
+                    var existingComponentData = data.project.data.componentData;
+                    console.log(existingComponentData)
+                    setComponentData(existingComponentData);
+    
+                    const newDragComponents = data.project.data.componentData.map((c) => {
+                        const component = components.find((component) => component.cid === c.cid);
+                        if (component === undefined) return null;
+                        return {
+                            cid: component.cid,
+                            id: c.dcid,
+                            pos: c.pos,
+                            component: component.component
+                        };
+                    }).filter(c => c !== null);
+                    console.log(newDragComponents)
+    
+                    setDragComponents(newDragComponents);
+                } else {
+                    toast(`There was an error while fetching project data: ${data.message}`, {
+                        icon: "❌",
+                        style: {
+                            color: "white",
+                            backgroundColor: "#333",
+                            borderRadius: "10px",
+                            maxWidth: "60%",
+                        }
+                    });
+                }
+            });
+    }, []);
 
     const keybinds = [
         { key: "Backspace", action: () => {
@@ -209,7 +248,12 @@ function ComponentManager() {
                             {
                                 cid: component.cid,
                                 id: `${component.cid}-${prevComponents.length + 1}`,
+                                dcid: prevComponents.length + 1,
                                 routes: [],
+                                pos: [
+                                    mousePosition.x + camPos[0] - offset[0] - 50,
+                                    mousePosition.y + camPos[1] - offset[1] - 50
+                                ],
                                 ...fields
                             }
                         ])
@@ -255,6 +299,21 @@ function ComponentManager() {
                     } : c
                 )
             );
+
+            setComponentData((prevComponents) => 
+                prevComponents.map((c) => {
+                    if(c.id === `${dragComponents.find((c) => c.id === draggingRef).cid}-${draggingRef}`){
+                        return {
+                            ...c,
+                            pos: [
+                                mousePosition.x + camPos[0] - offset[0] - 50,
+                                mousePosition.y + camPos[1] - offset[1] - 50
+                            ]
+                        }
+                    }
+                    return c;
+                })
+            )
         }
     }, [mousePosition, draggingRef, camPos, offset, connectingData]);
 
@@ -280,6 +339,7 @@ function ComponentManager() {
 
     return (
         <>
+            <Toaster/>
            {editModalOpen && <Modal
                 title="Edit Component"
                 inputs={componentEditData.inputs}
@@ -312,7 +372,51 @@ function ComponentManager() {
             <div id="component-sidebar">
                 <div id="topButtons">
                     <button id="export" onClick={() => setExportVisible(true)}>Export</button>
-                    <button id="settings"><i className="fas fa-save"></i></button>
+                    <button id="save" onClick={() => {
+                        toast(`Saving...`, {
+                            icon: "📝",
+                            style: {
+                                color: "white",
+                                backgroundColor: "#333",
+                                borderRadius: "10px",
+                                maxWidth: "60%",
+                            }
+                        });
+                        fetch("/api/v1/projects/save", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                pid,
+                                data: {
+                                    componentData
+                                }
+                            })
+                        }).then(response => response.json()).then(data => {
+                            if(data.success === true){
+                                toast(`Saved successfully!`, {
+                                    icon: "✅",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                            } else {
+                                toast(`There was an error while saving: ${data.message}`, {
+                                    icon: "❌",
+                                    style: {
+                                        color: "white",
+                                        backgroundColor: "#333",
+                                        borderRadius: "10px",
+                                        maxWidth: "60%",
+                                    }
+                                });
+                            }
+                        })
+                    }}><i className="fas fa-save"></i></button>
                 </div>
                 {!connectingData.active ? <button id="connect" onClick={() => setConnectingData((previous) => {
                     return {
