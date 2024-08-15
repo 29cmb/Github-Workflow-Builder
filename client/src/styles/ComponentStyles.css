@@ -3,13 +3,14 @@
 #uploadComponent:not(.dimmed),
 #nodeComponent:not(.dimmed),
 #downloadComponent:not(.dimmed),
-#pythonComponent:not(.dimmed) {
+#pythonComponent:not(.dimmed),
+#javaComponent:not(.dimmed) {
     background-color: #242424;
     position: absolute;
     border-radius: 20px;
     border: 3px solid black;
 }
-#actionComponent, #nodeComponent, #pythonComponent {
+#actionComponent, #nodeComponent, #pythonComponent, #javaComponent {
     width: 250px;
     height: 175px;
 }
@@ -36,7 +37,8 @@
 #uploadComponent #uploadRules,
 #nodeComponent #version,
 #downloadComponent #artifactName,
-#pythonComponent #pythonVersion {
+#pythonComponent #pythonVersion,
+#javaComponent #javaVersion {
     font-size: 20px;
     font-weight: 100;
     margin: 10px;
@@ -48,7 +50,8 @@
 #uploadComponent button,
 #nodeComponent button,
 #downloadComponent button,
-#pythonComponent button {
+#pythonComponent button,
+#javaComponent button {
     color: white;
     font-size: 40px;
     width: 90%;
@@ -81,14 +84,24 @@
     background-color: #2da1ff;
 }
 
+#javaComponent button {
+    background-color: #f89820;
+}
+
 #actionComponent > p,
 #commandComponent > p,
 #uploadComponent > p,
 #nodeComponent > p,
 #downloadComponent > p,
-#pythonComponent > p {
+#pythonComponent > p,
+#javaComponent > p {
     margin: 10px;
     text-align: left;
+}
+
+#javaComponent #distro {
+    font-size: 10px;
+    margin: 0;
 }
 
 .dimmed {

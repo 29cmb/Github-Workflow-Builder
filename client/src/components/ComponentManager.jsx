@@ -49,7 +49,7 @@ function ComponentManager() {
                 <div className="seperator" style={{marginTop: `10px`}}></div>
             </div>
         ), transform: {width: 250, height: 220}, data: [
-            {id: "commandName", dataIndex: "commandName", default: "Command Name"}
+            {id: "commandName", dataIndex: "commandName", default: "echo Hello World!"}
         ], route: "to" },
         { cid: 3, color: "#EBFF00", letter: "U", name: "Upload", component: (
             <div id="uploadComponent">
@@ -90,6 +90,16 @@ function ComponentManager() {
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "pythonVersion", dataIndex: "pythonVersion", default: "v3.12"}
+        ], route: "to" },
+        { cid: 7, color: "#f89820", letter: "J", name: "Java", component: (
+            <div id="javaComponent">
+                <p id="componentName">Setup Java <p id="distro">(temurin)</p></p>
+                <div className="seperator"></div>
+                <p id="javaVersion">Version</p>
+                <div className="seperator" style={{marginTop: `10px`}}></div>
+            </div>
+        ), transform: {width: 250, height: 175}, data: [
+            {id: "javaVersion", dataIndex: "javaVersion", default: "v21"}
         ], route: "to" }
     ];
 
@@ -147,7 +157,7 @@ function ComponentManager() {
 
         const handleMouseDown = (e) => {
             setTimeout(() => {
-                if(editModalOpen) return;
+                if(editModalOpen || exportVisible) return;
                 if(connectingData.active) return;
                 if (e.button === 0) {
                     if (selected !== null) {
@@ -363,23 +373,16 @@ function ComponentManager() {
                                             setComponentData((previous) => {
                                                 return previous.map((pC) => {
                                                     if(pC.id === `${fromComponent.cid}-${connectingData.from.id}`){
-                                                        pC.routes.push({id: `${component.cid}-${c.id}`, type: "from"});
-                                                        console.log(`Pushing to ${component.cid}-${c.id}`)
+                                                        if (!pC.routes.some(route => route.id === `${component.cid}-${c.id}`)) {
+                                                            pC.routes.push({ id: `${component.cid}-${c.id}`, type: "from" });
+                                                        }
                                                     }
 
                                                     if(pC.id === `${component.cid}-${c.id}`){
-                                                        pC.routes.push({id: `${fromComponent.cid}-${connectingData.from.id}`, type: "to"});
+                                                        if(!pC.routes.some(route => route.id === `${fromComponent.cid}-${connectingData.from.id}`)){
+                                                            pC.routes.push({id: `${fromComponent.cid}-${connectingData.from.id}`, type: "to"});
+                                                        }
                                                     }
-
-                                                    console.log(`
-                                                        pC ID: ${pC.id},
-                                                        Expected ID - From: ${fromComponent.cid}-${connectingData.from.id}
-                                                        Expected ID - To: ${component.cid}-${c.id}
-                                                        fromComponent CID: ${fromComponent.cid},
-                                                        fromComponent ID: ${connectingData.from.id},
-                                                        component CID: ${component.cid},
-                                                        component ID: ${c.id}
-                                                    `)
 
                                                     return pC;
                                                 })
@@ -389,7 +392,7 @@ function ComponentManager() {
                                     }
                                     return;
                                 }
-                                if(editModalOpen) return;
+                                if(editModalOpen || exportVisible) return;
                                 const elementUnderMouse = document.elementFromPoint(mousePosition.x, mousePosition.y);
                                 if (elementUnderMouse && elementUnderMouse.tagName.toLowerCase() === 'button') return;
 

@@ -1,0 +1,4 @@
+      - name: Download Artifact "{artifactName}"
+        uses: actions/download-artifact@v4
+        with:
+          name: {artifactName}

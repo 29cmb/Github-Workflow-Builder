@@ -1,10 +1,9 @@
-// eslint-disable no-anonymous-default-export
 export default {
     "code[class*=\"language-\"]": {
         "color": "white",
         "background": "none",
         "fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
-        "fontSize": "0.7em",
+        "fontSize": "0.6em",
         "textAlign": "left",
         "whiteSpace": "pre",
         "wordSpacing": "normal",

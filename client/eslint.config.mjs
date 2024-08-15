@@ -38,5 +38,6 @@ export default [...compat.extends("react-app", "react-app/jest"), {
 
     rules: {
         "no-var": "off",
+        "no-useless-computed-key": "off"
     },
 }];
