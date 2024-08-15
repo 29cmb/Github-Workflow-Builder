@@ -151,6 +151,9 @@ function ComponentManager() {
                 if(connectingData.active) return;
                 if (e.button === 0) {
                     if (selected !== null) {
+                        const elementUnderMouse = document.elementFromPoint(mousePosition.x, mousePosition.y);
+                        if (elementUnderMouse && elementUnderMouse.tagName.toLowerCase() === 'button') return;
+
                         const overlappingDragComponents = dragComponents.filter((dragComponent) => {
                             const matchingComponents = components.filter((component) => component.cid === dragComponent.cid);
                             if (matchingComponents.length === 0) return false;
@@ -194,6 +197,7 @@ function ComponentManager() {
                         setComponentData((prevComponents) => [
                             ...prevComponents,
                             {
+                                cid: component.cid,
                                 id: `${component.cid}-${prevComponents.length + 1}`,
                                 routes: [],
                                 ...fields
@@ -292,8 +296,6 @@ function ComponentManager() {
                 ]}
             ></Modal>}
             {exportVisible && <Export
-                components={components}
-                dragComponents={dragComponents}
                 componentData={componentData}
                 setVisible={setExportVisible}
             />}
@@ -357,17 +359,27 @@ function ComponentManager() {
                                             const fromComponent = components.find((component) => component.cid === connectingData.from.cid);
                                             if(fromComponent.route !== "from") return;
                                             if(component.route !== "to") return;
-
                                             
                                             setComponentData((previous) => {
                                                 return previous.map((pC) => {
-                                                    if(pC.id === `${fromComponent.cid}-${c.id}`){
-                                                        pC.routes.push({id: `${fromComponent.cid}-${c.id}`, type: "from"});
+                                                    if(pC.id === `${fromComponent.cid}-${connectingData.from.id}`){
+                                                        pC.routes.push({id: `${component.cid}-${c.id}`, type: "from"});
+                                                        console.log(`Pushing to ${component.cid}-${c.id}`)
                                                     }
 
-                                                    if(pC.id === `${component.cid}-${component.id}`){
-                                                        pC.routes.push({id: `${component.cid}-${component.id}`, type: "to"});
+                                                    if(pC.id === `${component.cid}-${c.id}`){
+                                                        pC.routes.push({id: `${fromComponent.cid}-${connectingData.from.id}`, type: "to"});
                                                     }
+
+                                                    console.log(`
+                                                        pC ID: ${pC.id},
+                                                        Expected ID - From: ${fromComponent.cid}-${connectingData.from.id}
+                                                        Expected ID - To: ${component.cid}-${c.id}
+                                                        fromComponent CID: ${fromComponent.cid},
+                                                        fromComponent ID: ${connectingData.from.id},
+                                                        component CID: ${component.cid},
+                                                        component ID: ${c.id}
+                                                    `)
 
                                                     return pC;
                                                 })

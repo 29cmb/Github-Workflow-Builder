@@ -1,3 +1,4 @@
+// eslint-disable no-anonymous-default-export
 export default {
     "code[class*=\"language-\"]": {
         "color": "white",
