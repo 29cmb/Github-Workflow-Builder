@@ -9,21 +9,25 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "clsx": "^2.1.1",
+    "customize-cra": "^1.0.0",
     "lucide-react": "^0.424.0",
+    "raw-loader": "^4.0.2",
     "react": "^18.3.1",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.26.0",
     "react-scripts": "5.0.1",
+    "react-syntax-highlighter": "^15.5.0",
     "react-tooltip": "^5.28.0",
     "react-widgets": "^5.8.4",
     "web-vitals": "^2.1.4",
     "zustand": "^4.5.4"
   },
   "scripts": {
-    "start": "react-scripts --max-http-header-size=1024 start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "browserslist": {
