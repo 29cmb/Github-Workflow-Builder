@@ -312,7 +312,7 @@ function ComponentManager() {
             <div id="component-sidebar">
                 <div id="topButtons">
                     <button id="export" onClick={() => setExportVisible(true)}>Export</button>
-                    <button id="settings"><i className="fas fa-cog"></i></button>
+                    <button id="settings"><i className="fas fa-save"></i></button>
                 </div>
                 {!connectingData.active ? <button id="connect" onClick={() => setConnectingData((previous) => {
                     return {

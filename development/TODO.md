@@ -37,7 +37,7 @@
     - [x] Display projects
     - [x] Create a new project
     - [x] Open project
-- [ ] Teams
+- [x] Teams
     - [x] Display teams
     - [x] Make teams
     - [x] Display members
@@ -59,9 +59,8 @@
     - [x] Components
 - [x] Component placing
 - [x] Camera moving
-- [ ] Connecting components
-- [ ] Compile to yml
-- [ ] Import existing yml
+- [x] Connecting components
+- [x] Compile to yml
 
 # Second update
 - [ ] Profile page
@@ -69,3 +68,4 @@
 - [ ] Github login
 - [ ] Better confirmation popup
 - [ ] Templates
+- [ ] Import existing yml
