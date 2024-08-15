@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Export.css";
 import defText from "../export/default.yml";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { prism } from "react-syntax-highlighter/dist/esm/styles/prism";
+import style from "../export/style"
 
 function Export({ components, dragComponents, componentData, setVisible }) {
     return (
@@ -13,7 +13,7 @@ function Export({ components, dragComponents, componentData, setVisible }) {
                     <img src="/assets/Exit.png" alt="Exit" />
                 </button>
                 <div id="codeblock">
-                    <SyntaxHighlighter language="yaml" style={prism}>
+                    <SyntaxHighlighter language="yaml" style={style}>
                         {defText}
                     </SyntaxHighlighter>
                 </div>
