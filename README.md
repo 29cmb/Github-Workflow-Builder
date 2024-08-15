@@ -12,7 +12,8 @@ This was made for [hackclub arcade](https://hackclub.com/arcade) and is hosted t
 > [!WARNING]\
 > Overflow is a work in progress and is made by a singular person (me), don't expect extremely frequent updates, and a todo list can be found [here](./development/TODO.md)
 
-![Component Sidebar](docs/images/Sidebar.png)
+# Guides and Documentation
+All documentation can be found in the [docs directory](./docs/), and they explain many things, like usage, self-hosting, and more!
 
 ## Contributions
 Contributions are accepted! If you find any issues, put them in the issues tab or open a pull request!
