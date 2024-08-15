@@ -5,6 +5,7 @@ import WorkflowComponent from "./WorkflowComponent";
 import { CameraZone, useCamPos, useOffset } from "./CameraZone";
 import collision from "../modules/collision"
 import Modal from "./Modal";
+import Export from "./Export";
 
 function ComponentManager() {
     const [selected, setSelected] = useState(null);
@@ -26,6 +27,7 @@ function ComponentManager() {
         from: null,
         to: null
     })
+    const [exportVisible, setExportVisible] = useState(false);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const components = [
@@ -146,7 +148,7 @@ function ComponentManager() {
         const handleMouseDown = (e) => {
             setTimeout(() => {
                 if(editModalOpen) return;
-                if(connectingData.active) return; // TODO: Set to/from component
+                if(connectingData.active) return;
                 if (e.button === 0) {
                     if (selected !== null) {
                         const overlappingDragComponents = dragComponents.filter((dragComponent) => {
@@ -289,9 +291,15 @@ function ComponentManager() {
                     }},
                 ]}
             ></Modal>}
+            {exportVisible && <Export
+                components={components}
+                dragComponents={dragComponents}
+                componentData={componentData}
+                setVisible={setExportVisible}
+            />}
             <div id="component-sidebar">
                 <div id="topButtons">
-                    <button id="export">Export</button>
+                    <button id="export" onClick={() => setExportVisible(true)}>Export</button>
                     <button id="settings"><i className="fas fa-cog"></i></button>
                 </div>
                 {!connectingData.active ? <button id="connect" onClick={() => setConnectingData((previous) => {

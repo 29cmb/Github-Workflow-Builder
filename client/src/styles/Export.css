@@ -1,0 +1,33 @@
+#ExportMenu {
+    position: absolute;
+    z-index: 4;
+    background-color: rgba(1,1,1,0.6);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#exportText {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+#ExportPanel {
+    position: relative;
+    background-color: rgb(49, 49, 49);
+    width: 30%;
+    height: 70%;
+    border-radius: 20px;
+}
+
+#exit {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+}
