@@ -27,11 +27,10 @@ body {
 
 #easyText {
     background: linear-gradient(0deg, #ff5e00, #ffbb00);
-    font-size: 125px;
+    font-size: 2em;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    display: block;
     margin-top: -30px; 
 }
 
@@ -50,14 +49,14 @@ body {
 }
 
 #EasyToUse {
-    font-size: 80px;
+    font-size: 2.5em;
     text-align: right;
     padding: 40px;
     line-height: 0.2;
 }
 
 #dragAndDrop {
-    font-size: 80px;
+    font-size: 1.1em;
     background: linear-gradient(0deg, #008cff, #00ccff);
     -webkit-background-clip: text;
     background-clip: text;
@@ -76,7 +75,7 @@ body {
 }
 
 #visually {
-    font-size: 120px;
+    font-size: 1em;
     background: linear-gradient(0deg, #00ff9d, #2bff00);
     -webkit-background-clip: text;
     background-clip: text;
@@ -84,6 +83,7 @@ body {
     display: block;
     line-height: 0.7;
     padding-top: 20px;
+    word-wrap: break-word;
 }
 
 #img1, #img2, #img3 {
@@ -101,4 +101,81 @@ body {
     left: 100px;
     top: 950px;
     padding-bottom: 40px;
+}
+
+@media (max-width: 1200px) {
+    #EasyToUse,
+    #dragAndDrop,
+    #EditWorkflows,
+    #visually {
+        text-align: center;
+        z-index: 1;
+        position: relative;
+    }
+
+    #bottom {
+        height: 150%;
+    }
+
+    #EasyToUse,
+    #EditWorkflows {
+        text-shadow: 
+        -4px -4px 0 #000,  
+         4px -4px 0 #000,
+        -4px  4px 0 #000,
+         4px  4px 0 #000;
+    }
+
+    #EditWorkflows {
+        margin-top: 200px;
+    }
+
+    #EasyToUse *:not(:first-child),
+    #EditWorkflows *:not(:first-child) {
+        text-shadow: none;
+    }
+
+    #img1 {
+        z-index: 0;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 300px;
+    }
+
+    #img2 {
+        z-index: 0;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 940px;
+    }
+}
+
+@media (max-width: 785px) {
+    #bottom {
+        height: 160%;
+    }
+
+    #img1 {
+        top: 380px;
+    }
+    #img2 {
+        top: 1000px;
+    }
+}
+
+@media (max-width: 615px) {
+    #EasyToUse {
+        font-size: 2em;
+    }
+
+    #EditWorkflows {
+        font-size: 2.5em;
+        margin-top: 250px;
+    }
+
+    #bottom img {
+        width: 450px;
+    }
 }
