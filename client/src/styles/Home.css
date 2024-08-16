@@ -10,6 +10,17 @@ body {
     font-weight: 700;
     font-size: 30px;
     font-style: normal;
+    overflow-x: hidden;
+}
+
+#bg {
+    background: linear-gradient(0deg, #303030, #0A0A0A);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: -1;
 }
 
 #topbar {
@@ -41,7 +52,6 @@ body {
 }
 
 #bottom {
-    background-color: #1A1A1A;
     height: 100%;
     width: 100%;
     margin-top: 50px;
@@ -177,5 +187,20 @@ body {
 
     #bottom img {
         width: 450px;
+    }
+}
+
+@media (max-width: 460px) {
+    #EasyToUse {
+        font-size: 1.6em;
+    }
+
+    #EditWorkflows {
+        font-size: 2em;
+        margin-top: 250px;
+    }
+
+    #bottom img {
+        width: 400px;
     }
 }

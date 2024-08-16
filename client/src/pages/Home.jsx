@@ -9,6 +9,7 @@ function Home(){
                     ["/login", "Login", true, false],
                     ["/dashboard", "Dashboard", true, true]
             ]}></Topbar>
+            <div id="bg"></div>
             <h1 id="title">Github workflows<br/>made<br/><span id="easyText">easy</span></h1>
             <p id="titleSubtext"><i>Easy to use Github Workflow Builder Tool</i></p>
             <div id="bottom">
