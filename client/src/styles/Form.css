@@ -1,7 +1,7 @@
 #formContainer {
     background-color: #171717;
-    width: 30%;
-    height: 60%;
+    width: 550px;
+    height: 560px;
     border-radius: 40px;
     margin-left: auto;
     margin-right: auto;
@@ -69,4 +69,23 @@ a:link {
 
 a:visited {
     color: #0084E4
+}
+
+@media (max-width: 600px) {
+    #formContainer {
+        width: 90%;
+    }
+    #formContainer input,
+    #formContainer button {
+        font-size: 30px;
+    }
+    #formContainer button {
+        height: 60px;
+        font-size: 30px;
+    }
+    #noAccount {
+        bottom: 60px;
+        left: 30%;
+        transform: translateX(-30%);
+    }
 }
