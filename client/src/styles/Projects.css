@@ -2,8 +2,8 @@
     display: flex; /* Use Flexbox */
     flex-wrap: wrap; /* Allow items to wrap to the next line */
     position: absolute;
-    top: 9.8vh;
-    left: 20%;
+    top: 7.5vh;
+    left: 350px;
     width: 80%;
     height: 100%;
     overflow-x: hidden;
