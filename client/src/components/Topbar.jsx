@@ -5,7 +5,8 @@ import "../styles/Topbar.css";
 function Topbar({ buttons }) {
     return (
         <div id="topbar">
-            <img src="/assets/SmallLogoFull.png" alt="Overflow"></img>
+            <img src="/assets/SmallLogoFull.png" id="desktopLogo" alt="Overflow"></img>
+            <img src="/assets/SmallestLogo.png" id="mobileLogo" alt="Overflow"></img>
             {buttons.map((b, index) => (
                 (() => {
                     if (b[3] === undefined) {

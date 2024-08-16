@@ -9,11 +9,18 @@
     z-index: 1;
 }
 
-#topbar img {
+#topbar #desktopLogo{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     height: 64px;
+}
+
+#topbar #mobileLogo {
+    position: absolute;
+    margin-left: 20px;
+    height: 32px;
+    display: none;
 }
 
 #topbar .regular,
@@ -34,21 +41,41 @@
     padding-top: 0px;
     margin-right: 10px;
     width: calc(10vw + 0.5em);
-    font-size: 35px;
+    font-size: calc(1vh + 0.9em);
     border: solid black;
     border-radius: 15px;
     transition: all 0.3s ease;
 }
 
 #topbar .green:hover {
-    font-size: 40px;
+    font-size: calc(1vh + 1em);
     width: calc(10vw + 1em);
     background-color: #1d7a31;
     transition: all 0.3s ease;
 }
 
 #topbar .regular:hover {
-    font-size: 40px;
+    font-size: calc(1vh + 1em);
     min-width: calc(10vw + 1em);
     transition: all 0.3s ease;
+}
+
+@media (max-width: 790px) {
+    #topbar .green {
+        width: calc(10vw + 2em);
+        font-size: calc(1vh + 0.8em);
+    }
+    #topbar .green:hover {
+        width: calc(10vw + 2.1em);
+        font-size: calc(1vh + 0.9em);
+    }
+
+    #desktopLogo {
+        display: none;
+    }
+
+    #topbar #mobileLogo {
+        display: block;
+    }
+    
 }
