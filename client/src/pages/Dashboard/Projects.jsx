@@ -40,13 +40,12 @@ function Projects() {
         <>
             <Topbar buttons={[
                 ["/", "Home", false]
-            ]}>
-            </Topbar>
+            ]} />
             <Sidebar buttons={[
                 ["/dashboard", "Projects", true],
                 ["/dashboard/teams", "Teams", false],
                 ["/dashboard/account", "Account", false]
-            ]}></Sidebar>
+            ]} />
             <Toaster />
             {modalVisible ? <Modal
                 title="Create Project"
@@ -99,8 +98,8 @@ function Projects() {
                         setModalVisible(false);
                     }}
                 ]}
-            ></Modal> : null}
-            <button id="new" onClick={() => {setModalVisible(true)}}><img src="/assets/NewProject.png" alt="New"></img></button>
+             /> : null}
+            <button id="new" onClick={() => {setModalVisible(true)}}><img src="/assets/NewProject.png" alt="New" /></button>
             <div id="projects">
                 {
                     projects.map(project => (

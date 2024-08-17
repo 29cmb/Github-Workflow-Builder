@@ -6,7 +6,7 @@ function Sidebar({ buttons }) {
             {buttons.map((b, index) => (
                 <>
                     <button key={index} id="sidebarButton" className={b[2] ? "selected" : ""} onClick={() => window.location.href = b[0]}>{b[1]}</button>
-                    <div className="seperator"></div>
+                    <div className="seperator" />
                 </>
             ))}
             <button id="logout" onClick={() => {
