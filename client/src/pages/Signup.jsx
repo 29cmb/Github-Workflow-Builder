@@ -7,7 +7,7 @@ function Signup(){
         <div>
             <Topbar buttons={[
                 ["/", "Home", false]
-            ]}></Topbar>
+            ]} />
             <h1>Signup</h1>
             <Form
                 inputs={[
@@ -34,7 +34,7 @@ function Signup(){
                         }
                     })
                 }]}
-            ></Form>
+             />
         </div>
     )
 }

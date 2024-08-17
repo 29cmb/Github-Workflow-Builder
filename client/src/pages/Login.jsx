@@ -7,7 +7,7 @@ function Login(){
         <div>
             <Topbar buttons={[
                 ["/", "Home", false]
-            ]}></Topbar>
+            ]} />
             <h1>Login</h1>
             <Form
                 inputs={[
@@ -29,7 +29,7 @@ function Login(){
                         note.innerHTML = data.message
                     })
                 }]}
-            ></Form>
+             />
         </div>
     )
 }

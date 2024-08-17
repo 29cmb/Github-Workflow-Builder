@@ -37,9 +37,9 @@ function ComponentManager({ pid }) {
         { cid: 1, color: "red", letter: "A", name: "Action", component: (
             <div id="actionComponent">
                 <p id="componentName">Action</p>
-                <div className="seperator"></div>
+                <div className="seperator" />
                 <p id="actionName">Action Name</p>
-                <div className="seperator" style={{marginTop: "10px"}}></div>
+                <div className="seperator" style={{marginTop: "10px"}} />
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "actionName", dataIndex: "actionName", default: "Action Name"}
@@ -47,9 +47,9 @@ function ComponentManager({ pid }) {
         { cid: 2, color: "orange", letter: "C", name: "Command", component: (
             <div id="commandComponent">
                 <p id="componentName">Command</p>
-                <div className="seperator"></div>
+                <div className="seperator" />
                 <p id="commandName">Linux Command Data<br/>Linux Command Data<br/>Linux Command Data</p>
-                <div className="seperator" style={{marginTop: "10px"}}></div>
+                <div className="seperator" style={{marginTop: "10px"}} />
             </div>
         ), transform: {width: 250, height: 220}, data: [
             {id: "commandName", dataIndex: "commandName", default: "echo Hello World!"}
@@ -57,9 +57,9 @@ function ComponentManager({ pid }) {
         { cid: 3, color: "#EBFF00", letter: "U", name: "Upload", component: (
             <div id="uploadComponent">
                 <p id="componentName">Upload</p>
-                <div className="seperator"></div>
+                <div className="seperator" />
                 <p id="uploadRules">*.exe<br/>*.dll<br/>*.sys</p>
-                <div className="seperator" style={{marginTop: "10px"}}></div>
+                <div className="seperator" style={{marginTop: "10px"}} />
             </div>
         ), transform: {width: 250, height: 220}, data: [
             {id: "uploadRules", dataIndex: "uploadRules", default: "*exe"}
@@ -67,9 +67,9 @@ function ComponentManager({ pid }) {
         { cid: 4, color: "lime", letter: "N", name: "NodeJS", component: (
             <div id="nodeComponent">
                 <p id="componentName">Setup NodeJS</p>
-                <div className="seperator"></div>
+                <div className="seperator" />
                 <p id="version">v20</p>
-                <div className="seperator" style={{marginTop: "10px"}}></div>
+                <div className="seperator" style={{marginTop: "10px"}} />
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "version", dataIndex: "version", default: "v20"}
@@ -77,9 +77,9 @@ function ComponentManager({ pid }) {
         { cid: 5, color: "gray", letter: "D", name: "Download", component: (
             <div id="downloadComponent">
                 <p id="componentName">Download Artifact</p>
-                <div className="seperator"></div>
+                <div className="seperator" />
                 <p id="artifactName">Artifact Name</p>
-                <div className="seperator" style={{marginTop: "10px"}}></div>
+                <div className="seperator" style={{marginTop: "10px"}} />
             </div>
         ), transform: {width: 300, height: 175}, data: [
             {id: "artifactName", dataIndex: "artifactName", default: "Artifact Name"}
@@ -87,9 +87,9 @@ function ComponentManager({ pid }) {
         { cid: 6, color: "#2da1ff", letter: "P", name: "Python", component: (
             <div id="pythonComponent">
                 <p id="componentName">Setup Python</p>
-                <div className="seperator"></div>
+                <div className="seperator" />
                 <p id="pythonVersion">Version</p>
-                <div className="seperator" style={{marginTop: "10px"}}></div>
+                <div className="seperator" style={{marginTop: "10px"}} />
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "pythonVersion", dataIndex: "pythonVersion", default: "v3.12"}
@@ -97,9 +97,9 @@ function ComponentManager({ pid }) {
         { cid: 7, color: "#f89820", letter: "J", name: "Java", component: (
             <div id="javaComponent">
                 <p id="componentName">Setup Java <p id="distro">(temurin)</p></p>
-                <div className="seperator"></div>
+                <div className="seperator" />
                 <p id="javaVersion">Version</p>
-                <div className="seperator" style={{marginTop: "10px"}}></div>
+                <div className="seperator" style={{marginTop: "10px"}} />
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "javaVersion", dataIndex: "javaVersion", default: "v21"}
@@ -364,7 +364,7 @@ function ComponentManager({ pid }) {
                         openEditModal(false)
                     }},
                 ]}
-            ></Modal>}
+             />}
             {exportVisible && <Export
                 componentData={componentData}
                 setVisible={setExportVisible}
@@ -416,7 +416,7 @@ function ComponentManager({ pid }) {
                                 });
                             }
                         })
-                    }}><i className="fas fa-save"></i></button>
+                    }}><i className="fas fa-save" /></button>
                 </div>
                 {!connectingData.active ? <button id="connect" onClick={() => setConnectingData(() => {
                     return {
@@ -435,7 +435,7 @@ function ComponentManager({ pid }) {
                 })}>Exit Connect</button>}
                 <div id="components">
                     <div id="search">
-                        <i className="fas fa-search search-icon"></i>
+                        <i className="fas fa-search search-icon" />
                         <input type="text" placeholder="Search..." onInputCapture={(v) => {
                             setComponentFilter(v.target.value);
                         }} />

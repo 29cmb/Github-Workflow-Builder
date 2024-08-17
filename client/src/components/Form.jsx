@@ -14,7 +14,7 @@ function Form({ inputs, subtext, buttonData }) {
                 </div>
             ))}
             <p>{subtext}</p>
-            <p id="note"></p>
+            <p id="note" />
             <button onClick={submit}>{buttonData[0]}</button>
             <br/>
         </div>

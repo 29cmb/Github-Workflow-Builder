@@ -102,7 +102,7 @@ function Account() {
                         setEmailModalOpen(false);
                     }}
                 ]}
-            ></Modal> : null}
+             /> : null}
             {usernameModalOpen ? <Modal
                 title="Change Username"
                 inputs={[
@@ -150,7 +150,7 @@ function Account() {
                         setUsernameModalOpen(false);
                     }}
                 ]}
-            ></Modal> : null}
+             /> : null}
             {passwordModalOpen ? <Modal
                 title="Change Password"
                 inputs={[
@@ -214,7 +214,7 @@ function Account() {
                         setPasswordModalOpen(false);
                     }}
                 ]}
-            ></Modal> : null}
+             /> : null}
             {bioModalOpen ? <Modal
                 title="Change Bio"
                 inputs={[
@@ -262,7 +262,7 @@ function Account() {
                         setBioModalOpen(false);
                     }}
                 ]}
-            ></Modal> : null}
+             /> : null}
             {avatarModalOpen ? <Modal
                 title="Change Picture"
                 inputs={[
@@ -341,7 +341,7 @@ function Account() {
                 </p>
                 <p>Profile Picture</p>
                 <p class="pfp">
-                    <img id="pfp" src={pfp} alt="Profile"></img>
+                    <img id="pfp" src={pfp} alt="Profile" />
                     <button onClick={() => {setAvatarModalOpen(true)}}><u>Change</u></button>
                 </p>
                

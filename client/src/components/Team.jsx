@@ -459,8 +459,8 @@ function Team({ tid, name, owner, role }) {
                 />
             }
             <div className="team">
-                <button id="settingsLogo" onClick={() => {openEditModal(true)}}><img src="/assets/Settings.png" alt="Settings"></img></button>
-                <img src="/assets/FullLogo.png" alt="Team" id="teamLogo"></img>
+                <button id="settingsLogo" onClick={() => {openEditModal(true)}}><img src="/assets/Settings.png" alt="Settings" /></button>
+                <img src="/assets/FullLogo.png" alt="Team" id="teamLogo" />
                 <p id="name">{name}</p>
                 <p id="owner">Owned by: <span className="user">{owner.name}</span></p>
                 <p id="role">{role}</p>
