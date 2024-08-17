@@ -29,14 +29,16 @@ module.exports = (app) => {
 
         projects = await Promise.all(projects.map(async proj => {
             switch (proj.creator.type) {
-                case "user":
+                case "user": {
                     const user = await db.collections.profiles.findOne({ uid: proj.creator.id });
                     proj.creator.name = user ? user.username : "Unknown";
                     break;
-                case "team":
+                }
+                case "team": {
                     const team = await db.collections.teams.findOne({ tid: proj.creator.id }); 
                     proj.creator.name = team ? team.name : "Unknown";
                     break;
+                }
                 default:
                     proj.creator.name = "Unknown";
                     break;

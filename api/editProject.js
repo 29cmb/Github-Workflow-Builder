@@ -20,7 +20,7 @@ module.exports = (app) => {
                 break;
             case "team":
                 const team = await db.collections.teams.findOne({ tid: project.owner.id })
-                if(!(req.session.user in team)) return res.status(403).json({ success: false, message: "You do not have permissions to write to this project" })
+                if(!team.members.includes(req.session.user)) return res.status(403).json({ success: false, message: "You do not have permissions to write to this project" })
         }
 
         await db.collections.projects.updateOne({ pid }, {"$set": { name, description }})
