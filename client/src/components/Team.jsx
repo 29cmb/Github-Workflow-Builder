@@ -90,7 +90,7 @@ function Team({ tid, name, owner, role }) {
                             })
                         }).then(r => r.json()).then(data => {
                             if(data.success === true){
-                                toast(`Your team has been edited successfully! Reloading...`, {
+                                toast("Your team has been edited successfully! Reloading...", {
                                     icon: "✅",
                                     style: {
                                         color: "white",
@@ -129,7 +129,7 @@ function Team({ tid, name, owner, role }) {
                                 })
                             }).then(r => r.json()).then(data => {
                                 if(data.success === true){
-                                    toast(`You have left the team successfully! Reloading...`, {
+                                    toast("You have left the team successfully! Reloading...", {
                                         icon: "✅",
                                         style: {
                                             color: "white",
@@ -171,7 +171,7 @@ function Team({ tid, name, owner, role }) {
                                         })
                                     }).then(r => r.json()).then(data => {
                                         if(data.success === true){
-                                            toast(`You have deleted the team successfully! Reloading...`, {
+                                            toast("You have deleted the team successfully! Reloading...", {
                                                 icon: "✅",
                                                 style: {
                                                     color: "white",
@@ -225,7 +225,7 @@ function Team({ tid, name, owner, role }) {
                                     })
                                 }).then(r => r.json()).then(data2 => {
                                     if(data2.success === true){
-                                        toast(`Saved member successfully! Reloading...`, {
+                                        toast("Saved member successfully! Reloading...", {
                                             icon: "✅",
                                             style: {
                                                 color: "white",
@@ -277,7 +277,7 @@ function Team({ tid, name, owner, role }) {
                                     })
                                 }).then(r => r.json()).then(data2 => {
                                     if(data2.success === true){
-                                        toast(`Kicked member successfully! Reloading...`, {
+                                        toast("Kicked member successfully! Reloading...", {
                                             icon: "✅",
                                             style: {
                                                 color: "white",
@@ -345,7 +345,7 @@ function Team({ tid, name, owner, role }) {
                                     })
                                 }).then(r => r.json()).then(data2 => {
                                     if(data2.success === true){
-                                        toast(`Invited user successfully! Reloading...`, {
+                                        toast("Invited user successfully! Reloading...", {
                                             icon: "✅",
                                             style: {
                                                 color: "white",
@@ -414,7 +414,7 @@ function Team({ tid, name, owner, role }) {
                                         })
                                     }).then(r => r.json()).then(data2 => {
                                         if(data2.success){
-                                            toast(`Invite removed successfully! Reloading...`, {
+                                            toast("Invite removed successfully! Reloading...", {
                                                 icon: "✅",
                                                 style: {
                                                     color: "white",
