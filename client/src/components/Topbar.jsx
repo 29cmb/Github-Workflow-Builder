@@ -1,4 +1,3 @@
-import React from "react";
 import AuthComponent from "./AuthComponent"
 import "../styles/Topbar.css";
 

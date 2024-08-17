@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Topbar from "../../components/Topbar";
 import Sidebar from "../../components/Sidebar";
 import "../../styles/Account.css";

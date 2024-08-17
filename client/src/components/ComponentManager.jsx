@@ -1,4 +1,4 @@
-import React, { cloneElement, useEffect, useState } from "react";
+import { cloneElement, useEffect, useState } from "react";
 import "../styles/ComponentManager.css";
 import "../styles/ComponentStyles.css"
 import WorkflowComponent from "./WorkflowComponent";
@@ -418,14 +418,14 @@ function ComponentManager({ pid }) {
                         })
                     }}><i className="fas fa-save"></i></button>
                 </div>
-                {!connectingData.active ? <button id="connect" onClick={() => setConnectingData((previous) => {
+                {!connectingData.active ? <button id="connect" onClick={() => setConnectingData(() => {
                     return {
                         active: true,
                         stage: "from",
                         from: null,
                         to: null
                     }
-                })}>Connect</button> : <button id="stopConnecting" onClick={() => setConnectingData((previous) => {
+                })}>Connect</button> : <button id="stopConnecting" onClick={() => setConnectingData(() => {
                     return {
                         active: false,
                         stage: "from",
@@ -457,11 +457,11 @@ function ComponentManager({ pid }) {
                         const refElement = cloneElement(c.component, {
                             className: `placedWorkflowComponent-${c.cid}-${c.id}${connectingData.active ? (component.route !== connectingData.stage ? " dimmed" : "") : ""}`,
                             pos: c.pos,
-                            onClick: async (e) => {
+                            onClick: async () => {
                                 if(connectingData.active){
                                     if(connectingData.stage === component.route){
                                         if(connectingData.stage !== "to"){
-                                            setConnectingData((previous) => {
+                                            setConnectingData(() => {
                                                 return {
                                                     active: true,
                                                     stage: "to",

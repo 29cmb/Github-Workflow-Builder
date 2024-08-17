@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/Form.css";
 
 function Form({ inputs, subtext, buttonData }) {

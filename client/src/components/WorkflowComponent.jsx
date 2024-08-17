@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/WorkflowComponent.css";
 
 function WorkflowComponent({ color, letter, onClick, selected }) {

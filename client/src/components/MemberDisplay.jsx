@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/MemberDisplay.css";
 import { Tooltip } from "react-tooltip"
 

@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/Export.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import defText from "../export/default.yml";
