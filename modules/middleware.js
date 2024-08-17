@@ -2,14 +2,16 @@ const { default: rateLimit } = require("express-rate-limit")
 
 module.exports = {
     authNeeded: (req, res, next) => {
-        if(req.session && req.session.user != undefined){
-            next()
-        } else {
+        console.log(req.session.user)
+        if(req.session.user == undefined){
             res.status(400).json({ success: false, message: "You are not logged in." })
+        } else {
+            next()
         }
     },
     redirectIfAuth: (req, res, next) => {
-        if(req.session && req.session.user != undefined){
+        console.log(req.session.user)
+        if(req.session.user !== undefined){
             res.status(400).json({ success: false, message: "You are already logged in." })
         } else {
             next()

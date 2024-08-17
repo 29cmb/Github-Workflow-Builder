@@ -9,7 +9,7 @@ import Teams from './pages/Dashboard/Teams.jsx';
 import Account from './pages/Dashboard/Account.jsx';
 import Invite from './pages/Misc/Invite.jsx';
 import EditPage from "./pages/Projects/EditPage.jsx";
-
+ 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

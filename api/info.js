@@ -3,6 +3,7 @@ const { readRateLimit } = require("../modules/middleware.js");
 
 module.exports = (app) => {
     app.get("/api/v1/user/info", readRateLimit, async(req, res) => {
+        if(req.session.user === undefined) return res.status(400).json({ success: false, message: "You are not logged in."})
         try {
             const user = await db.collections.profiles.findOne({ uid: req.session.user })
             if(user === undefined) return res.status(400).json({ success: false, message: "User not found."})

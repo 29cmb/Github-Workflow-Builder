@@ -14,7 +14,7 @@ function Login(){
                     {id: "username", type: "text", placeholder: "Username"},
                     {id: "password", type: "password", placeholder: "Password"}
                 ]}
-                subtext={<span>Don't have an account?<br/>Sign up <a href="/signup">here!</a></span>}
+                subtext={<span>Don&apos;t have an account?<br/>Sign up <a href="/signup">here!</a></span>}
                 buttonData={["Login", (note, username, password) => {
                     fetch("/api/v1/user/login", {
                         method: "POST",
