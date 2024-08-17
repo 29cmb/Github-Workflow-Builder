@@ -36,8 +36,8 @@ const Invite = () => {
   if(data.success === false){
     return (<>
         <h1>Error</h1>
-        <div id="content" class="error">
-            <p class="main">{data.message}</p>
+        <div id="content" className="error">
+            <p className="main">{data.message}</p>
             <p className="note"><i>
                 {(() => {
                   switch (data.code) {
@@ -61,8 +61,8 @@ const Invite = () => {
     <>
       <h1>Invite</h1>
       <div id="content">
-            <p class="main">You have been invited to the<br/>{data.team.name}<br/>team</p>
-            <p class="note"><i>Invites expire after 7 days, be quick!</i></p>
+            <p className="main">You have been invited to the<br/>{data.team.name}<br/>team</p>
+            <p className="note"><i>Invites expire after 7 days, be quick!</i></p>
             <a href="/dashboard">Return to Dashboard</a>
             <button className='submit' onClick={() => {
               fetch("/api/v1/teams/join", {

@@ -340,7 +340,7 @@ function Account() {
                     <button onClick={() => {setBioModalOpen(true)}}><u>Change</u></button>
                 </p>
                 <p>Profile Picture</p>
-                <p class="pfp">
+                <p className="pfp">
                     <img id="pfp" src={pfp} alt="Profile" />
                     <button onClick={() => {setAvatarModalOpen(true)}}><u>Change</u></button>
                 </p>

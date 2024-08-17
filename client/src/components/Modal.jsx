@@ -22,7 +22,7 @@ function Modal({ title, inputs, buttons }){
                                 );
                             default:
                                 return (
-                                    <input key={index} id={input.id} class="modalInput" type={input.type} disabled={input.disabled || false} placeholder={input.placeholder} ref={input.ref || null}/>
+                                    <input key={index} id={input.id} className="modalInput" type={input.type} disabled={input.disabled || false} placeholder={input.placeholder} ref={input.ref || null}/>
                                 );
                         }
                     })();
