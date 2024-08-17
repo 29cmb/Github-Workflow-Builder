@@ -319,7 +319,7 @@ function ComponentManager({ pid }) {
 
     useEffect(() => {
         // eslint-disable-next-line array-callback-return
-        dragComponents.map((c) => {
+        dragComponents.forEach((c) => {
             const component = components.find((component) => component.cid === c.cid);
             if(component === undefined) return null;
 
