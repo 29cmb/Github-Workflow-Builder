@@ -10,7 +10,7 @@ module.exports = (app) => {
         const userTeams = await db.collections.teams.find({ members: { $in: [user] } }).toArray()
         const teamIds = userTeams.map(team => team.tid)
 
-        var projects = undefined
+        var projects;
         if(req.session.user === user){
             projects = await db.collections.projects.find({
                 $or: [

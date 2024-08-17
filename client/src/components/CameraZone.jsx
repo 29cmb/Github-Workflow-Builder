@@ -1,3 +1,5 @@
+// DEPRECATED - MOVED TO NODEJS PACKAGE `react-camframe` - https://www.npmjs.com/package/react-camframe
+
 import { useState, useEffect, useRef, cloneElement, Children } from "react";
 import { create } from 'zustand'
 

@@ -2,7 +2,7 @@ import { cloneElement, useEffect, useState } from "react";
 import "../styles/ComponentManager.css";
 import "../styles/ComponentStyles.css"
 import WorkflowComponent from "./WorkflowComponent";
-import { CameraZone, useCamPos, useOffset } from "./CameraZone";
+import { CameraZone, useCamPos, useOffset } from "react-camframe";
 import collision from "../modules/collision"
 import Modal from "./Modal";
 import Export from "./Export";
