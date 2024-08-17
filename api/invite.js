@@ -7,7 +7,7 @@ const mail = require("../modules/mail")
 module.exports = (app) => {
     app.post("/api/v1/teams/invite", authNeeded, writeRateLimit, async (req, res) => {
         const { uid, tid } = req.body
-        if(uid === undefined || tid === undefined || typeof uid != "number" || typeof tid != "number") return res.status(400).json({ success: false, message: "UID or TID not provided or not formatted properly" })
+        if(uid === undefined || tid === undefined || typeof uid !== "number" || typeof tid !== "number") return res.status(400).json({ success: false, message: "UID or TID not provided or not formatted properly" })
         const user = await db.collections.profiles.findOne({ uid })
         const userCreds = await db.collections.credentials.findOne({ uid} )
         if(user === undefined || userCreds === undefined) return res.status(400).json({ success: false, message: "User does not exist." })
@@ -16,7 +16,7 @@ module.exports = (app) => {
         if(team.members.length >= limits.membersLimit) return res.status(400).json({ success: false, message: "Team is full" })
         if(team.members.includes(user.uid)) return res.status(400).json({ success: false, message: "User is already in the team." })
         const invite = await db.collections.invites.findOne({ uid })
-        if(invite != undefined && Date.now() < invite.expiration) return res.status(400).json({ success: false, message: "User already has a pending invite" })
+        if(invite !== undefined && Date.now() < invite.expiration) return res.status(400).json({ success: false, message: "User already has a pending invite" })
 
         var isManager = false
         if (team.roles && Array.isArray(team.roles)) {

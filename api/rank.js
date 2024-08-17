@@ -7,16 +7,16 @@ module.exports = (app) => {
             tid === undefined 
             || uid === undefined 
             || rank === undefined 
-            || typeof tid != "number" 
-            || typeof uid != "number" 
-            || typeof rank != "number"
+            || typeof tid !== "number" 
+            || typeof uid !== "number" 
+            || typeof rank !== "number"
             || rank > 2
             || rank < 0
         ) return res.status(400).json({ success: false, message: "TID, UID, or Rank not provided or not formatted properly" }); // that is infact a semicolon
         
         const team = await db.collections.teams.findOne({ tid })
         if(team === undefined) return res.status(400).json({ success: false, message: "Team does not exist" });
-        if(team.oid != req.session.user) return res.status(403).json({ success: false, message: "You are not allowed to change ranks for that team" });
+        if(team.oid !== req.session.user) return res.status(403).json({ success: false, message: "You are not allowed to change ranks for that team" });
 
         const user = await db.collections.profiles.findOne({ uid })
         if(user === undefined) return res.status(400).json({ success: false, message: "User does not exist" });

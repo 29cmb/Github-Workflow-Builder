@@ -11,8 +11,8 @@ module.exports = (app) => {
         if(
             name === undefined 
             || description === undefined
-            || typeof name != "string" 
-            || typeof description != "string"
+            || typeof name !== "string" 
+            || typeof description !== "string"
             || name.length < 1
             || description.length < 1
         ) return res.status(400).json({ success: false, message: "Name or description not provided or not formatted properly" })

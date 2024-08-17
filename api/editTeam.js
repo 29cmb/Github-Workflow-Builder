@@ -8,9 +8,9 @@ module.exports = (app) => {
             tid === undefined 
             || name === undefined 
             || description === undefined 
-            || typeof tid != "number" 
-            || typeof name != "string" 
-            || typeof description != "string"
+            || typeof tid !== "number" 
+            || typeof name !== "string" 
+            || typeof description !== "string"
         ) return res.status(400).json({ success: false, message: "TID, name, or description not provided or not formatted properly."})
         const team = await db.collections.teams.findOne({ tid })
         if(team === undefined) return res.status(400).json({ success: false, message: "Team does not exist" })

@@ -282,7 +282,7 @@ function ComponentManager({ pid }) {
     }, [selected, components]);
 
     useEffect(() => {
-        if (draggingRef != null) {
+        if (draggingRef !== null) {
             if(connectingData.active){ 
                 setDraggingObject(null);
                 return; 

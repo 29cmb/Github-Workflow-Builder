@@ -7,8 +7,8 @@ module.exports = (app) => {
         if(
             tid === undefined 
             || uid === undefined 
-            || typeof tid != "number" 
-            || typeof uid != "number"
+            || typeof tid !== "number" 
+            || typeof uid !== "number"
         ) return res.status(400).json({ success: false, message: "TID or UID not provided or not formatted properly"});
 
         const team = await db.collections.teams.findOne({ tid })

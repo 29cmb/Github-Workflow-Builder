@@ -8,8 +8,8 @@ module.exports = (app) => {
         if(
             pid === undefined 
             || data === undefined
-            || typeof pid != "number" 
-            || typeof data != "object" 
+            || typeof pid !== "number" 
+            || typeof data !== "object" 
             || data.componentData === undefined 
             || !Array.isArray(data.componentData)
         ) return res.status(400).json({ success: false, message: "PID or data not provided or not formatted properly." })
@@ -17,7 +17,7 @@ module.exports = (app) => {
         const project = await db.collections.projects.findOne({ pid })
         switch(project.creator.type){
             case "user":
-                if(req.session.user != project.creator.id && !(project.contributors.includes(req.session.user))) return res.status(403).json({ success: false, message: "You do not have permissions to write to this project" })
+                if(req.session.user !== project.creator.id && !(project.contributors.includes(req.session.user))) return res.status(403).json({ success: false, message: "You do not have permissions to write to this project" })
                 break;
             case "team":
                 { const team = await db.collections.teams.findOne({ tid: project.creator.id })

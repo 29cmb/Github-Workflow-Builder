@@ -7,7 +7,7 @@ module.exports = (app) => {
         const invite = await db.collections.invites.findOne({ iid })
         if(invite === undefined) return res.status(400).json({ success: false, message: "Invite does not exist.", code: 1 })
         if(Date.now() > invite.expiration) return res.status(400).json({ success: false, message: "Invite has expired.", code: 2 })
-        if(invite.uid != req.session.user) return res.status(400).json({ success: false, message: "This invite isn't for you", code: 3 })
+        if(invite.uid !== req.session.user) return res.status(400).json({ success: false, message: "This invite isn't for you", code: 3 })
         const team = await db.collections.teams.findOne({ tid: invite.tid })
         if(team === undefined) return res.status(400).json({ success: false, message: "Team does not exist", code: 4 })
         res.status(200).json({ success: true, invite, team })

@@ -3,7 +3,7 @@ const db = require("../modules/db")
 module.exports = (app) => {
     app.post("/api/v1/team/invite/cancel", async (req, res) => {
         const { uid, tid } = req.body
-        if(uid === undefined || typeof uid != "number" || tid === undefined || typeof tid != "number") return res.status(400).json({ success: false, message: "UID or TID not provided or not formatted properly" }) 
+        if(uid === undefined || typeof uid !== "number" || tid === undefined || typeof tid !== "number") return res.status(400).json({ success: false, message: "UID or TID not provided or not formatted properly" }) 
         const team = await db.collections.teams.findOne({ tid })
         if(team === undefined) return res.status(400).json({ success: false, message: "Team does not exist" })
 

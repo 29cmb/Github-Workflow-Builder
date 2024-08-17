@@ -7,8 +7,8 @@ module.exports = (app) => {
         if(
             tid === undefined 
             || uid === undefined 
-            || typeof tid != "number" 
-            || typeof uid != "number"
+            || typeof tid !== "number" 
+            || typeof uid !== "number"
         ) return res.status(400).json({ success: false, message: "TID or UID not provided or not formatted properly" });
 
         const team = await db.collections.teams.findOne({ tid })
@@ -57,7 +57,7 @@ module.exports = (app) => {
             console.error("Roles are not defined or not an array");
         }
 
-        if(isUserManager && team.oid != req.session.user) return res.status(400).json({ success: false, message: "You cannot kick a manager" })
+        if(isUserManager && team.oid !== req.session.user) return res.status(400).json({ success: false, message: "You cannot kick a manager" })
         
         await db.collections.teams.updateOne(
             { tid },

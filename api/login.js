@@ -8,8 +8,8 @@ module.exports = (app) => {
         if(
             username === undefined 
             || password === undefined
-            || typeof username != "string"
-            || typeof password != "string"
+            || typeof username !== "string"
+            || typeof password !== "string"
         ) return res.status(400).json({ success: false, message: "Username or password not provided or not formatted properly" });
 
         const user = await db.collections.credentials.findOne({ username: username });

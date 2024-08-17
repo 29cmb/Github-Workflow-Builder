@@ -9,12 +9,12 @@ module.exports = (app) => {
             name === undefined 
             || description === undefined
             || type === undefined
-            || (type != "user" && type != "team")
+            || (type !== "user" && type !== "team")
             || (type === "team" && tid === undefined)
-            || typeof name != "string" 
-            || typeof description != "string"
-            || typeof type != "string"
-            || (type === "team" && typeof tid != "number")
+            || typeof name !== "string" 
+            || typeof description !== "string"
+            || typeof type !== "string"
+            || (type === "team" && typeof tid !== "number")
             || name.length < 1
             || description.length < 1
         ) return res.status(400).json({ success: false, message: "Name or description not provided or not formatted properly" })

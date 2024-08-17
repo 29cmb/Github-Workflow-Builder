@@ -8,15 +8,15 @@ module.exports = (app) => {
             pid === undefined 
             || name === undefined
             || description === undefined
-            || typeof pid != "number" 
-            || typeof name != "string"
-            || typeof description != "string"
+            || typeof pid !== "number" 
+            || typeof name !== "string"
+            || typeof description !== "string"
         ) return res.status(400).json({ success: false, message: "PID, Name, or Description not provided or not formatted properly" })
 
         const project = await db.collections.projects.findOne({ pid })
         switch(project.owner.type){
             case "user":
-                if(req.session.user != project.owner.id && !(req.session.user in project.contributors)) return res.status(403).json({ success: false, message: "You do not have permissions to write to this project" })
+                if(req.session.user !== project.owner.id && !(req.session.user in project.contributors)) return res.status(403).json({ success: false, message: "You do not have permissions to write to this project" })
                 break;
             case "team":
                 const team = await db.collections.teams.findOne({ tid: project.owner.id })
