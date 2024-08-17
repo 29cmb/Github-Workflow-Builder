@@ -12,45 +12,45 @@ import python from "../export/_python.yml"
 import java from "../export/_java.yml"
 
 const CompilerOptions = {
-    [1]: {
+    1: {
         level: 1, // Level means what layer it gets executed in (1 is jobs layer, 2 is inside of an action)
         getAddition(data){
             return `\n${action.replaceAll("{actionName}", data.actionName)}`
         }
     },
-    [2]: {
+    2: {
         level: 2,
         getAddition(data){
             return `\n\n${command.replaceAll("{command}", data.commandName)}`
         }
     },
-    [3]: {
+    3: {
         level: 2,
         getAddition(data){
             return `\n\n${upload.replaceAll("{artifactFilters}", data.uploadRules)}`
         }
     },
-    [4]: {
+    4: {
         level: 2,
         getAddition(data){
             if (!data.version.startsWith('v')) return;
             return `\n\n${node.replaceAll("{nodeVersion}", `'${data.version.substring(1)}'`)}`
         }
     },
-    [5]: {
+    5: {
         level: 2,
         getAddition(data){
             return `\n\n${download.replaceAll("{artifactName}", data.artifactName)}`
         }
     },
-    [6]: {
+    6: {
         level: 2,
         getAddition(data){
             if (!data.pythonVersion.startsWith('v')) return;
             return `\n\n${python.replaceAll("{pythonVersion}", `'${data.pythonVersion.substring(1)}'`)}`
         }
     },
-    [7]: {
+    7: {
         level: 2,
         getAddition(data){
             if (!data.javaVersion.startsWith('v')) return;
