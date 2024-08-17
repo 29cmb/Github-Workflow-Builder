@@ -319,7 +319,7 @@ function Account() {
                 <h2 id="accountInfo">Account Information</h2>
                 <p>Email</p>
                 <p id="email">
-                    {user && user.email ? (emailRevealed ? user.email : `${user.email[0]}${'*'.repeat(user.email.indexOf('@') - 1)}${user.email.slice(user.email.indexOf('@'))}`) : ""}
+                    {user?.email ? (emailRevealed ? user.email : `${user.email[0]}${'*'.repeat(user.email.indexOf('@') - 1)}${user.email.slice(user.email.indexOf('@'))}`) : ""}
                     <button onClick={() => {setEmailModalOpen(true)}}><u>Change</u></button>
                     <button onClick={() => {revealEmail(!emailRevealed)}}><u>Reveal</u></button>
                 </p>

@@ -35,7 +35,7 @@ module.exports = {
                 console.error('Error:', err.statusCode, err.statusText);
                 console.error('Original Message:', err.originalMessage);
                 console.error('Response Data:', err.response.data);
-                if (err.response && err.response.data && err.response.data.Messages) {
+                if (err.response?.data && err.response.data.Messages) {
                     err.response.data.Messages.forEach(message => {
                         console.error('Message Status:', message.Status);
                         if (message.Errors) {
