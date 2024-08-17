@@ -73,7 +73,7 @@ function Account() {
                             })
                         }).then(r => r.json()).then(data => {
                             if(data.success === true){
-                                toast(`Your email has been changed successfully! Reloading...`, {
+                                toast("Your email has been changed successfully! Reloading...", {
                                     icon: "✅",
                                     style: {
                                         color: "white",
@@ -121,7 +121,7 @@ function Account() {
                             })
                         }).then(r => r.json()).then(data => {
                             if(data.success === true){
-                                toast(`Your username has been changed successfully! Reloading...`, {
+                                toast("Your username has been changed successfully! Reloading...", {
                                     icon: "✅",
                                     style: {
                                         color: "white",
@@ -161,7 +161,7 @@ function Account() {
                 buttons={[
                     {id: "email", text: "Submit", style: "submit", sendArgs: true, submit: (oldPass, newPass, confirmNewPass) => {
                         if(newPass !== confirmNewPass){
-                            toast(`Passwords do not match!`, {
+                            toast("Passwords do not match!", {
                                 icon: "❌",
                                 style: {
                                     color: "white",
@@ -185,7 +185,7 @@ function Account() {
                             })
                         }).then(r => r.json()).then(data => {
                             if(data.success === true){
-                                toast(`Your password has been changed successfully! Logging out...`, {
+                                toast("Your password has been changed successfully! Logging out...", {
                                     icon: "✅",
                                     style: {
                                         color: "white",
@@ -233,7 +233,7 @@ function Account() {
                             })
                         }).then(r => r.json()).then(data => {
                             if(data.success === true){
-                                toast(`Your bio has been changed successfully! Reloading...`, {
+                                toast("Your bio has been changed successfully! Reloading...", {
                                     icon: "✅",
                                     style: {
                                         color: "white",
@@ -280,7 +280,7 @@ function Account() {
                                 body: formData,
                             }).then(r => r.json()).then(data => {
                                 if (data.success === true) {
-                                    toast(`Your profile picture has been changed successfully! Reloading...`, {
+                                    toast("Your profile picture has been changed successfully! Reloading...", {
                                         icon: "✅",
                                         style: {
                                             color: "white",
@@ -319,7 +319,7 @@ function Account() {
                 <h2 id="accountInfo">Account Information</h2>
                 <p>Email</p>
                 <p id="email">
-                    {user && user.email ? (emailRevealed ? user.email : `${user.email[0]}${'*'.repeat(user.email.indexOf('@') - 1)}${user.email.slice(user.email.indexOf('@'))}`) : ""}
+                    {user?.email ? (emailRevealed ? user.email : `${user.email[0]}${'*'.repeat(user.email.indexOf('@') - 1)}${user.email.slice(user.email.indexOf('@'))}`) : ""}
                     <button onClick={() => {setEmailModalOpen(true)}}><u>Change</u></button>
                     <button onClick={() => {revealEmail(!emailRevealed)}}><u>Reveal</u></button>
                 </p>
