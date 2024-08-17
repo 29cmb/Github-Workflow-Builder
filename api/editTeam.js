@@ -5,15 +5,15 @@ module.exports = (app) => {
     app.post("/api/v1/teams/edit", authNeeded, writeRateLimit, async (req, res) => {
         var { tid, name, description } = req.body
         if(
-            tid == undefined 
-            || name == undefined 
-            || description == undefined 
+            tid === undefined 
+            || name === undefined 
+            || description === undefined 
             || typeof tid != "number" 
             || typeof name != "string" 
             || typeof description != "string"
         ) return res.status(400).json({ success: false, message: "TID, name, or description not provided or not formatted properly."})
         const team = await db.collections.teams.findOne({ tid })
-        if(team == undefined) return res.status(400).json({ success: false, message: "Team does not exist" })
+        if(team === undefined) return res.status(400).json({ success: false, message: "Team does not exist" })
             
         if(name === "") name = team.name
         if(description === "") description = team.description
@@ -36,7 +36,7 @@ module.exports = (app) => {
             console.error("Roles are not defined or not an array");
         }
 
-        if(isManager == false) return res.status(400).json({ success: false, message: "You are not authorized to edit this team!" })
+        if(isManager === false) return res.status(400).json({ success: false, message: "You are not authorized to edit this team!" })
 
         await db.collections.teams.updateOne({ tid }, {"$set": { name, description }})
         res.status(200).json({ success: true, message: "Team has been updated successfully" })

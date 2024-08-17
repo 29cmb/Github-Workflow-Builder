@@ -8,9 +8,9 @@ module.exports = (app) => {
     app.post("/api/v1/user/signup", redirectIfAuth, writeRateLimit, async (req, res) => {
         const { email, username, password } = req.body;
         if (
-            email == undefined ||
-            username == undefined ||
-            password == undefined ||
+            email === undefined ||
+            username === undefined ||
+            password === undefined ||
             typeof username != "string" ||
             typeof password != "string" ||
             typeof email != "string"

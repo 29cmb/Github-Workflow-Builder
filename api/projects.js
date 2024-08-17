@@ -4,14 +4,14 @@ const { authNeeded, readRateLimit } = require("../modules/middleware")
 module.exports = (app) => {
     app.post("/api/v1/user/projects/get", authNeeded, readRateLimit, async (req, res) => {
         var { user } = req.body
-        if(((user == undefined || typeof user != "number") && req.session.user != undefined)) user = req.session.user
-        if(user == undefined) return res.status(400).json({ success: false, message: "User not provided or not formatted properly" })
+        if(((user === undefined || typeof user != "number") && req.session.user != undefined)) user = req.session.user
+        if(user === undefined) return res.status(400).json({ success: false, message: "User not provided or not formatted properly" })
 
         const userTeams = await db.collections.teams.find({ members: { $in: [user] } }).toArray()
         const teamIds = userTeams.map(team => team.tid)
 
         var projects = undefined
-        if(req.session.user == user){
+        if(req.session.user === user){
             projects = await db.collections.projects.find({
                 $or: [
                     { 'creator.type': "user", 'creator.id': user },

@@ -6,11 +6,11 @@ module.exports = (app) => {
         console.log(req.body)
         const { pid, data } = req.body
         if(
-            pid == undefined 
-            || data == undefined
+            pid === undefined 
+            || data === undefined
             || typeof pid != "number" 
             || typeof data != "object" 
-            || data.componentData == undefined 
+            || data.componentData === undefined 
             || !Array.isArray(data.componentData)
         ) return res.status(400).json({ success: false, message: "PID or data not provided or not formatted properly." })
 

@@ -7,7 +7,7 @@ module.exports = {
         console.log("📨 | MailJet Server Connection has been established");
     },
     async send(to, subject, text, html) {
-        if (connection == undefined) await this.connect();
+        if (connection === undefined) await this.connect();
         const request = connection.post("send", { 'version': 'v3.1' }).request({
             "Messages": [
                 {

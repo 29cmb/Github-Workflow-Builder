@@ -5,9 +5,9 @@ module.exports = (app) => {
     app.post("/api/v1/projects/edit", authNeeded, writeRateLimit, async (req, res) => {
         const { pid, name, description } = req.body
         if(
-            pid == undefined 
-            || name == undefined
-            || description == undefined
+            pid === undefined 
+            || name === undefined
+            || description === undefined
             || typeof pid != "number" 
             || typeof name != "string"
             || typeof description != "string"

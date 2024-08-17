@@ -6,7 +6,7 @@ module.exports = (app) => {
         const teams = await db.collections.teams.find({ members: { $in: [req.session.user] } }).toArray() || []
         await Promise.all(teams.map(async team => {
             const owner = await db.collections.profiles.findOne({ uid: team.oid })
-            if(owner == undefined) return
+            if(owner === undefined) return
             team.owner = owner.username
 
             team.role = 'Member';

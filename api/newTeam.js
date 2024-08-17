@@ -9,8 +9,8 @@ module.exports = (app) => {
 
         const { name, description } = req.body
         if(
-            name == undefined 
-            || description == undefined
+            name === undefined 
+            || description === undefined
             || typeof name != "string" 
             || typeof description != "string"
             || name.length < 1

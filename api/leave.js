@@ -5,16 +5,16 @@ module.exports = (app) => {
     app.post("/api/v1/teams/leave", authNeeded, writeRateLimit, async (req, res) => {
         const { tid, uid } = req.body
         if(
-            tid == undefined 
-            || uid == undefined 
+            tid === undefined 
+            || uid === undefined 
             || typeof tid != "number" 
             || typeof uid != "number"
         ) return res.status(400).json({ success: false, message: "TID or UID not provided or not formatted properly"});
 
         const team = await db.collections.teams.findOne({ tid })
-        if(team == undefined) return res.status(400).json({ success: false, message: "Team does not exist" })
+        if(team === undefined) return res.status(400).json({ success: false, message: "Team does not exist" })
         if(!team.members.contains(req.session.user)) return res.status(400).json({ success: false, message: "You are not in this team" })
-        if(team.oid == req.session.user) return res.status(400).json({ success: false, message: "You cannot leave your own team!" })
+        if(team.oid === req.session.user) return res.status(400).json({ success: false, message: "You cannot leave your own team!" })
 
         await db.collections.teams.updateOne(
             { tid },

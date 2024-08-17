@@ -6,8 +6,8 @@ module.exports = (app) => {
     app.post("/api/v1/user/login", redirectIfAuth, writeRateLimit, async (req, res) => {
         const { username, password } = req.body
         if(
-            username == undefined 
-            || password == undefined
+            username === undefined 
+            || password === undefined
             || typeof username != "string"
             || typeof password != "string"
         ) return res.status(400).json({ success: false, message: "Username or password not provided or not formatted properly" });
