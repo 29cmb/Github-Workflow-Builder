@@ -318,7 +318,6 @@ function ComponentManager({ pid }) {
     }, [mousePosition, draggingRef, camPos, offset, connectingData]);
 
     useEffect(() => {
-        // eslint-disable-next-line array-callback-return
         dragComponents.forEach((c) => {
             const component = components.find((component) => component.cid === c.cid);
             if(component === undefined) return null;
@@ -334,6 +333,8 @@ function ComponentManager({ pid }) {
 
                 element.innerHTML = d[instruction.dataIndex]
             })
+
+            return;
         })
     })
 
@@ -457,7 +458,7 @@ function ComponentManager({ pid }) {
                         const refElement = cloneElement(c.component, {
                             className: `placedWorkflowComponent-${c.cid}-${c.id}${connectingData.active ? (component.route !== connectingData.stage ? " dimmed" : "") : ""}`,
                             pos: c.pos,
-                            onClick: async () => {
+                            onClick: () => {
                                 if(connectingData.active){
                                     if(connectingData.stage === component.route){
                                         if(connectingData.stage !== "to"){

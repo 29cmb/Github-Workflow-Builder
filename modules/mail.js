@@ -3,7 +3,7 @@ var connection;
 
 module.exports = {
     async connect() {
-        connection = mailjet.apiConnect(process.env.MAILJET_API_KEY, process.env.MAILJET_PRIVATE_KEY);
+        connection = await mailjet.apiConnect(process.env.MAILJET_API_KEY, process.env.MAILJET_PRIVATE_KEY);
         console.log("📨 | MailJet Server Connection has been established");
     },
     async send(to, subject, text, html) {
