@@ -3,7 +3,6 @@ const { authNeeded, writeRateLimit } = require("../modules/middleware")
 
 module.exports = (app) => {
     app.post("/api/v1/projects/save", authNeeded, writeRateLimit, async (req, res) => {
-        console.log(req.body)
         const { pid, data } = req.body
         if(
             pid === undefined 
