@@ -39,7 +39,7 @@ function ComponentManager({ pid }) {
                 <p id="componentName">Action</p>
                 <div className="seperator"></div>
                 <p id="actionName">Action Name</p>
-                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <div className="seperator" style={{marginTop: "10px"}}></div>
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "actionName", dataIndex: "actionName", default: "Action Name"}
@@ -49,7 +49,7 @@ function ComponentManager({ pid }) {
                 <p id="componentName">Command</p>
                 <div className="seperator"></div>
                 <p id="commandName">Linux Command Data<br/>Linux Command Data<br/>Linux Command Data</p>
-                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <div className="seperator" style={{marginTop: "10px"}}></div>
             </div>
         ), transform: {width: 250, height: 220}, data: [
             {id: "commandName", dataIndex: "commandName", default: "echo Hello World!"}
@@ -59,7 +59,7 @@ function ComponentManager({ pid }) {
                 <p id="componentName">Upload</p>
                 <div className="seperator"></div>
                 <p id="uploadRules">*.exe<br/>*.dll<br/>*.sys</p>
-                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <div className="seperator" style={{marginTop: "10px"}}></div>
             </div>
         ), transform: {width: 250, height: 220}, data: [
             {id: "uploadRules", dataIndex: "uploadRules", default: "*exe"}
@@ -69,7 +69,7 @@ function ComponentManager({ pid }) {
                 <p id="componentName">Setup NodeJS</p>
                 <div className="seperator"></div>
                 <p id="version">v20</p>
-                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <div className="seperator" style={{marginTop: "10px"}}></div>
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "version", dataIndex: "version", default: "v20"}
@@ -79,7 +79,7 @@ function ComponentManager({ pid }) {
                 <p id="componentName">Download Artifact</p>
                 <div className="seperator"></div>
                 <p id="artifactName">Artifact Name</p>
-                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <div className="seperator" style={{marginTop: "10px"}}></div>
             </div>
         ), transform: {width: 300, height: 175}, data: [
             {id: "artifactName", dataIndex: "artifactName", default: "Artifact Name"}
@@ -89,7 +89,7 @@ function ComponentManager({ pid }) {
                 <p id="componentName">Setup Python</p>
                 <div className="seperator"></div>
                 <p id="pythonVersion">Version</p>
-                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <div className="seperator" style={{marginTop: "10px"}}></div>
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "pythonVersion", dataIndex: "pythonVersion", default: "v3.12"}
@@ -99,7 +99,7 @@ function ComponentManager({ pid }) {
                 <p id="componentName">Setup Java <p id="distro">(temurin)</p></p>
                 <div className="seperator"></div>
                 <p id="javaVersion">Version</p>
-                <div className="seperator" style={{marginTop: `10px`}}></div>
+                <div className="seperator" style={{marginTop: "10px"}}></div>
             </div>
         ), transform: {width: 250, height: 175}, data: [
             {id: "javaVersion", dataIndex: "javaVersion", default: "v21"}
@@ -373,7 +373,7 @@ function ComponentManager({ pid }) {
                 <div id="topButtons">
                     <button id="export" onClick={() => setExportVisible(true)}>Export</button>
                     <button id="save" onClick={() => {
-                        toast(`Saving...`, {
+                        toast("Saving...", {
                             icon: "📝",
                             style: {
                                 color: "white",
@@ -395,7 +395,7 @@ function ComponentManager({ pid }) {
                             })
                         }).then(response => response.json()).then(data => {
                             if(data.success === true){
-                                toast(`Saved successfully!`, {
+                                toast("Saved successfully!", {
                                     icon: "✅",
                                     style: {
                                         color: "white",

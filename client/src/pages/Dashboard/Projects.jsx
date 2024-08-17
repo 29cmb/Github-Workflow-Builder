@@ -70,7 +70,7 @@ function Projects() {
                             })
                         }).then(r => r.json()).then(data => {
                             if(data.success === true){
-                                toast(`Your project has been created successfully! Redirecting...`, {
+                                toast("Your project has been created successfully! Redirecting...", {
                                     icon: "✅",
                                     style: {
                                         color: "white",

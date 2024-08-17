@@ -35,7 +35,7 @@ module.exports = (app) => {
         await db.collections.teams.updateOne({ tid }, 
             {
                 $push: {
-                    [`roles.$[role].users`]: uid
+                    "roles.$[role].users": uid
                 }
             },
             {

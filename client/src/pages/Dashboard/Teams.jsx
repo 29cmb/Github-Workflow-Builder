@@ -68,7 +68,7 @@ function Teams() {
                             })
                         }).then(response => response.json()).then(data => {
                             if(data.success === true){
-                                toast(`Your team has been created successfully! Reloading...`, {
+                                toast("Your team has been created successfully! Reloading...", {
                                     icon: "✅",
                                     style: {
                                         color: "white",
