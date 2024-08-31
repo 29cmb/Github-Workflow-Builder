@@ -1,4 +1,4 @@
-![Overflow](https://github.com/29cmb/Github-Workflow-Builder/blob/744ce03488794410c117e21abcf1fecc1b5cfe0d/client/public/assets/FullLogo.png)
+![Overflow](https://github.com/29cmb/Github-Workflow-Builder/blob/744ce03488794410c117e21abcf1fecc1b5cfe0d/client/public/assets/FullLogo.png?raw=true)
 
 A drag-and-drop system for creating github workflows! Definitely my biggest project yet!
 
