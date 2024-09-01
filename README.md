@@ -1,6 +1,10 @@
 ![Overflow](https://github.com/29cmb/Github-Workflow-Builder/blob/744ce03488794410c117e21abcf1fecc1b5cfe0d/client/public/assets/FullLogo.png?raw=true)
+![users](https://oapi.devcmb.hackclub.app/badges/users.svg)
+![projects](https://oapi.devcmb.hackclub.app/badges/projects.svg)
+![teams](https://oapi.devcmb.hackclub.app/badges/teams.svg)
 
 A drag-and-drop system for creating github workflows! Definitely my biggest project yet!
+
 ---
 Workflows are weird, you make them to do very specific tasks, and they're not always well documented. To fix this, I made the overflow project, a visual-based editing system for creating github workflows efficiently. Written in NodeJS for the backend and React for the frontend!
 
