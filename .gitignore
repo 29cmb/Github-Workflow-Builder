@@ -27,3 +27,6 @@ yarn-error.log*
 
 # Avatars - Keeps defaults but removes UID ones
 avatars/*.png
+
+# Remove all badges
+badges/*.svg

@@ -1,6 +1,7 @@
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const logging = require("../config/logging.json")
+const badge = require("./badge.js")
 const uri = `mongodb+srv://${process.env.DATABASEUSER}:${process.env.DATABASEPASS}@${process.env.DATABASEURI}/?retryWrites=true&w=majority&appName=${process.env.DATABASEAPPNAME}`;
 const client = new MongoClient(uri, {
   serverApi: {
@@ -42,6 +43,9 @@ module.exports = {
             console.log("🏓 | Pinged the teams database!") 
             console.log("🎉 | All databases have been pinged and are online!") 
           }
+          badge.users(this.collections.profiles)
+          badge.projects(this.collections.projects)
+          badge.teams(this.collections.teams)
       } catch (error) {
           console.log("❌ | Failed to initialize database connections:", error);
       }

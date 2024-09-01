@@ -2,7 +2,7 @@ import "../styles/Form.css";
 
 function Form({ inputs, subtext, buttonData }) {
     const submit = () => {
-        var values = inputs.map(input => document.getElementById(input.id).value)
+        const values = inputs.map(input => document.getElementById(input.id).value)
         buttonData[1](document.getElementById("note"), ...values)
     }
     return (
