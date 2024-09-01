@@ -302,7 +302,9 @@ function ComponentManager({ pid }) {
 
             setComponentData((prevComponents) => 
                 prevComponents.map((c) => {
-                    if(c.id === `${dragComponents.find((c) => c.id === draggingRef).cid}-${draggingRef}`){
+                    const dCompon = dragComponents.find((c) => c.id === draggingRef)
+                    if(c == undefined || c.id === undefined || dCompon == undefined || dCompon.cid === undefined) return;
+                    if(c.id === `${dCompon.cid}-${draggingRef}`){
                         return {
                             ...c,
                             pos: [
@@ -319,19 +321,23 @@ function ComponentManager({ pid }) {
 
     useEffect(() => {
         dragComponents.forEach((c) => {
+            if(c === undefined || c.cid == undefined) return;
             const component = components.find((component) => component.cid === c.cid);
             if(component === undefined) return null;
 
             component.data.forEach((instruction) => {
-                const element = document.querySelector(`.placedWorkflowComponent-${c.cid}-${c.id} #${instruction.id}`);
-                if(element === undefined) return;
-                const d = componentData.find(comp => comp.id === `${c.cid}-${c.id}`)
-                if(d === undefined || d[[instruction.dataIndex]] === undefined){
-                    element.innerHTML = "Unknown"
-                    return;
-                };
+                try {
+                    const element = document.querySelector(`.placedWorkflowComponent-${c.cid}-${c.id} #${instruction.id}`);
+                    if(element === undefined || c === undefined || c.cid === undefined || c.id == undefined) return;
+                    const d = componentData.find(comp => comp.id === `${c.cid}-${c.id}`)
+                    if(d === undefined || d[[instruction.dataIndex]] === undefined){
+                        element.innerHTML = "Unknown"
+                        return;
+                    };
 
-                element.innerHTML = d[instruction.dataIndex]
+                    element.innerHTML = d[instruction.dataIndex]
+                } catch(e){}
+                
             })
 
             return;
