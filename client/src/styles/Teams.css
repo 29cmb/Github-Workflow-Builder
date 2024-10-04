@@ -3,10 +3,16 @@
     flex-wrap: wrap;
     position: absolute;
     top: 14vh;
-    left: 20%;
+    left: 350px;
     width: 80%;
     height: 100%;
     overflow-x: hidden;
+}
+
+@media (max-width: 775px) {
+    #teams {
+        left: 40px;
+    }
 }
 
 #new {

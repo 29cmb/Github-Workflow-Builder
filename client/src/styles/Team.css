@@ -7,6 +7,25 @@
     position: relative;
     overflow: hidden;
     z-index: -1;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 1250px) {
+    .team {
+        width: 70%;
+    }
+}
+
+@media (max-width: 775px) {
+    .team {
+        width: 100%;
+    }
+}
+
+@media (max-width: 650px) {
+    .team {
+        height: 32.5%;
+    }
 }
 
 .team #teamLogo {
@@ -32,7 +51,13 @@
     transform: translateY(-50%);
     background-color: transparent;
     border: none;
-    z-index: 0;
+    z-index: 100;
+}
+
+@media (max-width: 675px) {
+    .team #settingsLogo {
+        bottom: -20px;
+    }
 }
 
 .team #name,

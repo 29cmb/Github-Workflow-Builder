@@ -1,6 +1,6 @@
 #projects {
-    display: flex; /* Use Flexbox */
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    display: flex;
+    flex-wrap: wrap;
     position: absolute;
     top: 7.5vh;
     left: 350px;
