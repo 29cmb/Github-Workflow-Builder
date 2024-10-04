@@ -140,6 +140,7 @@ function ComponentManager({ pid }) {
                     });
                 }
             });
+    // eslint-disable-next-line
     }, []);
 
     const keybinds = [
@@ -303,7 +304,7 @@ function ComponentManager({ pid }) {
             setComponentData((prevComponents) => 
                 prevComponents.map((c) => {
                     const dCompon = dragComponents.find((c) => c.id === draggingRef)
-                    if(c == undefined || c.id === undefined || dCompon == undefined || dCompon.cid === undefined) return;
+                    if(c === undefined || c.id === undefined || dCompon === undefined || dCompon.cid === undefined) return null;
                     if(c.id === `${dCompon.cid}-${draggingRef}`){
                         return {
                             ...c,
@@ -317,18 +318,19 @@ function ComponentManager({ pid }) {
                 })
             )
         }
+    // eslint-disable-next-line
     }, [mousePosition, draggingRef, camPos, offset, connectingData]);
 
     useEffect(() => {
         dragComponents.forEach((c) => {
-            if(c === undefined || c.cid == undefined) return;
+            if(c === undefined || c.cid === undefined) return;
             const component = components.find((component) => component.cid === c.cid);
             if(component === undefined) return null;
 
             component.data.forEach((instruction) => {
                 try {
                     const element = document.querySelector(`.placedWorkflowComponent-${c.cid}-${c.id} #${instruction.id}`);
-                    if(element === undefined || c === undefined || c.cid === undefined || c.id == undefined) return;
+                    if(element === undefined || c === undefined || c.cid === undefined || c.id === undefined) return;
                     const d = componentData.find(comp => comp.id === `${c.cid}-${c.id}`)
                     if(d === undefined || d[[instruction.dataIndex]] === undefined){
                         element.innerHTML = "Unknown"

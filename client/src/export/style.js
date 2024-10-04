@@ -1,4 +1,4 @@
-export default {
+const style = {
     "code[class*=\"language-\"]": {
         "color": "white",
         "background": "none",
@@ -188,3 +188,5 @@ export default {
         "fontStyle": "italic"
     }
 }
+
+export default style;

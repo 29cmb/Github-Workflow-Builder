@@ -16,3 +16,10 @@
     right: 0%;
     z-index: 1;
 }
+
+@media (max-width: 775px) {
+    #projects {
+        left: 0px;
+        width: 110%;
+    }
+}

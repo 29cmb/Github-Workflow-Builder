@@ -60,3 +60,9 @@
     background-color: #176925;
     font-size: 42px;
 }
+
+@media (max-width: 775px) {
+    .project {
+        width: 75%;
+    }
+}

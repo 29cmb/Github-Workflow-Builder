@@ -57,3 +57,47 @@
     width: 100%;
     background-color: #272727;
 }
+
+#sidebar #toggle {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 20px;
+    left: 350px;
+    display: none;
+}
+
+
+
+@media (max-width: 775px) {
+    #sidebar #toggle > img {
+        width: 50px;
+        height: 40px;
+    }
+
+    #sidebar #toggle:not(.hidden){
+        transform: rotate(180deg);
+    }
+
+    #sidebar #toggle {
+        display: block;
+    }
+
+    #sidebar #toggle.hidden {
+        left: 5px;
+        transform: rotate(0deg);
+    }
+
+    #sidebar.hidden {
+        background-color: transparent;
+    }
+
+    #sidebar .seperator.hidden {
+        display: none;
+    }
+
+    #sidebar button.hidden {
+        color: black;
+        display: none;
+    }
+}
