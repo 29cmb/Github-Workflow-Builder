@@ -20,6 +20,12 @@ function EditPage() {
             <Topbar buttons={[
                 ["/dashboard", "Dashboard", false, true]
             ]} />
+            <div id="unsupported">
+                <div id="unsupportedContainer">
+                    <h1>Uh oh!</h1>
+                    <p>The workflow builder is currently under construction for mobile devices (any screen size under 750px)! This feature should be ready for use in sometime in the future!</p>   
+                </div>
+            </div>
             <ComponentManager pid={parseInt(pid)}/>
         </>
     );
