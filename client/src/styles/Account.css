@@ -48,3 +48,15 @@
     margin-top: 30px;
     margin-left: 20px;
 }
+
+@media (max-width: 1380px) {
+    #account {
+        margin-left: 40.5%;
+    }
+}
+
+@media (max-width: 775px) {
+    #account {
+        margin-left: 10.5%;
+    }
+}
