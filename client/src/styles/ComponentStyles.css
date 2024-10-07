@@ -8,7 +8,6 @@
     background-color: #242424;
     position: absolute;
     border-radius: 20px;
-    border: 3px solid black;
 }
 #actionComponent, #nodeComponent, #pythonComponent, #javaComponent {
     width: 250px;
@@ -61,6 +60,10 @@
     font-weight: 700;
 }
 
+#actionComponent {
+    border: 3px solid rgb(173, 11, 11);
+}
+
 #actionComponent button {
     background-color: red;
 }
@@ -69,12 +72,25 @@
     background-color: #FF7A00;
 }
 
+#commandComponent {
+    border: 3px solid rgb(173, 108, 11);
+}
+
 #uploadComponent button {
     background-color: #FFD600;
 }
 
+#uploadComponent {
+    border: 3px solid rgb(243, 247, 14);
+}
+
+
 #nodeComponent button {
     background-color: #2AB941;
+}
+
+#nodeComponent {
+    border: 3px solid rgb(14, 126, 52);
 }
 
 #downloadComponent button {
@@ -84,8 +100,16 @@
     background-color: #2da1ff;
 }
 
+#pythonComponent {
+    border: 3px solid rgb(35, 128, 190);
+}
+
 #javaComponent button {
     background-color: #f89820;
+}
+
+#javaComponent {
+    border: 3px solid rgb(190, 136, 35);
 }
 
 #actionComponent > p,

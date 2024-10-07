@@ -28,11 +28,8 @@ function ComponentManager({ pid }) {
         from: null,
         to: null
     })
-    const [exportVisible, setExportVisible] = useState(false);
+    const [projectData, setProjectData] = useState({ name: "Workflow" });
 
-    
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     const components = [
         { cid: 1, color: "red", letter: "A", name: "Action", component: (
             <div id="actionComponent">
@@ -105,7 +102,7 @@ function ComponentManager({ pid }) {
             {id: "javaVersion", dataIndex: "javaVersion", default: "v21"}
         ], route: "to" }
     ];
-
+    const [exportVisible, setExportVisible] = useState(false);
     useEffect(() => {
         fetch(`/api/v1/projects/${pid}/get`)
             .then(response => response.json())
@@ -114,6 +111,7 @@ function ComponentManager({ pid }) {
                     var existingComponentData = data.project.data.componentData;
                     console.log(existingComponentData)
                     setComponentData(existingComponentData);
+                    setProjectData(data.project);
     
                     const newDragComponents = data.project.data.componentData.map((c) => {
                         const component = components.find((component) => component.cid === c.cid);
@@ -339,7 +337,6 @@ function ComponentManager({ pid }) {
 
                     element.innerHTML = d[instruction.dataIndex]
                 } catch(e){}
-                
             })
 
             return;
@@ -375,6 +372,7 @@ function ComponentManager({ pid }) {
                 ]}
              />}
             {exportVisible && <Export
+                projectData={projectData}
                 componentData={componentData}
                 setVisible={setExportVisible}
             />}
@@ -460,7 +458,7 @@ function ComponentManager({ pid }) {
                 </div>
             </div>
             <div id="workspace-container" style={{ zIndex: 0 }}>
-                <CameraZone>
+                <CameraZone positionStyles={{ color: "white", zIndex: 100, position: "absolute", top: '70px', left: '430px' }}>
                     {dragComponents.map((c, index) => {
                         const component = components.find((component) => component.cid === c.cid)
                         const refElement = cloneElement(c.component, {

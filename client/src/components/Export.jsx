@@ -58,8 +58,8 @@ const CompilerOptions = {
     }
 }
 
-function Export({ componentData, setVisible }) {
-    var exportText = defText
+function Export({ projectData, componentData, setVisible }) {
+    var exportText = defText.replaceAll("{wfName}", projectData.name).replaceAll("{wfDescription}", projectData.description)
     componentData.forEach(element => {
         const cOptions = CompilerOptions[element.cid]
         if(cOptions === undefined || cOptions.level !== 1) return;

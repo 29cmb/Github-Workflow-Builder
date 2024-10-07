@@ -9,6 +9,7 @@ import Teams from './pages/Dashboard/Teams.jsx';
 import Account from './pages/Dashboard/Account.jsx';
 import Invite from './pages/Misc/Invite.jsx';
 import EditPage from "./pages/Projects/EditPage.jsx";
+import ViewPage from './pages/Projects/ViewPage.jsx';
  
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -43,6 +44,7 @@ function App() {
         <Route path="/dashboard/account" element={isAuthenticated ? <Account /> : <Navigate to="/login" replace />} />
         <Route path="/invite/:id" element={isAuthenticated ? <Invite /> : <Navigate to="/login" />} />
         <Route path="/projects/:pid" element={<ProjectWrapper isAuthenticated={isAuthenticated} />} />
+        <Route path="/projects/:pid/view" element={<ViewWrapper/>}></Route>
       </Routes>
     </Router>
   );
@@ -78,7 +80,32 @@ function ProjectWrapper({ isAuthenticated }) {
     return <Navigate to="/login" replace />;
   }
 
-  return canEdit ? <EditPage id={pid} /> : <Navigate to="/dashboard" replace />;
+  return canEdit ? <EditPage id={pid} /> : <Navigate to={`/projects/${pid}/view`}></Navigate>;
+}
+
+function ViewWrapper(){
+  const id = useParams().pid;
+  const [isLoading, setIsLoading] = useState(true);
+  const [canView, setCanView] = useState(false);
+
+  useEffect(() => {
+    fetch(`/api/v1/project/${id}/canView`)
+      .then(r => r.json())
+      .then(data => {
+        setIsLoading(false);
+        setCanView(data.success);
+      })
+      .catch(error => {
+        console.error('Error checking view permission:', error);
+        setIsLoading(false);
+      });
+  }, [id]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  return canView ? <ViewPage id={id} /> : <Navigate to="/dashboard" replace />;
 }
 
 export default App;

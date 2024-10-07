@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 function EditPage() {
     
     const { pid } = useParams()
-    console.log(pid)
 
     useEffect(() => {
         window.addEventListener('beforeunload', (event) => {
