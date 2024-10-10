@@ -45,12 +45,6 @@ function EditPage() {
             })
     }, [pid])
 
-    useEffect(() => {
-        window.addEventListener('beforeunload', (event) => {
-            event.preventDefault()
-            event.returnValue = ''
-        })
-    }, [])
     return (
         <>
             <Topbar buttons={[

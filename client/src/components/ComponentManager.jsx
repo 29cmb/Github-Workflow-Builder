@@ -30,6 +30,7 @@ function ComponentManager({ pid }) {
         to: null
     })
     const [projectData, setProjectData] = useState({ name: "Workflow" });
+    const [isDirty, setDirty] = useState(false);
 
     const components = [
         { cid: 1, color: "red", letter: "A", name: "Action", component: (
@@ -140,13 +141,28 @@ function ComponentManager({ pid }) {
     // eslint-disable-next-line
     }, []);
 
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            if (isDirty) {
+                event.preventDefault();
+                event.returnValue = '';
+            }
+        };
+    
+        window.addEventListener('beforeunload', handleBeforeUnload);
+    
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isDirty]);
+
     const keybinds = [
         { key: "Backspace", action: () => {
             if(editModalOpen) return;
             const overlappingDragComponents = dragComponents.filter((dragComponent) => {
                 const matchingComponents = components.filter((component) => component.cid === dragComponent.cid);
                 if (matchingComponents.length === 0) return false;
-            
+
                 return matchingComponents.some((component) => {
                     const [x, y] = dragComponent.pos;
                     return collision(
@@ -173,6 +189,7 @@ function ComponentManager({ pid }) {
                     overlappingDragComponents.some((dragComponent) => c.id === `${dragComponent.cid}-${dragComponent.id}`)
                 )
 
+                setDirty(true)
                 setComponentData((prevComponents) => {
                     return prevComponents.filter((c) => {
                         return cData.some((oc) => {return oc !== c})
@@ -186,6 +203,7 @@ function ComponentManager({ pid }) {
         if (componentFilter.length < 2) return true;
         return component.name.toLowerCase().includes(componentFilter.toLowerCase());
     });
+    
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -222,6 +240,7 @@ function ComponentManager({ pid }) {
 
                         if(overlappingDragComponents.length > 0) return;
                         const component = components.find((c) => c.color + c.letter === selected);
+                        setDirty(true)
                         setDragComponents((prevComponents) => [
                             ...prevComponents,
                             {
@@ -286,6 +305,7 @@ function ComponentManager({ pid }) {
                 return; 
             }
 
+            setDirty(true)
             setDragComponents((prevComponents) =>
                 prevComponents.map((c) =>
                     c.id === draggingRef ? {
@@ -401,6 +421,7 @@ function ComponentManager({ pid }) {
                             })
                         }).then(response => response.json()).then(data => {
                             if(data.success === true){
+                                setDirty(false)
                                 toast("Saved successfully!", {
                                     icon: "✅",
                                     style: {
@@ -505,6 +526,7 @@ function ComponentManager({ pid }) {
                                             if(fromComponent.route !== "from") return;
                                             if(component.route !== "to") return;
                                             
+                                            setDirty(true)
                                             setComponentData((previous) => {
                                                 return previous.map((pC) => {
                                                     if(pC.id === `${fromComponent.cid}-${connectingData.from.id}`){
