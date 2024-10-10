@@ -24,8 +24,8 @@ function Team({ tid, name, owner, role }) {
                 }
 
                 const newMembersData = await Promise.all(data.members.map(async (member) => {
-                    const response = await fetch(`/api/v1/user/${member.uid}/pfp`);
-                    const img = response.url;
+                    const response2 = await fetch(`/api/v1/user/${member.uid}/pfp`);
+                    const img = response2.url;
                     return {
                         name: member.username,
                         rank: member.rank,
