@@ -15,7 +15,6 @@ function Team({ tid, name, owner, role }) {
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const newMembersData = {};
                 const response = await fetch(`/api/v1/teams/${tid}/members`);
                 const data = await response.json();
 
@@ -24,7 +23,7 @@ function Team({ tid, name, owner, role }) {
                     return;
                 }
 
-                newMembersData[tid] = await Promise.all(data.members.map(async (member) => {
+                const newMembersData = await Promise.all(data.members.map(async (member) => {
                     const response = await fetch(`/api/v1/user/${member.uid}/pfp`);
                     const img = response.url;
                     return {
@@ -33,6 +32,7 @@ function Team({ tid, name, owner, role }) {
                         img: img
                     };
                 }));
+
                 setMemberData(newMembersData);
             } catch (error) {
                 console.error("Error fetching members:", error);
@@ -465,7 +465,7 @@ function Team({ tid, name, owner, role }) {
                 <p id="owner">Owned by: <span className="user">{owner.name}</span></p>
                 <p id="role">{role}</p>
                 <MemberDisplay
-                    members={(memberData !== undefined && memberData[tid] !== undefined && memberData[tid].length > 0) ? memberData[tid] : undefined}
+                    members={(memberData !== undefined && memberData.length > 0) ? memberData : undefined}
                 />
             </div>
         </>

@@ -45,7 +45,7 @@ module.exports = (app) => {
                 const role = team.roles.find(r => r.rank === rank);
                 if (role) {
                     role.users.forEach(user => {
-                        if (user === user.uid) {
+                        if (user === uid) {
                             isUserManager = true;
                         }
                     });
