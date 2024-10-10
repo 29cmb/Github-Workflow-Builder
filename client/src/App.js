@@ -46,7 +46,6 @@ function App() {
         <Route path="/invite/:id" element={isAuthenticated ? <Invite /> : <Navigate to="/login" />} />
         <Route path="/projects/:pid" element={<ProjectWrapper isAuthenticated={isAuthenticated} />} />
         <Route path="/projects/:pid/view" element={<ViewWrapper/>}></Route>
-        <Route path="/gallery" element={<ProjectGallery/>}></Route>
       </Routes>
     </Router>
   );
