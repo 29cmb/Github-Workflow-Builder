@@ -2,7 +2,7 @@
   "name": "client",
   "version": "1.0.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:5005",
   "dependencies": {
     "@headlessui/react": "^2.1.2",
     "@testing-library/jest-dom": "^5.17.0",

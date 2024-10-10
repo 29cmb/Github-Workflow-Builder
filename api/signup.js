@@ -21,7 +21,8 @@ module.exports = (app) => {
         const user = await db.collections.credentials.findOne({ username: username });
         const otherUser = await db.collections.credentials.findOne({ email });
         if (user !== undefined || otherUser !== undefined) return res.status(400).json({ success: false, message: "User is already registered" });
-        const uid = (await db.collections.credentials.countDocuments()) + 1;
+        const latestUser = await db.collections.credentials.findOne({}, { sort: { uid: -1 } });
+        const uid = latestUser ? latestUser.uid + 1 : 1;
 
         await db.collections.credentials.insertOne({
             email,

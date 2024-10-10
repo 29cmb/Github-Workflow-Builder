@@ -43,6 +43,6 @@ for (const file of apiFiles) {
 }
 
 // app.use(express.static(path.join(__dirname, "views")))
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`✅ | Backend express server has started on port ${process.env.PORT || 3000}.`)
+app.listen(process.env.PORT || 5005, () => {
+    console.log(`✅ | Backend express server has started on port ${process.env.PORT || 5005}.`)
 })
