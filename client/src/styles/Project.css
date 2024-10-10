@@ -33,7 +33,10 @@
 }
 
 .project .team {
-    color: #FF55B1
+    color: #FF55B1;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .project #open {

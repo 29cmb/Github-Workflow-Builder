@@ -1,6 +1,7 @@
 const db = require("../modules/db")
 const { authNeeded, writeRateLimit } = require("../modules/middleware")
 const limits = require("../config/limits.json")
+const { projectSchemaVersion } = require("../config/schema.json")
 
 module.exports = (app) => {
     app.post("/api/v1/projects/new", authNeeded, writeRateLimit, async (req, res) => {
@@ -24,7 +25,7 @@ module.exports = (app) => {
 
         if(type === "team"){
             const team = await db.collections.teams.findOne({ tid })
-            if(!team.members.contains(req.session.user)) return res.status(403).json({ success: false, message: "You do not have permission to create a project under this team" })
+            if(!team.members.includes(req.session.user)) return res.status(403).json({ success: false, message: "You do not have permission to create a project under this team" })
         }
 
         const project = {
@@ -36,7 +37,11 @@ module.exports = (app) => {
                 componentData: []
             },
             contributors: [],
-            public: false
+            public: false,
+            projectSchemaVersion,
+            createdAt: Date.now(),
+            forks: 0,
+            stars: 0
         }
 
         await db.collections.projects.insertOne(project)

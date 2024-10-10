@@ -14,7 +14,10 @@ module.exports = (app) => {
         ) return res.status(400).json({ success: false, message: "TID, name, or description not provided or not formatted properly."})
         const team = await db.collections.teams.findOne({ tid })
         if(team === undefined) return res.status(400).json({ success: false, message: "Team does not exist" })
-            
+
+        const foundTeam = await db.collections.teams.findOne({ name })
+        if(foundTeam && name !== "") return res.status(400).json({ success: false, message: "Team with this name already exists" })
+        
         if(name === "") name = team.name
         if(description === "") description = team.description
 

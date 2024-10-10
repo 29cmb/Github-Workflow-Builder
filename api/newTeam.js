@@ -17,6 +17,9 @@ module.exports = (app) => {
             || description.length < 1
         ) return res.status(400).json({ success: false, message: "Name or description not provided or not formatted properly" })
 
+        const foundTeam = await db.collections.teams.findOne({ name })
+        if(foundTeam) return res.status(400).json({ success: false, message: "Team with this name already exists" })
+
         await db.collections.teams.insertOne({
             tid: (await db.collections.teams.countDocuments()) + 1,
             oid: req.session.user,

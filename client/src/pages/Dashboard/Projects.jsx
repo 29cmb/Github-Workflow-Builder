@@ -25,6 +25,8 @@ function Projects() {
 
     const [projects, setProjects] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+    const [teams, setTeams] = useState([])
+    const [yourName, setYourName] = useState("You")
 
     useEffect(() => {
         getProjects().then(data => {
@@ -35,6 +37,40 @@ function Projects() {
             }
         }).catch(error => console.error("Error setting projects:", error));
     }, []);
+
+    useEffect(() => {
+        fetch("/api/v1/user/teams", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json()).then(data => {
+            if(data.success){
+                fetch("/api/v1/user/info").then(r => r.json()).then(usr => {
+                    const teams = data.teams.map((team) => {
+                        return {
+                            id: team.tid,
+                            name: team.name,
+                            type: "team"
+                        }
+                    })
+
+                    console.log(usr)
+
+                    teams.push({
+                        id: usr.user.uid,
+                        name: usr.user.username,
+                        type: "user"
+                    })
+
+                    setYourName(usr.user.username)
+                    setTeams(teams)
+                })
+            } else {
+                console.log(data)
+            }
+        })
+    }, [])
 
     return (
         <>
@@ -52,9 +88,10 @@ function Projects() {
                 inputs={[
                     {id: "projectName", type: "text", placeholder: "Project Name"},
                     {id: "projectDesc", type: "text", placeholder: "Project Description"},
+                    {id: "projectType", type: "combobox", options: teams.map((t) => t.name), default: yourName},
                 ]}
                 buttons={[
-                    {id: "create", text: "Create", style: "submit", sendArgs: true, submit: (name, description) => {
+                    {id: "create", text: "Create", style: "submit", sendArgs: true, submit: (name, description, projectType) => {
                         setModalVisible(false);
                         toast("Creating project...", {icon: "🚀", style: {color: "white", backgroundColor: "#333", padding: "10px", borderRadius: "10px"}});
                         fetch("/api/v1/projects/new", {
@@ -65,7 +102,8 @@ function Projects() {
                             body: JSON.stringify({
                                 name,
                                 description,
-                                type: "user" // TODO: Add team project creation
+                                type: (projectType === yourName) ? "user" : "team",
+                                tid: (projectType === yourName) ? null : (teams.find(t => t.name === projectType).id || undefined)
                             })
                         }).then(r => r.json()).then(data => {
                             if(data.success === true){
