@@ -1,25 +1,25 @@
-#actionComponent:not(.dimmed),
-#commandComponent:not(.dimmed),
-#uploadComponent:not(.dimmed),
-#nodeComponent:not(.dimmed),
-#downloadComponent:not(.dimmed),
-#pythonComponent:not(.dimmed),
-#javaComponent:not(.dimmed) {
+.actionComponent:not(.dimmed),
+.commandComponent:not(.dimmed),
+.uploadComponent:not(.dimmed),
+.nodeComponent:not(.dimmed),
+.downloadComponent:not(.dimmed),
+.pythonComponent:not(.dimmed),
+.javaComponent:not(.dimmed) {
     background-color: #242424;
     position: absolute;
     border-radius: 20px;
 }
-#actionComponent, #nodeComponent, #pythonComponent, #javaComponent {
+.actionComponent, .nodeComponent, .pythonComponent, .javaComponent {
     width: 250px;
     height: 175px;
 }
 
-#downloadComponent {
+.downloadComponent {
     width: 300px;
     height: 175px;
 }
 
-#commandComponent, #uploadComponent {
+.commandComponent, .uploadComponent {
     width: 250px;
     height: 220px;
 }
@@ -31,26 +31,26 @@
     margin-top: -5px;
 }
 
-#actionComponent #actionName,
-#commandComponent #commandName,
-#uploadComponent #uploadRules,
-#nodeComponent #version,
-#downloadComponent #artifactName,
-#pythonComponent #pythonVersion,
-#javaComponent #javaVersion {
+.actionComponent #actionName,
+.commandComponent #commandName,
+.uploadComponent #uploadRules,
+.nodeComponent #version,
+.downloadComponent #artifactName,
+.pythonComponent #pythonVersion,
+.javaComponent #javaVersion {
     font-size: 20px;
     font-weight: 100;
     margin: 10px;
     text-align: left;
 }
 
-#actionComponent button,
-#commandComponent button,
-#uploadComponent button,
-#nodeComponent button,
-#downloadComponent button,
-#pythonComponent button,
-#javaComponent button {
+.actionComponent button,
+.commandComponent button,
+.uploadComponent button,
+.nodeComponent button,
+.downloadComponent button,
+.pythonComponent button,
+.javaComponent button {
     color: white;
     font-size: 40px;
     width: 90%;
@@ -60,70 +60,70 @@
     font-weight: 700;
 }
 
-#actionComponent {
+.actionComponent {
     border: 3px solid rgb(173, 11, 11);
 }
 
-#actionComponent button {
+.actionComponent button {
     background-color: red;
 }
 
-#commandComponent button {
+.commandComponent button {
     background-color: #FF7A00;
 }
 
-#commandComponent {
+.commandComponent {
     border: 3px solid rgb(173, 108, 11);
 }
 
-#uploadComponent button {
+.uploadComponent button {
     background-color: #FFD600;
 }
 
-#uploadComponent {
+.uploadComponent {
     border: 3px solid rgb(243, 247, 14);
 }
 
 
-#nodeComponent button {
+.nodeComponent button {
     background-color: #2AB941;
 }
 
-#nodeComponent {
+.nodeComponent {
     border: 3px solid rgb(14, 126, 52);
 }
 
-#downloadComponent button {
+.downloadComponent button {
     background-color: gray;
 }
-#pythonComponent button {
+.pythonComponent button {
     background-color: #2da1ff;
 }
 
-#pythonComponent {
+.pythonComponent {
     border: 3px solid rgb(35, 128, 190);
 }
 
-#javaComponent button {
+.javaComponent button {
     background-color: #f89820;
 }
 
-#javaComponent {
+.javaComponent {
     border: 3px solid rgb(190, 136, 35);
 }
 
-#actionComponent > p,
-#commandComponent > p,
-#uploadComponent > p,
-#nodeComponent > p,
-#downloadComponent > p,
-#pythonComponent > p,
-#javaComponent > p {
+.actionComponent > p,
+.commandComponent > p,
+.uploadComponent > p,
+.nodeComponent > p,
+.downloadComponent > p,
+.pythonComponent > p,
+.javaComponent > p {
     margin: 10px;
     text-align: left;
 }
 
-#javaComponent #distro {
+.javaComponent #distro {
     font-size: 10px;
     margin: 0;
 }

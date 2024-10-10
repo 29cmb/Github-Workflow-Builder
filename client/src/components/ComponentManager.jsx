@@ -7,6 +7,7 @@ import collision from "../modules/collision"
 import Modal from "./Modal";
 import Export from "./Export";
 import {Toaster, toast} from "react-hot-toast"
+import DottedLine from "./DottedLine";
 
 function ComponentManager({ pid }) {
     const [selected, setSelected] = useState(null);
@@ -32,7 +33,7 @@ function ComponentManager({ pid }) {
 
     const components = [
         { cid: 1, color: "red", letter: "A", name: "Action", component: (
-            <div id="actionComponent">
+            <div className="actionComponent">
                 <p id="componentName">Action</p>
                 <div className="seperator" />
                 <p id="actionName">Action Name</p>
@@ -42,7 +43,7 @@ function ComponentManager({ pid }) {
             {id: "actionName", dataIndex: "actionName", default: "Action Name"}
         ], route: "from" },
         { cid: 2, color: "orange", letter: "C", name: "Command", component: (
-            <div id="commandComponent">
+            <div className="commandComponent">
                 <p id="componentName">Command</p>
                 <div className="seperator" />
                 <p id="commandName">Linux Command Data<br/>Linux Command Data<br/>Linux Command Data</p>
@@ -52,7 +53,7 @@ function ComponentManager({ pid }) {
             {id: "commandName", dataIndex: "commandName", default: "echo Hello World!"}
         ], route: "to" },
         { cid: 3, color: "#EBFF00", letter: "U", name: "Upload", component: (
-            <div id="uploadComponent">
+            <div className="uploadComponent">
                 <p id="componentName">Upload</p>
                 <div className="seperator" />
                 <p id="uploadRules">*.exe<br/>*.dll<br/>*.sys</p>
@@ -62,7 +63,7 @@ function ComponentManager({ pid }) {
             {id: "uploadRules", dataIndex: "uploadRules", default: "*exe"}
         ], route: "to" },
         { cid: 4, color: "lime", letter: "N", name: "NodeJS", component: (
-            <div id="nodeComponent">
+            <div className="nodeComponent">
                 <p id="componentName">Setup NodeJS</p>
                 <div className="seperator" />
                 <p id="version">v20</p>
@@ -72,7 +73,7 @@ function ComponentManager({ pid }) {
             {id: "version", dataIndex: "version", default: "v20"}
         ], route: "to" },
         { cid: 5, color: "gray", letter: "D", name: "Download", component: (
-            <div id="downloadComponent">
+            <div className="downloadComponent">
                 <p id="componentName">Download Artifact</p>
                 <div className="seperator" />
                 <p id="artifactName">Artifact Name</p>
@@ -82,7 +83,7 @@ function ComponentManager({ pid }) {
             {id: "artifactName", dataIndex: "artifactName", default: "Artifact Name"}
         ], route: "to" },
         { cid: 6, color: "#2da1ff", letter: "P", name: "Python", component: (
-            <div id="pythonComponent">
+            <div className="pythonComponent">
                 <p id="componentName">Setup Python</p>
                 <div className="seperator" />
                 <p id="pythonVersion">Version</p>
@@ -92,7 +93,7 @@ function ComponentManager({ pid }) {
             {id: "pythonVersion", dataIndex: "pythonVersion", default: "v3.12"}
         ], route: "to" },
         { cid: 7, color: "#f89820", letter: "J", name: "Java", component: (
-            <div id="javaComponent">
+            <div className="javaComponent">
                 <p id="componentName">Setup Java <p id="distro">(temurin)</p></p>
                 <div className="seperator" />
                 <p id="javaVersion">Version</p>
@@ -109,7 +110,6 @@ function ComponentManager({ pid }) {
             .then(data => {
                 if (data.success === true) {
                     var existingComponentData = data.project.data.componentData;
-                    console.log(existingComponentData)
                     setComponentData(existingComponentData);
                     setProjectData(data.project);
     
@@ -123,7 +123,6 @@ function ComponentManager({ pid }) {
                             component: component.component
                         };
                     }).filter(c => c !== null);
-                    console.log(newDragComponents)
     
                     setDragComponents(newDragComponents);
                 } else {
@@ -327,7 +326,7 @@ function ComponentManager({ pid }) {
 
             component.data.forEach((instruction) => {
                 try {
-                    const element = document.querySelector(`.placedWorkflowComponent-${c.cid}-${c.id} #${instruction.id}`);
+                    const element = document.querySelector(`#placedWorkflowComponent-${c.cid}-${c.id} #${instruction.id}`);
                     if(element === undefined || c === undefined || c.cid === undefined || c.id === undefined) return;
                     const d = componentData.find(comp => comp.id === `${c.cid}-${c.id}`)
                     if(d === undefined || d[[instruction.dataIndex]] === undefined){
@@ -458,11 +457,36 @@ function ComponentManager({ pid }) {
                 </div>
             </div>
             <div id="workspace-container" style={{ zIndex: 0 }}>
+                {componentData.map((c, index) => {
+                    return c.routes.map((route, routeIndex) => {
+                        if (route.type !== "to") return null;
+                
+                        const fromComponent = document.getElementById(`placedWorkflowComponent-${c.id}`);
+                        if (!fromComponent) return null;
+                
+                        const toComponent = document.getElementById(`placedWorkflowComponent-${route.id}`);
+                        if (!toComponent) return null;
+                
+                        const start = {
+                            x: fromComponent.getBoundingClientRect().left + fromComponent.getBoundingClientRect().width / 2,
+                            y: fromComponent.getBoundingClientRect().top + fromComponent.getBoundingClientRect().height / 2
+                        };
+                
+                        const end = {
+                            x: toComponent.getBoundingClientRect().left + toComponent.getBoundingClientRect().width / 2,
+                            y: toComponent.getBoundingClientRect().top + toComponent.getBoundingClientRect().height / 2
+                        };
+                
+                        return <DottedLine key={`${index}-${routeIndex}`} start={start} end={end} />;
+                    });
+                })}
                 <CameraZone positionStyles={{ color: "white", zIndex: 100, position: "absolute", top: '70px', left: '430px' }}>
                     {dragComponents.map((c, index) => {
                         const component = components.find((component) => component.cid === c.cid)
+
                         const refElement = cloneElement(c.component, {
-                            className: `placedWorkflowComponent-${c.cid}-${c.id}${connectingData.active ? (component.route !== connectingData.stage ? " dimmed" : "") : ""}`,
+                            id: `placedWorkflowComponent-${c.cid}-${c.id}`,
+                            className: `${c.component.props.className}${connectingData.active ? (component.route !== connectingData.stage ? " dimmed" : "") : ""}`,
                             pos: c.pos,
                             onClick: () => {
                                 if(connectingData.active){
