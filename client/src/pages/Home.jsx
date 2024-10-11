@@ -5,8 +5,10 @@ function Home(){
     return (
         <>
             <Topbar buttons={[
-                    ["/login", "Login", true, false],
-                    ["/dashboard", "Dashboard", true, true]
+                ["/gallery", "Gallery", false],
+                ["/login", "Login", true, false],
+                ["/dashboard", "Dashboard", true, true],
+                    
             ]} />
             <div id="bg" />
             <h1 id="title">Github workflows<br/>made<br/><span id="easyText">easy</span></h1>

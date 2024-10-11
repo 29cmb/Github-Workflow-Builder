@@ -55,8 +55,6 @@ function Projects() {
                         }
                     })
 
-                    console.log(usr)
-
                     teams.push({
                         id: usr.user.uid,
                         name: usr.user.username,
@@ -141,7 +139,7 @@ function Projects() {
             <div id="projects">
                 {
                     projects.map(project => (
-                        <Project key={project.pid} id={project.pid} name={project.name} owner={{name: project.creator.name, type: project.creator.type}} />
+                        <Project key={project.pid} id={project.pid} name={project.name} description={project.description} owner={{name: project.creator.name, type: project.creator.type}} />
                     ))
                 }
             </div>

@@ -10,6 +10,7 @@ import Account from './pages/Dashboard/Account.jsx';
 import Invite from './pages/Misc/Invite.jsx';
 import EditPage from "./pages/Projects/EditPage.jsx";
 import ViewPage from './pages/Projects/ViewPage.jsx';
+import ProjectGallery from './pages/Projects/ProjectGallery.jsx';
  
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -45,6 +46,7 @@ function App() {
         <Route path="/invite/:id" element={isAuthenticated ? <Invite /> : <Navigate to="/login" />} />
         <Route path="/projects/:pid" element={<ProjectWrapper isAuthenticated={isAuthenticated} />} />
         <Route path="/projects/:pid/view" element={<ViewWrapper/>}></Route>
+        <Route path="/gallery" element={<ProjectGallery/>}></Route>
       </Routes>
     </Router>
   );

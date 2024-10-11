@@ -37,7 +37,7 @@ module.exports = (app) => {
                 componentData: []
             },
             contributors: [],
-            public: false,
+            public: true,
             projectSchemaVersion,
             createdAt: Date.now(),
             forks: 0,

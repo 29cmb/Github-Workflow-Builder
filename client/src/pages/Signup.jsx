@@ -6,6 +6,7 @@ function Signup(){
     return (
         <div>
             <Topbar buttons={[
+                ["/gallery", "Gallery", false],
                 ["/", "Home", false]
             ]} />
             <h1>Signup</h1>

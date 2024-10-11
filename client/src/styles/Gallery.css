@@ -1,0 +1,52 @@
+#gallery {
+    position: absolute;
+    top: 70px;
+    width: 100%;
+}
+
+#galleryContainer {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 60px;
+    overflow-x: hidden;
+}
+
+@media (max-width: 775px) {
+    #galleryContainer {
+        left: 0px;
+        width: 110%;
+    }
+}
+
+#gallery #search {
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    width: 95%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 40px;
+    left: 40px;
+}
+
+
+#gallery #search > input {
+    width: calc(100% - 50px);
+    height: 100%;
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    z-index: 1;
+}
+
+#gallery #search > i {
+    position: absolute;
+    top: 50%;
+    color: gray;
+    right: 10px;
+    transform: translateY(-50%);
+}

@@ -6,7 +6,6 @@ module.exports = (app) => {
         var { bio } = req.body
         const profile = await db.collections.profiles.findOne({ uid: req.session.user })
         if(profile === undefined) return res.status(400).json({ success: false, message: "You are not logged in."})
-        if(bio === undefined) return res.status(400).json({ success: false, message: "No data provided."}) 
         // for if I ever add more profile stuff
         if(bio === undefined) bio = profile.bio
 

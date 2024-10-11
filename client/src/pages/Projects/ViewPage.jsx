@@ -42,6 +42,7 @@ function ViewPage({ id }){
     return (
         <>
             <Topbar buttons={[
+                ["/gallery", "Gallery", false],
                 ["/login", "Login", false, false],
                 ["/dashboard", "Dashboard", false, true]
             ]} />

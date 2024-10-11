@@ -40,7 +40,7 @@ function ViewPanel({ pid }){
 
             component.data.forEach((instruction) => {
                 try {
-                    const element = document.querySelector(`.placedWorkflowComponent-${c.cid}-${c.id} #${instruction.id}`);
+                    const element = document.querySelector(`#placedWorkflowComponent-${c.cid}-${c.id} #${instruction.id}`);
                     if(element === undefined || c === undefined || c.cid === undefined || c.id === undefined) return;
                     if(c[[instruction.dataIndex]] === undefined){
                         element.innerHTML = "Unknown"
@@ -67,7 +67,7 @@ function ViewPanel({ pid }){
                                 if(!component || !component.component) return <></>;
 
                                 const refElement = cloneElement(component.component, {
-                                    className: `placedWorkflowComponent-${c.cid}-${c.id}`,
+                                    id: `placedWorkflowComponent-${c.cid}-${c.id}`,
                                     pos: c.pos,
                                 })
 
