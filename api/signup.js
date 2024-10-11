@@ -19,8 +19,13 @@ module.exports = (app) => {
         if (username.length < 3) return res.status(400).json({ success: false, message: "Username must be at least 3 characters" });
         if (password.length < 6) return res.status(400).json({ success: false, message: "Password must be at least 6 characters" });
 
-        const user = await db.collections.credentials.findOne({ $or: [{username}, {email}] });
-        if (user !== undefined) return res.status(400).json({ success: false, message: "Username or email is already taken" });
+        const user = await db.collections.credentials.findOne({
+            $or: [
+                { username: username },
+                { email: email }
+            ]
+        });
+        if (user) return res.status(400).json({ success: false, message: "Username or email is already taken" });
         const latestUser = await db.collections.credentials.findOne({}, { sort: { uid: -1 } });
         const uid = latestUser ? latestUser.uid + 1 : 1;
 
