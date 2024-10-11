@@ -479,6 +479,7 @@ function ComponentManager({ pid }) {
             </div>
             <div id="workspace-container" style={{ zIndex: 0 }}>
                 {componentData.map((c, index) => {
+                    if(!c.routes || !Array.isArray(c.routes)) return null;
                     return c.routes.map((route, routeIndex) => {
                         if (route.type !== "to") return null;
                 
