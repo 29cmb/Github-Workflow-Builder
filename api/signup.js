@@ -3,6 +3,7 @@ const { encrypt } = require("../modules/encrypt.js");
 const { redirectIfAuth, writeRateLimit } = require("../modules/middleware.js");
 const fs = require("fs");
 const path = require("path");
+const { profileSchemaVersion } = require("../config/schema.json");
 
 module.exports = (app) => {
     app.post("/api/v1/user/signup", redirectIfAuth, writeRateLimit, async (req, res) => {
@@ -34,7 +35,10 @@ module.exports = (app) => {
         await db.collections.profiles.insertOne({
             uid,
             username,
-            bio: "This is a bio."
+            bio: "This is a bio.",
+            createdAt: Date.now(),
+            stars: [],
+            profileSchemaVersion
         });
 
         fs.readdir(path.join(__dirname, "../avatars/default"), (err, files) => {

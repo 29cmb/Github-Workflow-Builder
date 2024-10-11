@@ -1,26 +1,27 @@
 const db = require('./db.js');
-const { projectSchemaVersion } = require("../config/schema.json")
+const { projectSchemaVersion, profileSchemaVersion } = require("../config/schema.json");
+
 module.exports = {
-    migrateProject: async function(pid){
+    migrateProject: async function(pid) {
         var project = await db.collections.projects.findOne({ pid });
-        if(project == undefined || project == null){
+        if (project == undefined || project == null) {
             console.log("❌ | Unable to find project");
-            return false
+            return false;
         }
 
-        if(!project.schemaVersion) project.schemaVersion = 1;
-        if(project.schemaVersion == projectSchemaVersion){ 
+        if (!project.projectSchemaVersion) project.projectSchemaVersion = 1;
+        if (project.projectSchemaVersion == projectSchemaVersion) {
             console.log("❌ | Project is already on the latest schema version");
-            return false
+            return false;
         }
 
         const migrationInstructions = [
             {from: 1, to: 2, func: this.migrateV1ProjectToV2}
         ]
 
-        console.log(`➡️ | Migrating project ${pid} from schema version ${project.schemaVersion} to ${projectSchemaVersion}`);
+        console.log(`➡️ | Migrating project ${pid} from schema version ${project.projectSchemaVersion} to ${projectSchemaVersion}`);
         const mInstructions = migrationInstructions.find(item => 
-            item.from == project.schemaVersion && item.to == projectSchemaVersion
+            item.from == project.projectSchemaVersion && item.to == projectSchemaVersion
         );
         
         if(!mInstructions){
@@ -40,5 +41,43 @@ module.exports = {
             forks: 0,
             stars: 0
         }});
+    },
+    migrateUser: async function(uid){ 
+        var user = await db.collections.profiles.findOne({ uid });
+        if (user == undefined || user == null) {
+            console.log("❌ | Unable to find project");
+            return false;
+        }
+
+        if (!user.profileSchemaVersion) user.profileSchemaVersion = 1;
+        if (user.profileSchemaVersion == projectSchemaVersion) {
+            console.log("❌ | Project is already on the latest schema version");
+            return false;
+        }
+
+        const migrationInstructions = [
+            {from: 1, to: 2, func: this.migrateV1UserToV2}
+        ]
+        console.log(`➡️ | Migrating user ${uid} from schema version ${user.profileSchemaVersion} to ${profileSchemaVersion}`);
+        const mInstructions = migrationInstructions.find(item => 
+            item.from == user.profileSchemaVersion && item.to == profileSchemaVersion
+        );
+        
+        if(!mInstructions){
+            console.log("❌ | Unable to find migration instructions");
+            return false;
+        }
+
+        await mInstructions.func(uid);
+    },
+    migrateV1UserToV2: async function(uid){
+        var user = await db.collections.profiles.findOne({ uid });
+        if (user == undefined || user == null) return false;
+
+        await db.collections.profiles.updateOne({ uid }, { $set: {
+            createdAt: Date.now(),
+            stars: [],
+            schemaVersion: profileSchemaVersion
+        }});
     }
-}
+};
