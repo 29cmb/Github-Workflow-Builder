@@ -8,6 +8,7 @@ const fs = require("fs")
 const db = require("./modules/db.js")
 const logging = require("./config/logging.json")
 const mail = require("./modules/mail.js")
+const migration = require("./modules/migration.js")
 
 // Methods
 const app = express()

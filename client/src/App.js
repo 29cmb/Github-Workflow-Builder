@@ -95,6 +95,7 @@ function ViewWrapper(){
       .then(r => r.json())
       .then(data => {
         setIsLoading(false);
+        console.log(data)
         setCanView(data.success);
       })
       .catch(error => {

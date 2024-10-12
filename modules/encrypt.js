@@ -10,6 +10,7 @@ function deriveKey(password) {
 }
 
 module.exports = {
+    // INSECURE LEGACY METHODS
     encrypt(text) {
         const iv = crypto.randomBytes(ivLength);
         const key = deriveKey(process.env.ENCRYPTION_KEY);
@@ -38,5 +39,11 @@ module.exports = {
         decrypted += decipher.final('utf8');
         
         return decrypted;
+    },
+
+    hash(text) {
+        const hash = crypto.createHash('sha256');
+        hash.update(text);
+        return hash.digest('hex');
     }
 };

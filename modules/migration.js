@@ -1,5 +1,6 @@
 const db = require('./db.js');
 const { projectSchemaVersion, profileSchemaVersion } = require("../config/schema.json");
+const { decrypt, hash } = require('./encrypt.js');
 
 module.exports = {
     migrateProject: async function(pid) {
@@ -72,12 +73,18 @@ module.exports = {
     },
     migrateV1UserToV2: async function(uid){
         var user = await db.collections.profiles.findOne({ uid });
-        if (user == undefined || user == null) return false;
+        var credentials = await db.collections.credentials.findOne({ uid });
+        if (user == undefined || user == null || credentials == undefined || credentials == null) return false;
+
+        var password = decrypt(credentials.password);
+        await db.collections.credentials.updateOne({ uid }, { $set: {
+            password: hash(password)
+        }});
 
         await db.collections.profiles.updateOne({ uid }, { $set: {
             createdAt: Date.now(),
             stars: [],
-            schemaVersion: profileSchemaVersion
+            profileSchemaVersion
         }});
     }
 };

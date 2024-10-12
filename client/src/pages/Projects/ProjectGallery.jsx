@@ -37,8 +37,8 @@ function ProjectGallery(){
                 }} />
             </div>
             <div id="galleryContainer">
-                {filteredProjects.map((project, i) => (
-                    <Project
+                {filteredProjects.map((project, i) => {
+                    return <Project
                         key={project.pid}
                         id={project.pid}
                         name={project.name}
@@ -46,7 +46,7 @@ function ProjectGallery(){
                         owner={{ name: project.creator.name, type: project.creator.type }}
                         gallery={true}
                     />
-                ))}
+                })}
             </div>
         </div>
         

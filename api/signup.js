@@ -1,5 +1,5 @@
 const db = require("../modules/db.js");
-const { encrypt } = require("../modules/encrypt.js");
+const { hash } = require("../modules/encrypt.js");
 const { redirectIfAuth, writeRateLimit } = require("../modules/middleware.js");
 const fs = require("fs");
 const path = require("path");
@@ -33,7 +33,7 @@ module.exports = (app) => {
             email,
             uid,
             username,
-            password: encrypt(password),
+            password: hash(password),
         });
 
         await db.collections.profiles.insertOne({
