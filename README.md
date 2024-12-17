@@ -11,7 +11,7 @@ Workflows are weird, you make them to do very specific tasks, and they're not al
 This was made for [hackclub arcade](https://hackclub.com/arcade) and is hosted through their free vps!
 
 > [!WARNING]\
-> Overflow is a work in progress and is made by a singular person (me), don't expect extremely frequent updates, and a todo list can be found [here](https://github.com/29cmb/Github-Workflow-Builder/blob/main/development/TODO.md)
+> Actionflow is a work in progress and is made by a singular person (me), don't expect extremely frequent updates, and a todo list can be found [here](https://github.com/29cmb/Github-Workflow-Builder/blob/main/development/TODO.md)
 
 # Workflow Builder
 ![Builder](./docs/images/Builder.png)
